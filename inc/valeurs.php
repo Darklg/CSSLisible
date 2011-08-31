@@ -126,6 +126,7 @@ $listing_proprietes = array(
 
 
 $listing_separateurs = array(
+	':',
 	' :',
 	': ',
 	' : ',

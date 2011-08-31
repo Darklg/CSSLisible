@@ -9,4 +9,4 @@ Bugs connus :
 
 * Pas de media queries pour l'instant
 * Problème avec les propriétés dupliquées ( background-image dans le cas d'un gradient )
-
+* Gestion des chaînes en ";base64"
