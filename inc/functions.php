@@ -46,7 +46,7 @@ function sort_css($buffer,$indentation = '   '){
 			$proprietes_retour = array();
 			foreach($listing_proprietes as $propriete){
 				if(isset($proprietes_tmp[$propriete])){
-					$proprietes_retour[] = $indentation.$propriete.':'.$proprietes_tmp[$propriete].';'
+					$proprietes_retour[] = $indentation.$propriete.':'.$proprietes_tmp[$propriete].';';
 					unset($proprietes_tmp[$propriete]);
 				}
 			}
