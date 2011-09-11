@@ -9,7 +9,6 @@ if (isset($_POST['clean_css'])) {
 
     $buffer = clean_css(strip_tags($_POST['clean_css']));
 
-    $separateur = 0;
     if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $listing_separateurs))
         $separateur = $_POST['type_separateur'];
 
