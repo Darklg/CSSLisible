@@ -84,10 +84,18 @@ $listing_proprietes = array(
 	'background-image',
 	'background-position',
 	'background-repeat',
+	
 	'-webkit-background-size',
 	'-moz-background-size',
 	'background-size',
+	
 	'-webkit-background-clip',
+	'-moz-background-clip',
+	'background-clip',
+	
+	'-webkit-background-origin',
+	'-moz-background-origin',
+	'background-origin',
 	
 	'border',
 	'border-bottom',
@@ -132,6 +140,23 @@ $listing_proprietes = array(
 	'-o-transition',
 	'transition',
 	
+	'-moz-user-select',
+	'-webkit-user-select',
+	'user-select',
+	
+	'-moz-box-align',
+	'-webkit-box-align',
+	'-ms-box-align',
+	'box-align',
+	
+	'-moz-box-pack',
+	'-webkit-box-pack',
+	'-ms-box-pack',
+	'box-pack',
+	
+	'-moz-box-sizing',
+	'-webkit-box-sizing',
+	' box-sizing',
 
 );
 
