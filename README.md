@@ -8,5 +8,5 @@ Bugs connus :
 -------------
 
 * Réindenter les media queries
-* Problème avec les propriétés dupliquées ( background-image dans le cas d'un gradient )
 * Gestion des chaînes en ";base64"
+* Gestion des filter IE et -ms-filter
