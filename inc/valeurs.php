@@ -84,6 +84,10 @@ $listing_proprietes = array(
 	'background-image',
 	'background-position',
 	'background-repeat',
+	'-webkit-background-size',
+	'-moz-background-size',
+	'background-size',
+	'-webkit-background-clip',
 	
 	'border',
 	'border-bottom',
@@ -111,6 +115,7 @@ $listing_proprietes = array(
 	
 	'-moz-border-radius',
 	'-webkit-border-radius',
+	'-khtml-border-radius',
 	'border-radius',
 	
 	'-moz-box-shadow',
@@ -121,6 +126,12 @@ $listing_proprietes = array(
 	'outline-color',
 	'outline-style',
 	'outline-width',
+	
+	'-webkit-transition',
+	'-moz-transition',
+	'-o-transition',
+	'transition',
+	
 
 );
 
