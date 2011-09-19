@@ -27,7 +27,7 @@ function clean_css($buffer) {
 }
 
 // Tri des propriétés
-function sort_css($buffer, $indentation = '   ', $separateur = ':') {
+function sort_css($buffer, $indentation = '   ', $separateur = ':', $distance_selecteurs = 0, $selecteurs_multiples_separes = false) {
     global $listing_proprietes;
 
     $buffer_props = explode('}', $buffer);
@@ -46,7 +46,9 @@ function sort_css($buffer, $indentation = '   ', $separateur = ':') {
             // C'est un selecteur, on l'ajoute à la suite.
             if (!isset($values[1]) || strpos($line_t,'{') !== FALSE) {
                 if (!empty($line_t)) {
-                    $new_lines[] = $line_t;
+					$line_t_s = explode(',',$line_t);
+					$selecteur_glue = ', '.($selecteurs_multiples_separes ? "\n":' ');
+                    $new_lines[] = implode($selecteur_glue,$line_t_s);
                 }
             } else {
                 // On supprime les ; de fin de ligne
@@ -94,8 +96,8 @@ function sort_css($buffer, $indentation = '   ', $separateur = ':') {
 
         $new_props[] = implode("\n", $new_lines);
     }
-
-    $buffer = implode("\n" . '}' . "\n", $new_props);
+	
+    $buffer = implode("\n" . '}' . str_pad('',$distance_selecteurs+1,"\n"), $new_props);
     return $buffer;
 }
 

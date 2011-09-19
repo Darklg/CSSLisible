@@ -167,3 +167,9 @@ $listing_separateurs = array(
 	': ',
 	' : ',
 );
+
+$listing_distances = array(
+	'Rien',
+	'Une ligne vide',
+	'Deux lignes vides'
+);

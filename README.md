@@ -16,6 +16,4 @@ To do :
 -------
 
 * Réorganiser le code en classe
-* Choix supplémentaires : 
-** Sauts de lignes entre sélecteurs
-** Séparations entre blocs sélecteurs
+* Session / Cookie pour les préférences
