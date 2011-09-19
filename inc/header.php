@@ -7,7 +7,9 @@ include dirname(__FILE__) . '/functions.php';
 if (isset($_POST['clean_css'])) {
     $indentation = '    ';
 
-    $buffer = clean_css(strip_tags($_POST['clean_css']));
+	$clean_css = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
+	
+    $buffer = clean_css(strip_tags($clean_css));
 
     if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $listing_separateurs))
         $separateur = $_POST['type_separateur'];
