@@ -12,10 +12,12 @@ if (isset($_POST['clean_css'])) {
     if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $listing_separateurs))
         $separateur = $_POST['type_separateur'];
 
-    $buffer = sort_css($buffer, $indentation, $listing_separateurs[$separateur]);
+    if (isset($_POST['distance_selecteurs']) && ctype_digit($_POST['distance_selecteurs']))
+        $distance_selecteurs = $_POST['distance_selecteurs'];
 
-    // Suppression des doubles lignes
-    $buffer = str_replace("\n\n", "\n", $buffer);
+	$selecteurs_multiples_separes = isset($_POST['selecteurs_multiples_separes']);
+
+    $buffer = sort_css($buffer, $indentation, $listing_separateurs[$separateur],$distance_selecteurs,$selecteurs_multiples_separes);
 
     $content = $buffer;
 }

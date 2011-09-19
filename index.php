@@ -1,6 +1,8 @@
 <?php
 $content = '';
 $separateur = 0;
+$distance_selecteurs = 1;
+$selecteurs_multiples_separes = true;
 include dirname(__FILE__) . '/inc/header.php';
 ?>
 <!doctype html>
@@ -14,7 +16,7 @@ include dirname(__FILE__) . '/inc/header.php';
         <form action="" method="post">
             <div>
                 <label for="clean_css">CSS à nettoyer :</label><br />
-                <textarea name="clean_css" id="clean_css" rows="8" cols="80"><?php echo $content; ?></textarea>
+                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $content; ?></textarea>
             </div>
             <div>
                 <label for="type_separateur">Type de séparateur :</label>
@@ -24,6 +26,18 @@ include dirname(__FILE__) . '/inc/header.php';
                 <?php endforeach; ?>
                 </select>
             </div>
+			<div>
+				<label for="distance_selecteurs">Distance entre les sélecteurs :</label>
+				<select name="distance_selecteurs" id="distance_selecteurs">
+					<?php foreach($listing_distances as $key => $distance) : ?>
+						<option value="<?php echo $key; ?>" <?php echo ($key == $distance_selecteurs ? 'selected="selected"' : ''); ?>><?php echo $distance; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			<div>
+				<input type="checkbox" name="selecteurs_multiples_separes" id="selecteurs_multiples_separes" <?php echo ($selecteurs_multiples_separes ? 'checked="checked"':''); ?>/>
+				<label for="selecteurs_multiples_separes">Selecteurs multiples séparés</label>
+			</div>
             <p><input type="submit" value="Nettoyer le code &rarr;"></p>
         </form>
     </body>
