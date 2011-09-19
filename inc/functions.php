@@ -11,7 +11,7 @@ function clean_css($buffer) {
     $buffer = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#','$2',$buffer);
 
 	// Ecriture trop lourde
-    $buffer = str_replace(array(';;' ';', $buffer);
+    $buffer = str_replace(';;', ';', $buffer);
     $buffer = str_replace(':0px;', ':0;', $buffer);
 
     // == Mise en page améliorée ==
