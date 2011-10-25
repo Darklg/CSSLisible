@@ -46,7 +46,7 @@ function sort_css($buffer, $indentation = '   ', $separateur = ':', $distance_se
             if (!isset($values[1]) || strpos($line_t,'{') !== FALSE) {
                 if (!empty($line_t)) {
 					$line_t_s = explode(',',$line_t);
-					$selecteur_glue = ', '.($selecteurs_multiples_separes ? "\n":' ');
+					$selecteur_glue = ','.($selecteurs_multiples_separes ? "\n":' ');
                     $new_lines[] = implode($selecteur_glue,$line_t_s);
                 }
             } else {
