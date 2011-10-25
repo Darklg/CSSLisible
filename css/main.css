@@ -74,10 +74,10 @@ h1 {
 
 .go_clean_css,
 #clean_css {
-    -webkit-transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    transition:all 0.3s ease;
+    -webkit-transition:border,background 0.3s ease;
+    -moz-transition:border,background 0.3s ease;
+    -o-transition:border,background 0.3s ease;
+    transition:border,background 0.3s ease;
 }
 
 #clean_css {
