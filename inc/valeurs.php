@@ -77,26 +77,7 @@ $listing_proprietes = array(
 	'font-style',
 	'font-variant',
 	'font-weight',
-	
-	'background',
-	'background-attachment',  		
-	'background-color',
-	'background-image',
-	'background-position',
-	'background-repeat',
-	
-	'-webkit-background-size',
-	'-moz-background-size',
-	'background-size',
-	
-	'-webkit-background-clip',
-	'-moz-background-clip',
-	'background-clip',
-	
-	'-webkit-background-origin',
-	'-moz-background-origin',
-	'background-origin',
-	
+
 	'border',
 	'border-bottom',
 	'border-bottom-color',
@@ -125,6 +106,25 @@ $listing_proprietes = array(
 	'-webkit-border-radius',
 	'-khtml-border-radius',
 	'border-radius',
+	
+	'background',
+	'background-attachment',  		
+	'background-color',
+	'background-image',
+	'background-position',
+	'background-repeat',
+	
+	'-webkit-background-size',
+	'-moz-background-size',
+	'background-size',
+	
+	'-webkit-background-clip',
+	'-moz-background-clip',
+	'background-clip',
+	
+	'-webkit-background-origin',
+	'-moz-background-origin',
+	'background-origin',
 	
 	'-moz-box-shadow',
 	'-webkit-box-shadow',
