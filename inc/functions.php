@@ -14,6 +14,8 @@ function clean_css($buffer) {
     $buffer = str_replace(';;', ';', $buffer);
     $buffer = str_replace(':0px;', ':0;', $buffer);
 
+$buffer = preg_replace('#url\((.*)\)(\S)#','url($1) $2',$buffer);
+
     // == Mise en page améliorée ==
     // Début du listing des propriétés
     $buffer = str_replace('{', ' {' . "\n", $buffer);
