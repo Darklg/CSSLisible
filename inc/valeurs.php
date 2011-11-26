@@ -159,17 +159,3 @@ $listing_proprietes = array(
 	' box-sizing',
 
 );
-
-
-$listing_separateurs = array(
-	':',
-	' :',
-	': ',
-	' : ',
-);
-
-$listing_distances = array(
-	'Aucune',
-	'Une',
-	'Deux'
-);
