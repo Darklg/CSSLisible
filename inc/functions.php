@@ -22,9 +22,14 @@ class CSSLisible {
 	    'selecteurs_multiples_separes' => true
 	);
 	
+	
 	private $strings_tofix = array(
 		'url_data_etc' => array(
 			'regex' => '#url\((.*)\)#',
+			'list' => array()
+		),
+		'ms_filter' => array(
+			'regex' => '#(\"progid(.*)\")#',
 			'list' => array()
 		),
 	);
