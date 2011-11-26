@@ -22,6 +22,13 @@ class CSSLisible {
 	    'selecteurs_multiples_separes' => true
 	);
 	
+	private $strings_tofix = array(
+		'url_data_etc' => array(
+			'regex' => '#url\((.*)\)#',
+			'list' => array()
+		),
+	);
+	
     function __construct($listing_proprietes = array()) {
 
         $this->listing_proprietes = $listing_proprietes;
@@ -99,9 +106,6 @@ class CSSLisible {
         $css_to_clean = str_replace(';;', ';', $css_to_clean);
         $css_to_clean = str_replace(':0px;', ':0;', $css_to_clean);
 
-        // Fix url()
-        $css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
-
         // == Mise en page améliorée ==
         // Début du listing des propriétés
         $css_to_clean = str_replace('{', ' {' . "\n", $css_to_clean);
@@ -110,11 +114,40 @@ class CSSLisible {
 
         // Fin du listing des propriétés
         $css_to_clean = str_replace('}', "\n" . '}' . "\n", $css_to_clean);
+
+        // Fix url()
+        $css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
+        $css_to_clean = preg_replace('#url\((.*)(\s)(.*)\)#', 'url($1$3)', $css_to_clean);
+
         return $css_to_clean;
     }
 
+
+	private function mise_ecart_propriete($css_to_sort){
+		foreach($this->strings_tofix as $type_tofix => $infos_tofix){
+			preg_match_all($infos_tofix['regex'],$css_to_sort,$matches);
+			foreach($matches[1] as $match){
+				$replace = '_||_'.$type_tofix.'_'.count($this->strings_tofix[$type_tofix]['list']).'_||_';
+				$css_to_sort = str_replace($match,$replace,$css_to_sort);
+				$this->strings_tofix[$type_tofix]['list'][$replace] = $match;
+			}
+		}
+		return $css_to_sort;
+	}
+	
+	private function suppression_mise_ecart_propriete($css_to_sort){
+		foreach($this->strings_tofix as $type_tofix => $infos_tofix){
+			foreach($infos_tofix['list'] as $match => $replace){
+				$css_to_sort = str_replace($match,$replace,$css_to_sort);
+			}
+		}
+		return $css_to_sort;
+	}
+
     // Tri des propriétés
     public function sort_css($css_to_sort) {
+	
+		$css_to_sort = $this->mise_ecart_propriete($css_to_sort);
 
         $this->buffer_props = explode('}', $css_to_sort);
         $new_props = array();
@@ -180,8 +213,13 @@ class CSSLisible {
 
             $new_props[] = implode("\n", $new_lines);
         }
+		
+		$new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);
 
-        return implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);
+		$new_props = $this->suppression_mise_ecart_propriete($new_props);
+		
+
+        return $new_props;
     }
 
 }
