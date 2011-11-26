@@ -1,8 +1,4 @@
 <?php
-$content = '';
-$separateur = 0;
-$distance_selecteurs = 1;
-$selecteurs_multiples_separes = true;
 include dirname(__FILE__) . '/inc/header.php';
 ?>
 <!doctype html>
@@ -18,13 +14,13 @@ include dirname(__FILE__) . '/inc/header.php';
         <form id="main-form" action="" method="post">
             <div class="form-block">
                 <label for="clean_css">CSS à nettoyer :</label><br />
-                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $content; ?></textarea>
+                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
             </div>
             <div class="select-block">
 				<span class="in-block">
 	                <select name="type_separateur" id="type_separateur">
-	                <?php foreach ($listing_separateurs as $key => $this_separateur) : ?>
-	                    <option value="<?php echo $key; ?>" <?php echo ($key == $separateur ? 'selected="selected"' : ''); ?>>&quot;<?php echo $this_separateur; ?>&quot;</option>
+	                <?php foreach ($CSSLisible->listing_separateurs as $key => $this_separateur) : ?>
+	                    <option value="<?php echo $key; ?>" <?php echo ($this_separateur == $CSSLisible->get_option('separateur') ? 'selected="selected"' : ''); ?>>&quot;<?php echo $this_separateur; ?>&quot;</option>
 	                <?php endforeach; ?>
 	                </select>
 				</span>
@@ -33,8 +29,8 @@ include dirname(__FILE__) . '/inc/header.php';
 			<div class="select-block">
 				<span class="in-block">
 					<select name="distance_selecteurs" id="distance_selecteurs">
-					<?php foreach($listing_distances as $key => $distance) : ?>
-						<option value="<?php echo $key; ?>" <?php echo ($key == $distance_selecteurs ? 'selected="selected"' : ''); ?>><?php echo $distance; ?></option>
+					<?php foreach($CSSLisible->listing_distances as $key => $distance) : ?>
+						<option value="<?php echo $key; ?>" <?php echo ($key == $CSSLisible->get_option('distance_selecteurs') ? 'selected="selected"' : ''); ?>><?php echo $distance; ?></option>
 					<?php endforeach; ?>
 					</select>
 				</span>
@@ -42,7 +38,7 @@ include dirname(__FILE__) . '/inc/header.php';
 			</div>
 			<div class="check-block">
 				<span class="in-block">
-					<input type="checkbox" name="selecteurs_multiples_separes" id="selecteurs_multiples_separes" <?php echo ($selecteurs_multiples_separes ? 'checked="checked"':''); ?>/>
+					<input type="checkbox" name="selecteurs_multiples_separes" id="selecteurs_multiples_separes" <?php echo ($CSSLisible->get_option('selecteurs_multiples_separes') ? 'checked="checked"':''); ?>/>
 				</span>
 				<label for="selecteurs_multiples_separes">Selecteurs multiples séparés</label>
 			</div>
