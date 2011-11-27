@@ -176,29 +176,32 @@ class CSSLisible {
     private function reindent_media_queries($css_to_reindent) {
 
         // On récupère les media queries
-        preg_match_all('#@media(.*){(.*)}#isU', $css_to_reindent, $matches);
+        preg_match_all('#@media(.*){((.*)})([\s]+)}#isU', $css_to_reindent, $matches);
 
-        // On réindente le contenu de chaque media query
         foreach ($matches[2] as $match_media_query) {
+	
+			$tmp_match_media_query = $match_media_query;
 
             $matches_prop = array();
             $proprietes = array();
 
             // On met de côté le contenu des propriétés ( en les réindentant au passage )
-            preg_match_all('#{([^{]*)}#isU', $match_media_query, $matches_prop);
+            preg_match_all('#{([^{]*)}#isU', $tmp_match_media_query, $matches_prop);
             foreach ($matches_prop[1] as $i => $propriete) {
                 $replace = '__||__propriete_' . $i . '__||__';
                 $prop_to = '{' . $propriete . '}';
-                $match_media_query = str_replace($prop_to, $replace, $match_media_query);
+                $tmp_match_media_query = str_replace($prop_to, $replace, $tmp_match_media_query);
                 $proprietes[$replace] = $prop_to;
             }
 
-            $css_to_reindent = str_replace($match_media_query, $this->reindent_string($match_media_query), $css_to_reindent);
+	        // On réindente le contenu de chaque media query
+            $css_to_reindent = str_replace($match_media_query, $this->reindent_string($tmp_match_media_query), $css_to_reindent);
 
             // On remet les proprietes, en les reindentant
             foreach ($proprietes as $match => $replace) {
-                $css_to_reindent = str_replace($match, $this->reindent_string($replace, 1), $css_to_reindent);
+                $css_to_reindent = str_replace($match, $this->reindent_string($replace,1), $css_to_reindent);
             }
+
         }
 
         // On nettoie les espacements à la fin de chaque media query
