@@ -36,6 +36,16 @@ include dirname(__FILE__) . '/inc/header.php';
 				</span>
 				<label for="distance_selecteurs">Ligne(s) entre les sélecteurs</label>
 			</div>
+			<div class="select-block">
+				<span class="in-block">
+					<select name="type_indentation" id="type_indentation">
+					<?php foreach($CSSLisible->listing_indentations as $key => $indentation) : ?>
+						<option value="<?php echo $key; ?>" <?php echo ($key == $CSSLisible->get_option('indentation') ? 'selected="selected"' : ''); ?>><?php echo $indentation[1]; ?></option>
+					<?php endforeach; ?>
+					</select>
+				</span>
+				<label for="type_indentation">Type d'indentation</label>
+			</div>
 			<div class="check-block">
 				<span class="in-block">
 					<input type="checkbox" name="selecteurs_multiples_separes" id="selecteurs_multiples_separes" <?php echo ($CSSLisible->get_option('selecteurs_multiples_separes') ? 'checked="checked"':''); ?>/>

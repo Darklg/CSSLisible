@@ -4,6 +4,14 @@ class CSSLisible {
 
     public $buffer = '';
     public $listing_proprietes = array();
+	public $listing_indentations = array(
+		array(' ','1 espace'),
+		array('  ','2 espaces'),
+		array('   ','3 espaces'),
+		array('    ','4 espaces'),
+		array("\t",'1 tab'),
+		array("\t\t",'2 tabs'),
+	);
     public $listing_separateurs = array(
         ':',
         ' :',
@@ -17,7 +25,7 @@ class CSSLisible {
     );
 	private $options = array(
 	    'separateur' => 0,
-	    'indentation' => '	',
+	    'indentation' => 4,
 	    'distance_selecteurs' => 1,
 	    'selecteurs_multiples_separes' => true
 	);
@@ -84,8 +92,9 @@ class CSSLisible {
             $this->set_option('distance_selecteurs', $_POST['distance_selecteurs']);
         }
 
-        $this->set_option('indentation', $this->options['indentation']);
-
+        if (isset($_POST['type_indentation']) && ctype_digit($_POST['type_indentation'])) {
+            $this->set_option('indentation', $_POST['type_indentation']);
+		}
         $this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
     }
 
@@ -157,7 +166,7 @@ class CSSLisible {
 
 		$str_lines = explode("\n",$string);
 		foreach($str_lines as &$line){
-			$line = $this->get_option('indentation').$line;
+			$line = $this->listing_indentations[$this->get_option('indentation')][0].$line;
 		}
 		
 		$return_str = implode("\n",$str_lines);
@@ -246,13 +255,13 @@ class CSSLisible {
             // On trie les proprietes récupérées
             foreach ($this->listing_proprietes as $propriete) {
                 if (isset($properties_tmp[$propriete])) {
-                    $new_lines[] = $this->get_option('indentation') . $propriete . $this->get_option('separateur') . $properties_tmp[$propriete] . ';';
+                    $new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->get_option('separateur') . $properties_tmp[$propriete] . ';';
                     unset($properties_tmp[$propriete]);
                 }
                 // On regarde aussi dans les doublons
                 if (isset($properties_dbl[$propriete])) {
                     foreach ($properties_dbl[$propriete] as $values) {
-                        $new_lines[] = $this->get_option('indentation') . $values[0] . $this->get_option('separateur') . $values[1] . ';';
+                        $new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->get_option('separateur') . $values[1] . ';';
                     }
                     unset($properties_dbl[$propriete]);
                 }
@@ -260,11 +269,11 @@ class CSSLisible {
 
             // On ajoute les proprietes qui n'ont pas été affichée pour l'instant
             foreach ($properties_tmp as $propriete => $valeur) {
-                $new_lines[] = $this->get_option('indentation') . $propriete . $this->get_option('separateur') . $valeur . ';';
+                $new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->get_option('separateur') . $valeur . ';';
                 // On regarde aussi dans les doublons
                 if (isset($properties_dbl[$propriete])) {
                     foreach ($properties_dbl[$propriete] as $values) {
-                        $new_lines[] = $this->get_option('indentation') . $values[0] . $this->get_option('separateur') . $values[1] . ';';
+                        $new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->get_option('separateur') . $values[1] . ';';
                     }
                     unset($properties_dbl[$propriete]);
                 }
