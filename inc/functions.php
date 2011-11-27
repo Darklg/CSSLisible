@@ -278,7 +278,7 @@ class CSSLisible {
             $new_props[] = implode("\n", $new_lines);
         }
 
-        $new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);
+        $new_props = trim(implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props));
 
         return $new_props;
     }
