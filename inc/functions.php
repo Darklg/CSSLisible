@@ -43,7 +43,11 @@ class CSSLisible {
             $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
             $this->get_options_from_post();
             $this->buffer = $this->clean_css($this->buffer);
+			$this->buffer = $this->mise_ecart_propriete($this->buffer);
             $this->buffer = $this->sort_css($this->buffer);
+			$this->buffer = $this->reindent_media_queries($this->buffer);
+			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+
         } else {
             $this->get_options_from_session();
         }
@@ -149,11 +153,61 @@ class CSSLisible {
 		return $css_to_sort;
 	}
 
+	private function reindent_string($string,$trim=false){
+
+		$str_lines = explode("\n",$string);
+		foreach($str_lines as &$line){
+			$line = $this->get_option('indentation').$line;
+		}
+		
+		$return_str = implode("\n",$str_lines);
+		
+		if($trim){
+			$return_str = trim($return_str);
+		}
+		
+	    return $return_str;
+	}
+
+
+	private function reindent_media_queries($css_to_reindent){
+		
+		$proprietes = array();
+		
+		// On met de côté le contenu des propriétés ( en les réindentant au passage )
+		preg_match_all('#{([^{]*)}#isU',$css_to_reindent,$matchaes);
+		foreach($matchaes[1] as $i => $propriete){
+			$replace = '__||__propriete_'.$i.'__||__';
+			$prop_to = '{'.$propriete.'}';
+			$css_to_reindent = str_replace($prop_to,$replace,$css_to_reindent);
+			$proprietes[$replace] = $prop_to;
+		}
+		
+		preg_match_all('#@media(.*){(.*)}#isU',$css_to_reindent,$matches);
+		$matches2_copy = $matches[2];
+		// On réindente le contenu de chaque media query
+		foreach($matches[2] as $match){
+			$css_to_reindent = str_replace($match,$this->reindent_string($match),$css_to_reindent);
+		}
+		
+		// On remet les proprietes, en les reindentant
+		foreach($proprietes as $match => $replace){
+			$css_to_reindent = str_replace($match,$this->reindent_string($replace,1),$css_to_reindent);
+		}
+		
+		// On nettoie les espacements à la fin de chaque media query
+		preg_match_all('#}([^{]*)}#',$css_to_reindent,$matches);
+		foreach($matches[0] as $match){
+			$css_to_reindent = str_replace($match,'}'."\n".'}',$css_to_reindent);
+		}
+
+		return $css_to_reindent;
+	}
+
+
     // Tri des propriétés
     public function sort_css($css_to_sort) {
 	
-		$css_to_sort = $this->mise_ecart_propriete($css_to_sort);
-
         $this->buffer_props = explode('}', $css_to_sort);
         $new_props = array();
         // On divise par propriétés
@@ -219,10 +273,7 @@ class CSSLisible {
             $new_props[] = implode("\n", $new_lines);
         }
 		
-		$new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);
-
-		$new_props = $this->suppression_mise_ecart_propriete($new_props);
-		
+		$new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);		
 
         return $new_props;
     }
