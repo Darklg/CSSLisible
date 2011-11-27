@@ -4,14 +4,14 @@ class CSSLisible {
 
     public $buffer = '';
     public $listing_proprietes = array();
-	public $listing_indentations = array(
-		array(' ','1 espace'),
-		array('  ','2 espaces'),
-		array('   ','3 espaces'),
-		array('    ','4 espaces'),
-		array("\t",'1 tab'),
-		array("\t\t",'2 tabs'),
-	);
+    public $listing_indentations = array(
+        array(' ', '1 espace'),
+        array('  ', '2 espaces'),
+        array('   ', '3 espaces'),
+        array('    ', '4 espaces'),
+        array("\t", '1 tab'),
+        array("\t\t", '2 tabs'),
+    );
     public $listing_separateurs = array(
         ':',
         ' :',
@@ -23,25 +23,23 @@ class CSSLisible {
         'Une',
         'Deux'
     );
-	private $options = array(
-	    'separateur' => 0,
-	    'indentation' => 4,
-	    'distance_selecteurs' => 1,
-	    'selecteurs_multiples_separes' => true
-	);
-	
-	
-	private $strings_tofix = array(
-		'url_data_etc' => array(
-			'regex' => '#url\((.*)\)#',
-			'list' => array()
-		),
-		'ms_filter' => array(
-			'regex' => '#(\"progid(.*)\")#',
-			'list' => array()
-		),
-	);
-	
+    private $options = array(
+        'separateur' => 0,
+        'indentation' => 4,
+        'distance_selecteurs' => 1,
+        'selecteurs_multiples_separes' => true
+    );
+    private $strings_tofix = array(
+        'url_data_etc' => array(
+            'regex' => '#url\((.*)\)#',
+            'list' => array()
+        ),
+        'ms_filter' => array(
+            'regex' => '#(\"progid(.*)\")#',
+            'list' => array()
+        ),
+    );
+
     function __construct($listing_proprietes = array()) {
 
         $this->listing_proprietes = $listing_proprietes;
@@ -50,12 +48,11 @@ class CSSLisible {
         if (isset($_POST['clean_css'])) {
             $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
             $this->get_options_from_post();
-			$this->buffer = $this->mise_ecart_propriete($this->buffer);
+            $this->buffer = $this->mise_ecart_propriete($this->buffer);
             $this->buffer = $this->clean_css($this->buffer);
             $this->buffer = $this->sort_css($this->buffer);
-			$this->buffer = $this->reindent_media_queries($this->buffer);
-			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
-
+            $this->buffer = $this->reindent_media_queries($this->buffer);
+            $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
         } else {
             $this->get_options_from_session();
         }
@@ -71,8 +68,7 @@ class CSSLisible {
         }
     }
 
-
-	// On vérifie la présence de réglages dans la session
+    // On vérifie la présence de réglages dans la session
     private function get_options_from_session() {
         foreach ($this->options as $option => $value) {
             if (isset($_SESSION['CSSLisible']['options'][$option])) {
@@ -81,7 +77,7 @@ class CSSLisible {
         }
     }
 
-	// On récupère les nouveaux réglages transmis via POST
+    // On récupère les nouveaux réglages transmis via POST
     private function get_options_from_post() {
 
         if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $this->listing_separateurs)) {
@@ -94,7 +90,7 @@ class CSSLisible {
 
         if (isset($_POST['type_indentation']) && ctype_digit($_POST['type_indentation'])) {
             $this->set_option('indentation', $_POST['type_indentation']);
-		}
+        }
         $this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
     }
 
@@ -140,89 +136,83 @@ class CSSLisible {
         return $css_to_clean;
     }
 
+    private function mise_ecart_propriete($css_to_sort) {
+        foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {
+            preg_match_all($infos_tofix['regex'], $css_to_sort, $matches);
+            foreach ($matches[1] as $match) {
+                $replace = '_||_' . $type_tofix . '_' . count($this->strings_tofix[$type_tofix]['list']) . '_||_';
+                $css_to_sort = str_replace($match, $replace, $css_to_sort);
+                $this->strings_tofix[$type_tofix]['list'][$replace] = $match;
+            }
+        }
+        return $css_to_sort;
+    }
 
-	private function mise_ecart_propriete($css_to_sort){
-		foreach($this->strings_tofix as $type_tofix => $infos_tofix){
-			preg_match_all($infos_tofix['regex'],$css_to_sort,$matches);
-			foreach($matches[1] as $match){
-				$replace = '_||_'.$type_tofix.'_'.count($this->strings_tofix[$type_tofix]['list']).'_||_';
-				$css_to_sort = str_replace($match,$replace,$css_to_sort);
-				$this->strings_tofix[$type_tofix]['list'][$replace] = $match;
-			}
-		}
-		return $css_to_sort;
-	}
-	
-	private function suppression_mise_ecart_propriete($css_to_sort){
-		foreach($this->strings_tofix as $type_tofix => $infos_tofix){
-			foreach($infos_tofix['list'] as $match => $replace){
-				$css_to_sort = str_replace($match,$replace,$css_to_sort);
-			}
-		}
-		return $css_to_sort;
-	}
+    private function suppression_mise_ecart_propriete($css_to_sort) {
+        foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {
+            foreach ($infos_tofix['list'] as $match => $replace) {
+                $css_to_sort = str_replace($match, $replace, $css_to_sort);
+            }
+        }
+        return $css_to_sort;
+    }
 
-	private function reindent_string($string,$trim=false){
+    private function reindent_string($string, $trim=false) {
 
-		$str_lines = explode("\n",$string);
-		foreach($str_lines as &$line){
-			$line = $this->listing_indentations[$this->get_option('indentation')][0].$line;
-		}
-		
-		$return_str = implode("\n",$str_lines);
-		
-		if($trim){
-			$return_str = trim($return_str);
-		}
-		
-	    return $return_str;
-	}
+        $str_lines = explode("\n", $string);
+        foreach ($str_lines as &$line) {
+            $line = $this->listing_indentations[$this->get_option('indentation')][0] . $line;
+        }
 
+        $return_str = implode("\n", $str_lines);
 
-	private function reindent_media_queries($css_to_reindent){
-		
-		// On récupère les media queries
-		preg_match_all('#@media(.*){(.*)}#isU',$css_to_reindent,$matches);
-	
-		
-		// On réindente le contenu de chaque media query
-		foreach($matches[2] as $match_media_query){
-			
-			
-			$matches_prop = array();
-			$proprietes = array();
-			
-			// On met de côté le contenu des propriétés ( en les réindentant au passage )
-			preg_match_all('#{([^{]*)}#isU',$match_media_query,$matches_prop);
-			foreach($matches_prop[1] as $i => $propriete){
-				$replace = '__||__propriete_'.$i.'__||__';
-				$prop_to = '{'.$propriete.'}';
-				$match_media_query = str_replace($prop_to,$replace,$match_media_query);
-				$proprietes[$replace] = $prop_to;
-			}
-			
-			$css_to_reindent = str_replace($match_media_query,$this->reindent_string($match_media_query),$css_to_reindent);
-			
-			// On remet les proprietes, en les reindentant
-			foreach($proprietes as $match => $replace){
-				$css_to_reindent = str_replace($match,$this->reindent_string($replace,1),$css_to_reindent);
-			}
+        if ($trim) {
+            $return_str = trim($return_str);
+        }
 
-		}
-		
-		// On nettoie les espacements à la fin de chaque media query
-		preg_match_all('#}([^{]*)}#',$css_to_reindent,$matches);
-		foreach($matches[0] as $match){
-			$css_to_reindent = str_replace($match,'}'."\n".'}',$css_to_reindent);
-		}
+        return $return_str;
+    }
 
-		return $css_to_reindent;
-	}
+    private function reindent_media_queries($css_to_reindent) {
 
+        // On récupère les media queries
+        preg_match_all('#@media(.*){(.*)}#isU', $css_to_reindent, $matches);
+
+        // On réindente le contenu de chaque media query
+        foreach ($matches[2] as $match_media_query) {
+
+            $matches_prop = array();
+            $proprietes = array();
+
+            // On met de côté le contenu des propriétés ( en les réindentant au passage )
+            preg_match_all('#{([^{]*)}#isU', $match_media_query, $matches_prop);
+            foreach ($matches_prop[1] as $i => $propriete) {
+                $replace = '__||__propriete_' . $i . '__||__';
+                $prop_to = '{' . $propriete . '}';
+                $match_media_query = str_replace($prop_to, $replace, $match_media_query);
+                $proprietes[$replace] = $prop_to;
+            }
+
+            $css_to_reindent = str_replace($match_media_query, $this->reindent_string($match_media_query), $css_to_reindent);
+
+            // On remet les proprietes, en les reindentant
+            foreach ($proprietes as $match => $replace) {
+                $css_to_reindent = str_replace($match, $this->reindent_string($replace, 1), $css_to_reindent);
+            }
+        }
+
+        // On nettoie les espacements à la fin de chaque media query
+        preg_match_all('#}([^{]*)}#', $css_to_reindent, $matches);
+        foreach ($matches[0] as $match) {
+            $css_to_reindent = str_replace($match, '}' . "\n" . '}', $css_to_reindent);
+        }
+
+        return $css_to_reindent;
+    }
 
     // Tri des propriétés
     public function sort_css($css_to_sort) {
-	
+
         $this->buffer_props = explode('}', $css_to_sort);
         $new_props = array();
         // On divise par propriétés
@@ -287,8 +277,8 @@ class CSSLisible {
 
             $new_props[] = implode("\n", $new_lines);
         }
-		
-		$new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);		
+
+        $new_props = implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props);
 
         return $new_props;
     }
