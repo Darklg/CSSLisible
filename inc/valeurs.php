@@ -69,7 +69,6 @@ $listing_proprietes = array(
 	'white-space',
 	'widows',
 	'word-spacing',
-	'color',
 	
 	'font',
 	'font-family',
@@ -107,6 +106,13 @@ $listing_proprietes = array(
 	'-khtml-border-radius',
 	'border-radius',
 	
+	'outline',
+	'outline-color',
+	'outline-style',
+	'outline-width',
+	
+	'color',
+	
 	'background',
 	'background-attachment',  		
 	'background-color',
@@ -129,11 +135,6 @@ $listing_proprietes = array(
 	'-moz-box-shadow',
 	'-webkit-box-shadow',
 	'box-shadow',
-	
-	'outline',
-	'outline-color',
-	'outline-style',
-	'outline-width',
 	
 	'-webkit-transition',
 	'-moz-transition',
