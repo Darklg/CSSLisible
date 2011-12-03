@@ -137,6 +137,12 @@ label,
     border-radius:2px;
 }
 
+.go_clean_css.go_options {
+	-ms-filter:"alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    opacity:0.50;
+}
+
 .go_clean_css:hover {
     background:#e0e0e0;
 }

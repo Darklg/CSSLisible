@@ -144,6 +144,10 @@ $listing_proprietes = array(
 	'-moz-user-select',
 	'-webkit-user-select',
 	'user-select',
+
+	'-moz-user-drag',
+	'-webkit-user-drag',
+	'user-drag',
 	
 	'-moz-box-align',
 	'-webkit-box-align',
