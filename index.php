@@ -12,13 +12,13 @@ include dirname(__FILE__) . '/inc/header.php';
 	<div id="main-container">
         <h1><?php echo TITRE_SITE; ?></h1>
         <form id="main-form" action="" method="post">
+			<p>
+				CSSLisible va r&eacute;indenter vos blocks de code, <a href="http://www.alsacreations.com/actu/lire/497-de-lordre-que-diable-.html" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, afin de fournir un code CSS Lisible et maintenable. Attention, pour le moment, les commentaires sont retirés !
+			</p>
             <div class="form-block">
                 <label for="clean_css">CSS à nettoyer :</label><br />
                 <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
             </div>
-			<p>
-				CSSLisible va r&eacute;indenter vos blocks de code, <a href="http://www.alsacreations.com/actu/lire/497-de-lordre-que-diable-.html" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, afin de fournir un code CSS Lisible et maintenable. Attention, pour le moment, les commentaires sont retirés !
-			</p>
 			<div id="options_block">
 	            <div class="select-block">
 					<span class="in-block">
