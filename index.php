@@ -6,7 +6,7 @@ include dirname(__FILE__) . '/inc/header.php';
     <head>
         <meta charset="utf-8"/>
         <title><?php echo TITRE_SITE; ?></title>
-		<link rel="stylesheet" href="css/main.css" type="text/css" />
+		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
     </head>
     <body>
 	<div id="main-container">
