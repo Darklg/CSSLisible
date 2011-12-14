@@ -68,6 +68,25 @@ h1 {
     border-bottom:1px solid #f0f0f0;
 }
 
+p {
+	font-size:12px;
+	line-height:16px;
+	margin-bottom:16px;
+	color:#333;
+}
+
+a {
+	color:#369;
+}
+
+a:hover {
+	color:#963;
+}
+
+a:active {
+	color:#000;
+}
+
 /* =============================================================================
    Formulaire
    ========================================================================== */
@@ -81,12 +100,15 @@ h1 {
 }
 
 #clean_css {
-    width:100%;
-    margin-bottom:15px;
-    background:#f0f0f0;
-    border:1px solid #c0c0c0;
-    outline:0;
-    resize:vertical;
+	width:100%;
+	margin-bottom:15px;
+	border:1px solid #c0c0c0;
+	outline:0;
+	background:#f0f0f0;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	resize:vertical;
 }
 
 #clean_css:focus,
@@ -109,9 +131,9 @@ label,
 }
 
 .in-block {
-    width:90px;
+    width:81px;
     margin-right:5px;
-    text-align:right;
+    text-align:left;
 }
 
 .in-block select {
