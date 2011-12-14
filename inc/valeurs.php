@@ -42,7 +42,6 @@ $listing_proprietes = array(
 	'direction',
 	'empty-cells',
 	'letter-spacing',
-	'line-height',
 	'list-style',
 	'list-style-image',
 	'list-style-position',
@@ -76,6 +75,7 @@ $listing_proprietes = array(
 	'font-style',
 	'font-variant',
 	'font-weight',
+	'line-height',
 
 	'border',
 	'border-bottom',
