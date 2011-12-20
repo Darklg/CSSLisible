@@ -1,23 +1,35 @@
 <?php
 $listing_proprietes = array(
 	
-	'z-index',
-		
-	'display',
-	'visibility',
+/* --------------------------------------------------------------------
+	Content
+   ----------------------------------------------------------------- */
 
+	'content',
+	'counter-increment',
+	'counter-reset',
+	'quotes',
+
+/* --------------------------------------------------------------------
+	Display
+   ----------------------------------------------------------------- */
+
+	'display',
+	
+	'visibility',
+	
+	'z-index',
+	
 	'float',
 	'clear',
-
-	'position',
 	
-	'zoom',
-
+	'position',
 	'top',
 	'right',
 	'bottom',
 	'left',
-	
+	'zoom',
+
 /* --------------------------------------------------------------------
 	Box Model
    ----------------------------------------------------------------- */
@@ -70,8 +82,8 @@ $listing_proprietes = array(
 	'border-style',
 	'border-width',
 
-	'-moz-border-radius',
 	'-webkit-border-radius',
+	'-moz-border-radius',
 	'-khtml-border-radius',
 	'border-radius',
 	
@@ -85,32 +97,25 @@ $listing_proprietes = array(
 	'-ms-box-pack',
 	'box-pack',
 	
-	'-o-box-sizing',
 	'-webkit-box-sizing',
 	'-moz-box-sizing',
+	'-o-box-sizing',
 	'box-sizing',
-	
-/* --------------------------------------------------------------------
-	Proprietes de texte
-   ----------------------------------------------------------------- */
 	
 	'overflow',
 	'overflow-x',
 	'overflow-y',
 	
+/* --------------------------------------------------------------------
+	Proprietes de texte
+   ----------------------------------------------------------------- */
+	
 	'azimuth',
 	'caption-side',
 	'clip',
-	'content',
-	'counter-increment',
-	'counter-reset',
 	'direction',
 	'empty-cells',
-	'list-style',
-	'list-style-image',
-	'list-style-position',
-	'list-style-type',
-	
+
 	'table-layout',
 	
 	'text-align',
@@ -135,7 +140,7 @@ $listing_proprietes = array(
 	'page-break-after',
 	'page-break-before',
 	'page-break-inside',
-	'quotes',
+
 	'unicode-bidi',
 	'vertical-align',
 	'widows',
@@ -146,8 +151,29 @@ $listing_proprietes = array(
 	'outline-width',
 	
 /* --------------------------------------------------------------------
-	Couleur & Background
+	Transformation & Transitions
+	----------------------------------------------------------------- */
+	
+	'-webkit-transition',
+	'-moz-transition',
+	'-ms-transition',
+	'-o-transition',
+	'transition',	
+	
+	'-webkit-transform',
+	'-moz-transform',
+	'-ms-transform',
+	'-o-transform',
+	'transform',
+	
+/* --------------------------------------------------------------------
+	Decoration
    ----------------------------------------------------------------- */
+	
+	'list-style',
+	'list-style-image',
+	'list-style-position',
+	'list-style-type',
 	
 	'color',
 	
@@ -170,15 +196,10 @@ $listing_proprietes = array(
 	'-moz-background-origin',
 	'background-origin',
 	
-	'-moz-box-shadow',
 	'-webkit-box-shadow',
+	'-moz-box-shadow',
 	'box-shadow',
-	
-	'-webkit-transition',
-	'-moz-transition',
-	'-ms-transition',
-	'-o-transition',
-	'transition',
+
 	
 	'-webkit-animation',
 	'-moz-animation',
@@ -192,12 +213,12 @@ $listing_proprietes = array(
 	'resize',
 	'cursor',
 	
-	'-moz-user-select',
 	'-webkit-user-select',
+	'-moz-user-select',
 	'user-select',
 
-	'-moz-user-drag',
 	'-webkit-user-drag',
+	'-moz-user-drag',
 	'user-drag',
 
 );
