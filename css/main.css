@@ -151,6 +151,7 @@ label,
     float:right;
     height:25px;
     cursor:pointer;
+    color:#666;
     background:#f0f0f0;
     -webkit-background-clip:padding-box;
     border:1px solid #c0c0c0;
@@ -160,13 +161,8 @@ label,
     margin-left:10px;
 }
 
-.go_clean_css.go_options {
-	-ms-filter:"alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    opacity:0.50;
-}
-
 .go_clean_css:hover {
+    color:#333;
     background:#e0e0e0;
 }
 
