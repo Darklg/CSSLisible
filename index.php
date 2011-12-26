@@ -63,7 +63,7 @@ include dirname(__FILE__) . '/inc/header.php';
 			</div>
 			<div class="submit-block">
             	<button class="go_clean_css">Nettoyer le code &rarr;</button>
-            	<button id="options_toggle" class="go_clean_css go_options">&rarrhk; Options</button>
+            	<button id="options_toggle" class="go_clean_css go_options" title="Afficher les options">&rarrhk; Options</button>
 			</div>
         </form>
 	</div>

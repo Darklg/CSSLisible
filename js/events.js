@@ -9,6 +9,7 @@ if($('options_toggle') && $('options_block')){
 	$('options_toggle').onclick = function(){
 		var options_block = $('options_block');
 		options_block.style.display = (options_block.style.display == 'block') ? 'none' : 'block';
+		$('options_toggle').title = (options_block.style.display == 'block') ? 'Cacher les options' : 'Afficher les options';
 		return false;
 	}
 }
