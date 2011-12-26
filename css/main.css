@@ -92,14 +92,16 @@ a:active {
    ========================================================================== */
 
 .go_clean_css,
-#clean_css {
+#clean_css,
+#cleaned_css {
     -webkit-transition:border,background 0.3s ease;
     -moz-transition:border,background 0.3s ease;
     -o-transition:border,background 0.3s ease;
     transition:border,background 0.3s ease;
 }
 
-#clean_css {
+#clean_css,
+#cleaned_css {
 	width:100%;
 	margin-bottom:15px;
 	border:1px solid #c0c0c0;
@@ -112,11 +114,14 @@ a:active {
 }
 
 #clean_css:focus,
-#clean_css:hover {
+#clean_css:hover,
+#cleaned_css:focus,
+#cleaned_css:hover {
     border-color:#999;
 }
 
-#clean_css:focus {
+#clean_css:focus,
+#cleaned_css:focus {
     background:#fff;
 }
 

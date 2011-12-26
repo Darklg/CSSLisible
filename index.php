@@ -17,7 +17,11 @@ include dirname(__FILE__) . '/inc/header.php';
 			</p>
             <div class="form-block">
                 <label for="clean_css">CSS &agrave; nettoyer :</label><br />
-                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
+                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $_POST['clean_css'] ?></textarea>
+							<?php if ($CSSLisible->buffer) { ?>
+								<label for="cleaned_css">CSS nettoy&eacute; :</label><br />
+	              <textarea name="cleaned_css" id="cleaned_css" rows="12" cols="80"><?php echo $CSSLisible->buffer ?></textarea>
+							<?php } ?>
             </div>
 			<div id="options_block">
 	            <div class="select-block">
