@@ -63,7 +63,7 @@ body {
 h1 {
     margin-bottom:10px;
     padding-bottom:10px;
-    color:#989796;
+    color:#b22222;
     font-size:20px;
     border-bottom:1px solid #f0f0f0;
 }
@@ -113,20 +113,23 @@ a:active {
 	resize:vertical;
 }
 
-#clean_css:focus,
 #clean_css:hover,
-#cleaned_css:focus,
 #cleaned_css:hover {
     border-color:#999;
 }
 
 #clean_css:focus,
 #cleaned_css:focus {
-    background:#fff;
+  border-color:#b22222;
+  background:#fff;
 }
 
 label {
     font-size:12px;
+}
+
+.form-block label {
+  color:#b22222;
 }
 
 label,
@@ -167,7 +170,8 @@ label,
 }
 
 .go_clean_css:hover {
-    color:#333;
+    color:#b22222;
+    border-color:#d98383;
     background:#e0e0e0;
 }
 
