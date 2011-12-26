@@ -13,11 +13,15 @@ include dirname(__FILE__) . '/inc/header.php';
         <h1><?php echo TITRE_SITE; ?></h1>
         <form id="main-form" action="" method="post">
 			<p>
-				CSSLisible va r&eacute;indenter vos blocks de code, <a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, afin de fournir un code CSS Lisible et maintenable. Attention, pour le moment, les commentaires sont retirés !
+				CSSLisible va r&eacute;indenter vos blocs de code, <a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, afin de fournir un code CSS Lisible et maintenable. Attention, pour le moment, les commentaires sont retir&eacute;s !
 			</p>
             <div class="form-block">
-                <label for="clean_css">CSS à nettoyer :</label><br />
-                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
+                <label for="clean_css">CSS &agrave; nettoyer :</label><br />
+                <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $_POST['clean_css'] ?></textarea>
+							<?php if ($CSSLisible->buffer) { ?>
+								<label for="cleaned_css">CSS nettoy&eacute; :</label><br />
+	              <textarea name="cleaned_css" id="cleaned_css" rows="12" cols="80"><?php echo $CSSLisible->buffer ?></textarea>
+							<?php } ?>
             </div>
 			<div id="options_block">
 	            <div class="select-block">
@@ -28,7 +32,7 @@ include dirname(__FILE__) . '/inc/header.php';
 		                <?php endforeach; ?>
 		                </select>
 					</span>
-	               <label for="type_separateur">Type de séparateur</label>
+	               <label for="type_separateur">Type de s&eacute;parateur</label>
 	            </div>
 				<div class="select-block">
 					<span class="in-block">
@@ -38,7 +42,7 @@ include dirname(__FILE__) . '/inc/header.php';
 						<?php endforeach; ?>
 						</select>
 					</span>
-					<label for="distance_selecteurs">Ligne(s) entre les sélecteurs</label>
+					<label for="distance_selecteurs">Ligne(s) entre les s&eacute;lecteurs</label>
 				</div>
 				<div class="select-block">
 					<span class="in-block">
@@ -54,12 +58,12 @@ include dirname(__FILE__) . '/inc/header.php';
 					<span class="in-block">
 						<input type="checkbox" name="selecteurs_multiples_separes" id="selecteurs_multiples_separes" <?php echo ($CSSLisible->get_option('selecteurs_multiples_separes') ? 'checked="checked"':''); ?>/>
 					</span>
-					<label for="selecteurs_multiples_separes">Selecteurs multiples séparés</label>
+					<label for="selecteurs_multiples_separes">S&eacute;lecteurs multiples s&eacute;par&eacute;s</label>
 				</div>
 			</div>
 			<div class="submit-block">
             	<button class="go_clean_css">Nettoyer le code &rarr;</button>
-            	<button id="options_toggle" class="go_clean_css go_options">&rarrhk; Options</button>
+            	<button id="options_toggle" class="go_clean_css go_options" title="Afficher les options">&rarrhk; Options</button>
 			</div>
         </form>
 	</div>

@@ -63,7 +63,7 @@ body {
 h1 {
     margin-bottom:10px;
     padding-bottom:10px;
-    color:#989796;
+    color:#b22222;
     font-size:20px;
     border-bottom:1px solid #f0f0f0;
 }
@@ -92,14 +92,16 @@ a:active {
    ========================================================================== */
 
 .go_clean_css,
-#clean_css {
+#clean_css,
+#cleaned_css {
     -webkit-transition:border,background 0.3s ease;
     -moz-transition:border,background 0.3s ease;
     -o-transition:border,background 0.3s ease;
     transition:border,background 0.3s ease;
 }
 
-#clean_css {
+#clean_css,
+#cleaned_css {
 	width:100%;
 	margin-bottom:15px;
 	border:1px solid #c0c0c0;
@@ -111,17 +113,23 @@ a:active {
 	resize:vertical;
 }
 
-#clean_css:focus,
-#clean_css:hover {
+#clean_css:hover,
+#cleaned_css:hover {
     border-color:#999;
 }
 
-#clean_css:focus {
-    background:#fff;
+#clean_css:focus,
+#cleaned_css:focus {
+  border-color:#b22222;
+  background:#fff;
 }
 
 label {
     font-size:12px;
+}
+
+.form-block label {
+  color:#b22222;
 }
 
 label,
@@ -151,21 +159,19 @@ label,
     float:right;
     height:25px;
     cursor:pointer;
+    color:#666;
     background:#f0f0f0;
     -webkit-background-clip:padding-box;
     border:1px solid #c0c0c0;
     -moz-border-radius:2px;
     -webkit-border-radius:2px;
     border-radius:2px;
-}
-
-.go_clean_css.go_options {
-	-ms-filter:"alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    opacity:0.50;
+    margin-left:10px;
 }
 
 .go_clean_css:hover {
+    color:#b22222;
+    border-color:#d98383;
     background:#e0e0e0;
 }
 
