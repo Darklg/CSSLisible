@@ -28,7 +28,9 @@ class CSSLisible {
         'separateur' => 0,
         'indentation' => 4,
         'distance_selecteurs' => 1,
-        'selecteurs_multiples_separes' => true
+        'selecteurs_multiples_separes' => true,
+        'selecteur_par_ligne' => false,
+        'tout_compresse' => false,
     );
     private $strings_tofix = array(
         'url_data_etc' => array(
@@ -54,6 +56,13 @@ class CSSLisible {
             $this->buffer = $this->sort_css($this->buffer);
             $this->buffer = $this->reindent_media_queries($this->buffer);
             $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+
+			if($this->get_option('tout_compresse') || $this->get_option('selecteur_par_ligne')){
+				$this->buffer = $this->compress_css($this->buffer,1);
+			}
+			if($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse')){
+				$this->buffer = $this->set_selecteur_par_ligne($this->buffer);
+			}
         } else {
             $this->get_options_from_session();
         }
@@ -93,6 +102,8 @@ class CSSLisible {
             $this->set_option('indentation', $_POST['type_indentation']);
         }
         $this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
+        $this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
+        $this->set_option('tout_compresse', isset($_POST['tout_compresse']));
     }
 
     public function get_option($option) {
@@ -104,22 +115,40 @@ class CSSLisible {
         $_SESSION['CSSLisible']['options'][$option] = $value;
     }
 
-    public function clean_css($css_to_clean) {
+	private function set_selecteur_par_ligne($css_to_set){
+		$css_to_set = str_replace('}','}'."\n",$css_to_set);
+		$css_to_set = str_replace('{',' {',$css_to_set);
+		return $css_to_set;
+	}
 
-        $css_to_clean = strip_tags($css_to_clean);
+	private function compress_css($css_to_compress,$lvl=0){
+		
+        $css_to_compress = strip_tags($css_to_compress);
 
         // Suppression des commentaires
-        $css_to_clean = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_clean);
+        $css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 
         // Suppression des tabulations, espaces multiples, retours à la ligne, etc.
-        $css_to_clean = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '	 ', '	 '), '', $css_to_clean);
+        $css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '	 ', '	 '), '', $css_to_compress);
 
         // Suppression des derniers espaces inutiles
-        $css_to_clean = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_clean);
+        $css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
 
         // Ecriture trop lourde
-        $css_to_clean = str_replace(';;', ';', $css_to_clean);
-		$css_to_clean = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_clean);
+        $css_to_compress = str_replace(';;', ';', $css_to_compress);
+		$css_to_compress = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_compress);
+		
+		if($lvl>0){
+	        $css_to_compress = str_replace(';}', '}', $css_to_compress);
+		}
+		
+		return $css_to_compress;
+	}
+
+
+    private function clean_css($css_to_clean) {
+
+		$css_to_clean = $this->compress_css($css_to_clean);
 
         // == Mise en page améliorée ==
         // Début du listing des propriétés

@@ -1,8 +1,8 @@
-<div class="select-block">
+<div class="select-block" id="block_type_separateur">
 	<span class="in-block">
         <select name="type_separateur" id="type_separateur">
         <?php foreach ($CSSLisible->listing_separateurs as $key => $this_separateur) : ?>
-            <option value="<?php echo $key; ?>" <?php echo ($key == $CSSLisible->get_option('separateur') ? 'selected="selected"' : ''); ?>>&quot;<?php echo $this_separateur; ?>&quot;</option>
+            <option value="<?php echo $key; ?>" <?php echo ($this_separateur == $CSSLisible->get_option('separateur') ? 'selected="selected"' : ''); ?>>&quot;<?php echo $this_separateur; ?>&quot;</option>
         <?php endforeach; ?>
         </select>
 	</span>

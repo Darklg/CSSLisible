@@ -1,4 +1,4 @@
-<div class="select-block">
+<div class="select-block" id="block_distance_selecteurs">
 	<span class="in-block">
 		<select name="distance_selecteurs" id="distance_selecteurs">
 		<?php foreach($CSSLisible->listing_distances as $key => $distance) : ?>
