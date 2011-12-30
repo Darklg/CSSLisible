@@ -118,7 +118,7 @@ class CSSLisible {
 	private function set_selecteur_par_ligne($css_to_set){
 		$css_to_set = str_replace('}','}'."\n",$css_to_set);
 		$css_to_set = str_replace('{',' {',$css_to_set);
-		return $css_to_set;
+		return trim($css_to_set);
 	}
 
 	private function compress_css($css_to_compress,$lvl=0){
