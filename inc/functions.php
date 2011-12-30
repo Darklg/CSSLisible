@@ -132,6 +132,7 @@ class CSSLisible {
         // Fix url()
         $css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
         $css_to_clean = preg_replace('#url\((.*)(\s)(.*)\)#', 'url($1$3)', $css_to_clean);
+        $css_to_clean = str_replace(') ;', ');', $css_to_clean);
 
         return $css_to_clean;
     }
