@@ -20,11 +20,19 @@ include dirname(__FILE__) . '/inc/header.php';
                 <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
             </div>
 			<div id="options_block">
+				<div class="the_grid gri-2-1">
+					<div>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+					&nbsp;</div>
+					<div>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/tout_compresse.php'; ?>
 
-<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
-<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
-<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
-<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+					&nbsp;</div>
+				</div>
 			</div>
 			<div class="submit-block">
             	<button class="go_clean_css">Nettoyer le code &rarr;</button>

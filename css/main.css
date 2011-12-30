@@ -88,6 +88,44 @@ a:active {
 }
 
 /* =============================================================================
+   Grids
+   ========================================================================== */
+
+.the_grid {
+	clear: both;
+	overflow: hidden;
+}
+
+.the_grid > * {
+	overflow: hidden;
+	float: left;
+	zoom: 1;
+}
+
+.the_grid:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+
+.the_grid.gri-1-2 > :last-child,
+.the_grid.gri-2-1 > :first-child {
+	width: 66.6%;
+}
+
+.the_grid.gri-1-2 > :first-child,
+.the_grid.gri-2-1 > :last-child {
+	width: 33.3%;
+}
+
+.the_grid.gri-1-1 > * {
+	width: 50%;
+}
+
+/* =============================================================================
    Formulaire
    ========================================================================== */
 
