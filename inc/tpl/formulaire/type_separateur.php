@@ -6,5 +6,5 @@
         <?php endforeach; ?>
         </select>
 	</span>
-   <label for="type_separateur">Type de séparateur</label>
+   <label for="type_separateur">Type de s&eacute;parateur</label>
 </div>

@@ -6,5 +6,5 @@
 		<?php endforeach; ?>
 		</select>
 	</span>
-	<label for="distance_selecteurs">Ligne(s) entre les sélecteurs</label>
+	<label for="distance_selecteurs">Ligne(s) entre les s&eacute;lecteurs</label>
 </div>
