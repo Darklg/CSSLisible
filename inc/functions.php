@@ -11,6 +11,7 @@ class CSSLisible {
         array('    ', '4 espaces'),
         array("\t", '1 tab'),
         array("\t\t", '2 tabs'),
+        array("", 'Aucune'),
     );
     public $listing_separateurs = array(
         ':',
