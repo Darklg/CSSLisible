@@ -40,7 +40,7 @@ if($('selecteur_par_ligne') && $('tout_compresse')){
 
 if($('options_toggle') && $('options_block')){
 	// On masque les options
-//	$('options_block').style.display = 'none';
+	$('options_block').style.display = 'none';
 	// On ne les affiche/masque qu'au clic du bouton d'options
 	$('options_toggle').onclick = function(){
 		toggle($('options_block'));

@@ -2,40 +2,13 @@
    Reset CSS : Eric Meyer.
    ========================================================================== */
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-    margin:0;
-    padding:0;
-    border:0;
-    vertical-align:baseline;
-    font:inherit;
-    font-size:100%;
-}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-    display:block;
-}
-
-body {
-    line-height:1;
-}
-
-ol, ul {
-    list-style:none;
-}
-
-blockquote, q {
-    quotes:none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-    content:'';
-    content:none;
-}
-
-table {
-    border-collapse:collapse;
-    border-spacing:0;
-}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block}
+body {line-height:1}
+ol,ul {list-style:none}
+blockquote,q {quotes:none}
+blockquote:before,blockquote:after,q:before,q:after {content:'';content:none}
+table {border-collapse:collapse;border-spacing:0}
 
 /* =============================================================================
    Base Layout
@@ -53,38 +26,38 @@ body {
     width:600px;
     margin:20px auto;
     padding:20px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
     background:#FFF;
     -webkit-background-clip:padding-box;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
 }
 
 h1 {
     margin-bottom:10px;
     padding-bottom:10px;
-    color:#989796;
-    font-size:20px;
     border-bottom:1px solid #f0f0f0;
+    font-size:20px;
+    color:#989796;
 }
 
 p {
-	font-size:12px;
-	line-height:16px;
-	margin-bottom:16px;
-	color:#333;
+    margin-bottom:16px;
+    font-size:12px;
+    line-height:16px;
+    color:#333;
 }
 
 a {
-	color:#369;
+    color:#369;
 }
 
 a:hover {
-	color:#963;
+    color:#963;
 }
 
 a:active {
-	color:#000;
+    color:#000;
 }
 
 /* =============================================================================
@@ -92,37 +65,36 @@ a:active {
    ========================================================================== */
 
 .the_grid {
-	clear: both;
-	overflow: hidden;
+    clear:both;
+    overflow:hidden;
 }
 
 .the_grid > * {
-	overflow: hidden;
-	float: left;
-	zoom: 1;
+    float:left;
+    zoom:1;
+    overflow:hidden;
 }
 
 .the_grid:after {
-	content: " ";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
+    content:" ";
+    display:block;
+    visibility:hidden;
+    clear:both;
+    height:0;
 }
 
-
-.the_grid.gri-1-2 > :last-child,
-.the_grid.gri-2-1 > :first-child {
-	width: 66.6%;
+.the_grid.gri-1-2 >:last-child,
+.the_grid.gri-2-1 >:first-child {
+    width:66.6%;
 }
 
-.the_grid.gri-1-2 > :first-child,
-.the_grid.gri-2-1 > :last-child {
-	width: 33.3%;
+.the_grid.gri-1-2 >:first-child,
+.the_grid.gri-2-1 >:last-child {
+    width:33.3%;
 }
 
 .the_grid.gri-1-1 > * {
-	width: 50%;
+    width:50%;
 }
 
 /* =============================================================================
