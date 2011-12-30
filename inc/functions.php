@@ -118,7 +118,7 @@ class CSSLisible {
 
         // Ecriture trop lourde
         $css_to_clean = str_replace(';;', ';', $css_to_clean);
-        $css_to_clean = str_replace(':0px;', ':0;', $css_to_clean);
+		$css_to_clean = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_clean);
 
         // == Mise en page améliorée ==
         // Début du listing des propriétés
