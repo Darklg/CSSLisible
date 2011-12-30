@@ -35,7 +35,7 @@ class CSSLisible {
             'list' => array()
         ),
         'ms_filter' => array(
-            'regex' => '#(\"progid(.*)\")#',
+            'regex' => '#progid(.*);#',
             'list' => array()
         ),
     );
