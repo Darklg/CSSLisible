@@ -51,18 +51,17 @@ class CSSLisible {
         if (isset($_POST['clean_css'])) {
             $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
             $this->get_options_from_post();
+
             $this->buffer = $this->mise_ecart_propriete($this->buffer);
             $this->buffer = $this->clean_css($this->buffer);
             $this->buffer = $this->sort_css($this->buffer);
             $this->buffer = $this->reindent_media_queries($this->buffer);
             $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
 
-			if($this->get_option('tout_compresse') || $this->get_option('selecteur_par_ligne')){
+			if($this->get_option('tout_compresse')){
 				$this->buffer = $this->compress_css($this->buffer,1);
 			}
-			if($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse')){
-				$this->buffer = $this->set_selecteur_par_ligne($this->buffer);
-			}
+
         } else {
             $this->get_options_from_session();
         }
@@ -114,12 +113,6 @@ class CSSLisible {
         $this->options[$option] = $value;
         $_SESSION['CSSLisible']['options'][$option] = $value;
     }
-
-	private function set_selecteur_par_ligne($css_to_set){
-		$css_to_set = str_replace('}','}'."\n",$css_to_set);
-		$css_to_set = str_replace('{',' {',$css_to_set);
-		return trim($css_to_set);
-	}
 
 	private function compress_css($css_to_compress,$lvl=0){
 		
@@ -247,6 +240,8 @@ class CSSLisible {
     // Tri des propriétés
     public function sort_css($css_to_sort) {
 
+		$selecteur_par_ligne = ($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse'));
+
         $this->buffer_props = explode('}', $css_to_sort);
         $new_props = array();
         // On divise par propriétés
@@ -264,7 +259,7 @@ class CSSLisible {
                 if (!isset($values[1]) || strpos($line_t, '{') !== FALSE) {
                     if (!empty($line_t)) {
                         $line_t_s = explode(',', $line_t);
-                        $selecteur_glue = ',' . ($this->get_option('selecteurs_multiples_separes') ? "\n" : ' ');
+                        $selecteur_glue = ',' . (!$selecteur_par_ligne && $this->get_option('selecteurs_multiples_separes') ? "\n" : ' ');
                         $new_lines[] = implode($selecteur_glue, $line_t_s);
                     }
                 } else {
@@ -309,10 +304,15 @@ class CSSLisible {
                 }
             }
 
-            $new_props[] = implode("\n", $new_lines);
+            $new_props[] = implode((!$selecteur_par_ligne ? "\n":''), $new_lines);
         }
 
-        $new_props = trim(implode("\n" . '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n"), $new_props));
+        $new_props = trim(
+			implode(
+				($selecteur_par_ligne ? "}\n":"\n". '}' . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n")),
+				 $new_props
+			)
+		);
 
         return $new_props;
     }
