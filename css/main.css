@@ -141,13 +141,13 @@ label,
 }
 
 .in-block {
-    width:81px;
+    width:91px;
     margin-right:5px;
     text-align:left;
 }
 
 .in-block select {
-    width:80px;
+    width:90px;
 }
 
 .check-block,
