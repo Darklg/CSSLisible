@@ -137,7 +137,7 @@ class CSSLisible {
 		$css_to_compress = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_compress);
 		
 		// Simplification des codes couleurs hexadécimaux
-		$css_to_compress = preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array(CSSLisible, 'short_hex_color_values'), $css_to_compress);
+		$css_to_compress = preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array($this, 'short_hex_color_values'), $css_to_compress);
 		
 		
 		if($lvl>0){
