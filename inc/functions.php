@@ -168,7 +168,7 @@ class CSSLisible {
 		$css_to_clean = $this->compress_css($css_to_clean);
 
 		// Formatage des codes couleur hexadécimaux
-		$css_to_clean = preg_replace_callback('#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array(CSSLisible, 'format_hex_color_values'), $css_to_clean);
+		$css_to_clean = preg_replace_callback('#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'format_hex_color_values'), $css_to_clean);
 		
         // == Mise en page améliorée ==
         // Début du listing des propriétés
