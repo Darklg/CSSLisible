@@ -24,6 +24,11 @@ class CSSLisible {
         'Une',
         'Deux'
     );
+    public $listing_hex_colors_formats = array(
+        'Inchangé',
+        'Minuscules',
+        'Majuscules'
+    );
     private $options = array(
         'separateur' => 0,
         'indentation' => 4,
@@ -103,6 +108,10 @@ class CSSLisible {
         $this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
         $this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
         $this->set_option('tout_compresse', isset($_POST['tout_compresse']));
+
+        if (isset($_POST['hex_colors_format'])) {
+            $this->set_option('hex_colors_format', $_POST['hex_colors_format']);
+        }
     }
 
     public function get_option($option) {
@@ -147,11 +156,29 @@ class CSSLisible {
 		return $css_to_compress;
 	}
 
+	private function format_hex_color_values($matches) {
+		switch($this->get_option('hex_colors_format')) {
+			case 0:
+				$formatted_color = $matches[2];
+				break;
+			case 1:
+				$formatted_color = strtolower($matches[2]);
+				break;
+			case 2:
+				$formatted_color = strtoupper($matches[2]);
+				break;
+		}
+
+		return $matches[1] . $formatted_color . $matches[5];
+	}
 
     private function clean_css($css_to_clean) {
 
 		$css_to_clean = $this->compress_css($css_to_clean);
 
+		// Formatage des codes couleur hexadécimaux
+		$css_to_clean = preg_replace_callback('#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'format_hex_color_values'), $css_to_clean);
+		
         // == Mise en page améliorée ==
         // Début du listing des propriétés
         $css_to_clean = str_replace('{', ' {' . "\n", $css_to_clean);
