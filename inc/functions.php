@@ -114,6 +114,11 @@ class CSSLisible {
         $_SESSION['CSSLisible']['options'][$option] = $value;
     }
 
+    public function short_hex_color_values($matches) {
+        array_shift($matches);
+        return implode($matches);
+    }
+
 	private function compress_css($css_to_compress,$lvl=0){
 		
         $css_to_compress = strip_tags($css_to_compress);
@@ -130,6 +135,10 @@ class CSSLisible {
         // Ecriture trop lourde
         $css_to_compress = str_replace(';;', ';', $css_to_compress);
 		$css_to_compress = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_compress);
+		
+		// Simplification des codes couleurs hexadécimaux
+		$css_to_compress = preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array(CSSLisible, 'short_hex_color_values'), $css_to_compress);
+		
 		
 		if($lvl>0){
 	        $css_to_compress = str_replace(';}', '}', $css_to_compress);
