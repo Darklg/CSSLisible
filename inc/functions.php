@@ -24,11 +24,11 @@ class CSSLisible {
         'Une',
         'Deux'
     );
-	public $listing_hex_colors_formats = array(
-		'Inchangé',
+    public $listing_hex_colors_formats = array(
+        'Inchangé',
         'Minuscules',
         'Majuscules'
-	);
+    );
     private $options = array(
         'separateur' => 0,
         'indentation' => 4,
