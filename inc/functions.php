@@ -68,7 +68,9 @@ class CSSLisible {
 			if($this->get_option('tout_compresse')){
 				$this->buffer = $this->compress_css($this->buffer,1);
 			}
-
+			
+			$this->buffer = $this->add_header($this->buffer);
+			
         } else {
             $this->get_options_from_session();
         }
@@ -361,4 +363,22 @@ class CSSLisible {
         return $new_props;
     }
 
+	// Ajout du commentaire en entête
+	private function add_header($cleaned_css) {
+		$str_date = date('d/m/Y - H:i:s (U)');
+		$indentation = $this->listing_indentations[$this->get_option('indentation')][0];
+		
+		$header = <<<EOT
+/*
+${indentation}Code reformaté le $str_date
+
+${indentation}CSSLisible - http://github.com/Darklg/CSSLisible
+
+${indentation}----------------------------------------------------
+*/
+
+EOT;
+
+		return $header . $cleaned_css;
+	}
 }
