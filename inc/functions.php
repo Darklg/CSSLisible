@@ -35,6 +35,7 @@ class CSSLisible {
         'distance_selecteurs' => 1,
         'hex_colors_format' => 0,
         'selecteurs_multiples_separes' => true,
+        'supprimer_selecteurs_vides' => false,
         'selecteur_par_ligne' => false,
         'tout_compresse' => false,
     );
@@ -107,6 +108,7 @@ class CSSLisible {
             $this->set_option('indentation', $_POST['type_indentation']);
         }
         $this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
+        $this->set_option('supprimer_selecteurs_vides', isset($_POST['supprimer_selecteurs_vides']));
         $this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
         $this->set_option('tout_compresse', isset($_POST['tout_compresse']));
 
@@ -179,6 +181,11 @@ class CSSLisible {
 
 		// Formatage des codes couleur hexadécimaux
 		$css_to_clean = preg_replace_callback('#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'format_hex_color_values'), $css_to_clean);
+		
+		// Supprime les sélecteurs vides
+		if($this->get_option('supprimer_selecteurs_vides') || $this->get_option('tout_compresse')){
+			$css_to_clean = preg_replace('#([^}]+){}#isU', '', $css_to_clean);
+		}
 		
         // == Mise en page améliorée ==
         // Début du listing des propriétés
