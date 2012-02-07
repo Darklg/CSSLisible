@@ -22,11 +22,11 @@ include dirname(__FILE__) . '/inc/header.php';
 			<div id="options_block">
 				<div class="the_grid gri-2-1">
 					<div>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/hex_colors_format.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 					&nbsp;</div>
 					<div>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
