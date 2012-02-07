@@ -33,6 +33,7 @@ class CSSLisible {
         'separateur' => 0,
         'indentation' => 4,
         'distance_selecteurs' => 1,
+        'hex_colors_format' => 0,
         'selecteurs_multiples_separes' => true,
         'selecteur_par_ligne' => false,
         'tout_compresse' => false,
@@ -109,7 +110,7 @@ class CSSLisible {
         $this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
         $this->set_option('tout_compresse', isset($_POST['tout_compresse']));
 
-        if (isset($_POST['hex_colors_format'])) {
+        if (isset($_POST['hex_colors_format']) && array_key_exists($_POST['hex_colors_format'],$this->listing_hex_colors_formats)) {
             $this->set_option('hex_colors_format', $_POST['hex_colors_format']);
         }
     }
