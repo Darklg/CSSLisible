@@ -2,7 +2,7 @@
 	<span class="in-block">
 		<select id="hex_colors_format" name="hex_colors_format">
 		<?php foreach ($CSSLisible->listing_hex_colors_formats as $key => $this_format) : ?>
-            <option value="<?php echo $key; ?>" <?php echo ($this_format == $CSSLisible->get_option('hex_colors_format') ? 'selected="selected"' : ''); ?>><?php echo $this_format; ?></option>
+            <option value="<?php echo $key; ?>" <?php echo ($key == $CSSLisible->get_option('hex_colors_format') ? 'selected="selected"' : ''); ?>><?php echo $this_format; ?></option>
         <?php endforeach; ?>
 		</select>
 	</span>
