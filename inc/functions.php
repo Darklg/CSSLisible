@@ -365,10 +365,11 @@ class CSSLisible {
 
 	// Ajout du commentaire en entête
 	private function add_header($cleaned_css) {
-		$str_date = date('d/m/Y - H:i:s (U)');
-		$indentation = $this->listing_indentations[$this->get_option('indentation')][0];
-		
-		$header = <<<EOT
+		if (strlen($cleaned_css)) {
+			$str_date = date('d/m/Y - H:i:s (U)');
+			$indentation = $this->listing_indentations[$this->get_option('indentation')][0];
+
+			$header = <<<EOT
 /*
 ${indentation}Code reformaté le $str_date
 
@@ -378,7 +379,9 @@ ${indentation}----------------------------------------------------
 */
 
 EOT;
-
-		return $header . $cleaned_css;
+			$cleaned_css = $header . $cleaned_css;
+		}
+		
+		return $cleaned_css;
 	}
 }
