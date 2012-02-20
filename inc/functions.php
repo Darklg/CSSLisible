@@ -38,6 +38,7 @@ class CSSLisible {
         'supprimer_selecteurs_vides' => false,
         'selecteur_par_ligne' => false,
         'tout_compresse' => false,
+        'add_header' => false,
     );
     private $strings_tofix = array(
         'url_data_etc' => array(
@@ -76,7 +77,9 @@ class CSSLisible {
 				$this->buffer = $this->compress_css($this->buffer,1);
 			}
 			
-			$this->buffer = $this->add_header($this->buffer);
+			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
+				$this->buffer = $this->add_header($this->buffer);
+			}
 			
         } else {
             $this->get_options_from_session();
@@ -120,6 +123,7 @@ class CSSLisible {
         $this->set_option('supprimer_selecteurs_vides', isset($_POST['supprimer_selecteurs_vides']));
         $this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
         $this->set_option('tout_compresse', isset($_POST['tout_compresse']));
+        $this->set_option('add_header', isset($_POST['add_header']));
 
         if (isset($_POST['hex_colors_format']) && array_key_exists($_POST['hex_colors_format'],$this->listing_hex_colors_formats)) {
             $this->set_option('hex_colors_format', $_POST['hex_colors_format']);
@@ -405,20 +409,16 @@ class CSSLisible {
 	// Ajout du commentaire en entête
 	private function add_header($cleaned_css) {
 		if (strlen($cleaned_css)) {
-			$str_date = date('d/m/Y - H:i:s (U)');
+			$str_date = date('Y-m-d H:i (U)');
 			$indentation = $this->listing_indentations[$this->get_option('indentation')][0];
 
 			$header = <<<EOT
 /*
-${indentation}Code reformaté le $str_date
-
-${indentation}CSSLisible - http://github.com/Darklg/CSSLisible
-
-${indentation}----------------------------------------------------
+${indentation}Formatted: $str_date
+${indentation}With CSSLisible - http://github.com/Darklg/CSSLisible
 */
-
 EOT;
-			$cleaned_css = $header . $cleaned_css;
+			$cleaned_css = $header  . str_pad('', $this->get_option('distance_selecteurs') + 1, "\n") . $cleaned_css;
 		}
 		
 		return $cleaned_css;
