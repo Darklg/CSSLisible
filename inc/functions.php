@@ -50,6 +50,8 @@ class CSSLisible {
         ),
     );
 
+	private $comments_isoles = array();
+
     function __construct($listing_proprietes = array()) {
 
         $this->listing_proprietes = $listing_proprietes;
@@ -59,12 +61,17 @@ class CSSLisible {
             $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
             $this->get_options_from_post();
 
+			if(!$this->get_option('tout_compresse')){
+				$this->buffer = $this->mise_ecart_commentaires($this->buffer);
+			}
             $this->buffer = $this->mise_ecart_propriete($this->buffer);
             $this->buffer = $this->clean_css($this->buffer);
             $this->buffer = $this->sort_css($this->buffer);
             $this->buffer = $this->reindent_media_queries($this->buffer);
             $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
-
+			if(!$this->get_option('tout_compresse')){
+				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
+			}
 			if($this->get_option('tout_compresse')){
 				$this->buffer = $this->compress_css($this->buffer,1);
 			}
@@ -136,8 +143,10 @@ class CSSLisible {
         $css_to_compress = strip_tags($css_to_compress);
 
         // Suppression des commentaires
-        $css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
-
+		if($this->get_option('tout_compresse')){
+			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
+		}
+		
         // Suppression des tabulations, espaces multiples, retours à la ligne, etc.
         $css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '	 ', '	 '), '', $css_to_compress);
 
@@ -215,6 +224,36 @@ class CSSLisible {
         }
         return $css_to_sort;
     }
+
+	private function mise_ecart_commentaires($css_to_sort){
+		
+		// Suppression des commentaires internes à un sélecteur.
+		$css_to_sort = preg_replace('#{([\s]*)\/\*(.*)\*\/#isU','{',$css_to_sort);
+		$css_to_sort = preg_replace('#\/\*(.*)\*\/([\s]*)}#','}',$css_to_sort);
+		$css_to_sort = preg_replace('#;([\s]*)\/\*(.*)\*\/#',';',$css_to_sort);
+		
+		preg_match_all('#\/\*(.*)\*\/#isU',$css_to_sort,$commentaires);
+		
+		if(isset($commentaires[0])) {
+			foreach($commentaires[0] as $comment){
+				$chaine_remplacement = '_||_comment_' . count($this->comments_isoles) . '_||_';
+				$this->comments_isoles[$chaine_remplacement] = $comment;
+				$css_to_sort = str_replace($comment,$chaine_remplacement,$css_to_sort);
+			}
+		}
+		
+		return $css_to_sort;
+	}
+
+	private function suppression_mise_ecart_commentaires($css_to_sort){
+		
+		foreach($this->comments_isoles as $chaine_remplacement => $comment){
+			$comment_dist = $comment.str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
+			$css_to_sort = str_replace($chaine_remplacement,$comment_dist,$css_to_sort);
+		}
+		
+		return $css_to_sort;
+	}
 
     private function suppression_mise_ecart_propriete($css_to_sort) {
         foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {

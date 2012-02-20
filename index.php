@@ -13,7 +13,10 @@ include dirname(__FILE__) . '/inc/header.php';
         <h1><?php echo TITRE_SITE; ?></h1>
         <form id="main-form" action="" method="post">
 			<p>
-				CSSLisible va r&eacute;indenter vos blocks de code, <a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, afin de fournir un code CSS Lisible et maintenable. Attention, pour le moment, les commentaires sont retir&eacute;s !
+				CSSLisible va r&eacute;indenter vos blocks de code, 
+				<a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, 
+				afin de fournir un code CSS Lisible et maintenable. 
+				Attention, les commentaires internes aux sélecteurs sont retir&eacute;s !
 			</p>
             <div class="form-block">
                 <label for="clean_css">CSS &agrave; nettoyer :</label><br />
