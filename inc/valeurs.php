@@ -34,7 +34,7 @@ $listing_proprietes = array(
 	Box Model
    ----------------------------------------------------------------- */
 	
-	'width',   		
+	'width',		
 	'height',
 	
 	'margin',

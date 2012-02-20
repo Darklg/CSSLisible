@@ -1,6 +1,6 @@
 /* =============================================================================
-   Reset CSS : Eric Meyer.
-   ========================================================================== */
+	Reset CSS : Eric Meyer.
+	========================================================================== */
 
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block}
@@ -11,102 +11,102 @@ blockquote:before,blockquote:after,q:before,q:after {content:'';content:none}
 table {border-collapse:collapse;border-spacing:0}
 
 /* =============================================================================
-   Base Layout
-   ========================================================================== */
+	Base Layout
+	========================================================================== */
 
 html {
-    background:#f0f0f0;
+	background:#f0f0f0;
 }
 
 body {
-    font:62.5% sans-serif;
+	font:62.5% sans-serif;
 }
 
 #main-container {
-    width:600px;
-    margin:20px auto;
-    padding:20px;
-    -webkit-border-radius:3px;
-    -moz-border-radius:3px;
-    border-radius:3px;
-    background:#FFF;
-    -webkit-background-clip:padding-box;
+	width:600px;
+	margin:20px auto;
+	padding:20px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	background:#FFF;
+	-webkit-background-clip:padding-box;
 }
 
 h1 {
-    margin-bottom:10px;
-    padding-bottom:10px;
-    border-bottom:1px solid #f0f0f0;
-    font-size:20px;
-    color:#989796;
+	margin-bottom:10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #f0f0f0;
+	font-size:20px;
+	color:#989796;
 }
 
 p {
-    margin-bottom:16px;
-    font-size:12px;
-    line-height:16px;
-    color:#333;
+	margin-bottom:16px;
+	font-size:12px;
+	line-height:16px;
+	color:#333;
 }
 
 a {
-    color:#369;
+	color:#369;
 }
 
 a:hover {
-    color:#963;
+	color:#963;
 }
 
 a:active {
-    color:#000;
+	color:#000;
 }
 
 /* =============================================================================
-   Grids
-   ========================================================================== */
+	Grids
+	========================================================================== */
 
 .the_grid {
-    clear:both;
-    overflow:hidden;
+	clear:both;
+	overflow:hidden;
 }
 
 .the_grid > * {
-    float:left;
-    zoom:1;
-    overflow:hidden;
+	float:left;
+	zoom:1;
+	overflow:hidden;
 }
 
 .the_grid:after {
-    content:" ";
-    display:block;
-    visibility:hidden;
-    clear:both;
-    height:0;
+	content:" ";
+	display:block;
+	visibility:hidden;
+	clear:both;
+	height:0;
 }
 
 .the_grid.gri-1-2 >:last-child,
 .the_grid.gri-2-1 >:first-child {
-    width:66.6%;
+	width:66.6%;
 }
 
 .the_grid.gri-1-2 >:first-child,
 .the_grid.gri-2-1 >:last-child {
-    width:33.3%;
+	width:33.3%;
 }
 
 .the_grid.gri-1-1 > * {
-    width:50%;
+	width:50%;
 }
 
 /* =============================================================================
-   Formulaire
-   ========================================================================== */
+	Formulaire
+	========================================================================== */
 
 .go_clean_css,
 #clean_css {
-    -webkit-transition:border,background 0.3s ease;
-    -moz-transition:border,background 0.3s ease;
-    -o-transition:border,background 0.3s ease;
-    transition:border,background 0.3s ease;
+	-webkit-transition:border,background 0.3s ease;
+	-moz-transition:border,background 0.3s ease;
+	-o-transition:border,background 0.3s ease;
+	transition:border,background 0.3s ease;
 }
 
 #clean_css {
@@ -123,59 +123,59 @@ a:active {
 
 #clean_css:focus,
 #clean_css:hover {
-    border-color:#999;
+	border-color:#999;
 }
 
 #clean_css:focus {
-    background:#fff;
+	background:#fff;
 }
 
 label {
-    font-size:12px;
+	font-size:12px;
 }
 
 label,
 .in-block {
-    display:inline-block;
-    line-height:25px;
+	display:inline-block;
+	line-height:25px;
 }
 
 .in-block {
-    width:91px;
-    margin-right:5px;
-    text-align:left;
+	width:91px;
+	margin-right:5px;
+	text-align:left;
 }
 
 .in-block select {
-    width:90px;
+	width:90px;
 }
 
 .check-block,
 .select-block,
 .submit-block {
-    height:25px;
-    overflow:hidden;
+	height:25px;
+	overflow:hidden;
 }
 
 .go_clean_css {
-    float:right;
-    height:25px;
-    cursor:pointer;
-    background:#f0f0f0;
-    -webkit-background-clip:padding-box;
-    border:1px solid #c0c0c0;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    border-radius:2px;
+	float:right;
+	height:25px;
+	cursor:pointer;
+	background:#f0f0f0;
+	-webkit-background-clip:padding-box;
+	border:1px solid #c0c0c0;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
 }
 
 .go_clean_css.go_options {
 	-ms-filter:"alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    opacity:0.50;
+	filter: alpha(opacity=50);
+	opacity:0.50;
 }
 
 .go_clean_css:hover {
-    background:#e0e0e0;
+	background:#e0e0e0;
 }
 
