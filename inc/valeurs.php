@@ -34,7 +34,22 @@ $listing_proprietes = array(
 	Box Model
    ----------------------------------------------------------------- */
 	
-	'width',   		
+	'-webkit-box-align',
+	'-moz-box-align',
+	'-ms-box-align',
+	'box-align',
+	
+	'-webkit-box-pack',
+	'-moz-box-pack',
+	'-ms-box-pack',
+	'box-pack',
+	
+	'-webkit-box-sizing',
+	'-moz-box-sizing',
+	'-o-box-sizing',
+	'box-sizing',
+
+	'width',
 	'height',
 	
 	'margin',
@@ -86,21 +101,6 @@ $listing_proprietes = array(
 	'-moz-border-radius',
 	'-khtml-border-radius',
 	'border-radius',
-	
-	'-webkit-box-align',
-	'-moz-box-align',
-	'-ms-box-align',
-	'box-align',
-	
-	'-webkit-box-pack',
-	'-moz-box-pack',
-	'-ms-box-pack',
-	'box-pack',
-	
-	'-webkit-box-sizing',
-	'-moz-box-sizing',
-	'-o-box-sizing',
-	'box-sizing',
 	
 	'overflow',
 	'overflow-x',
