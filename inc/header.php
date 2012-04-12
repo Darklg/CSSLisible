@@ -6,3 +6,7 @@ include dirname(__FILE__) . '/functions.php';
 
 $CSSLisible = new CSSLisible($listing_proprietes);
 
+if(isset($_POST['api']) || isset($_GET['api'])) {
+	exit($CSSLisible->buffer);
+}
+
