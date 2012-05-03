@@ -203,6 +203,12 @@ class CSSLisible {
 		}
 		
 		// == Mise en page améliorée ==
+		
+		// Fix url()
+		$css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
+		$css_to_clean = preg_replace('#url\((.*)(\s)(.*)\)#', 'url($1$3)', $css_to_clean);
+		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
+		
 		// Début du listing des propriétés
 		$css_to_clean = str_replace('{', ' {' . "\n", $css_to_clean);
 		$css_to_clean = str_replace(';', ';' . "\n", $css_to_clean);
@@ -210,11 +216,6 @@ class CSSLisible {
 
 		// Fin du listing des propriétés
 		$css_to_clean = str_replace('}', "\n" . '}' . "\n", $css_to_clean);
-
-		// Fix url()
-		$css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
-		$css_to_clean = preg_replace('#url\((.*)(\s)(.*)\)#', 'url($1$3)', $css_to_clean);
-		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
 
 		return $css_to_clean;
 	}
