@@ -205,8 +205,7 @@ class CSSLisible {
 		// == Mise en page améliorée ==
 		
 		// Fix url()
-		$css_to_clean = preg_replace('#url\((.*)\)(\S)#', 'url($1) $2', $css_to_clean);
-		$css_to_clean = preg_replace('#url\((.*)(\s)(.*)\)#', 'url($1$3)', $css_to_clean);
+		$css_to_clean = preg_replace('#(url|rgba|rgb)\((.*)\)(\S)#isU', '$1($2) $3', $css_to_clean);
 		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
 		
 		// Début du listing des propriétés
