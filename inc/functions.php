@@ -203,7 +203,7 @@ class CSSLisible {
 				break;
 			case 2: // -> Hex
 				$css_to_compress = str_ireplace($keyword_named_colors, $hex_named_colors, $css_to_compress);
-				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#', array($this, 'rgb2hex'), $css_to_compress);
+				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*%?,[\s]*){2}(\d){1,3}%?)\)([^;]*;)#', array($this, 'rgb2hex'), $css_to_compress);
 				break;
 			case 3: // -> RGB
 				$css_to_compress = str_ireplace($keyword_named_colors, $rgb_named_colors, $css_to_compress);
