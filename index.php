@@ -28,6 +28,7 @@ include dirname(__FILE__) . '/inc/header.php';
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/hex_colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
