@@ -232,7 +232,7 @@ class CSSLisible {
 		return $matches[1] . '#' . $rgb_color . $matches[6];
 	}
 	
-	// Converions d'un des triplets RGB en hexadécimal
+	// Conversion d'un des triplets RGB en hexadécimal
 	private function rgb_part2hex($rgb_part) {
 		return str_pad(dechex($rgb_part), 2, '0', STR_PAD_LEFT);
 	}
