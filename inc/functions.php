@@ -173,7 +173,7 @@ class CSSLisible {
 		// Suppression des décimales inutiles
 		$css_to_compress = preg_replace('#:(([^;]*[0-9]*)\.|([^;]*[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
-		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions en couleurs nommées)
+		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
 		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
 		// Conversion des codes couleurs
 		if ($this->get_option('colors_format') != 0) {
