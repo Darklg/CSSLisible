@@ -175,6 +175,8 @@ class CSSLisible {
 		
 		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
 		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
+		// Conversion des codes RGB utilisant des % en valeurs chiffrées
+		$css_to_compress = preg_replace_callback('#(:[^;]*rgb\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%(\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
 		// Conversion des codes couleurs
 		if ($this->get_option('colors_format') != 0) {
 			$css_to_compress = $this->convert_colors($css_to_compress);
@@ -205,7 +207,7 @@ class CSSLisible {
 				break;
 			case 2: // -> Hex
 				$css_to_compress = str_ireplace($keyword_named_colors, $hex_named_colors, $css_to_compress);
-				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*%?,[\s]*){2}(\d){1,3}%?)\)([^;]*;)#', array($this, 'rgb2hex'), $css_to_compress);
+				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#i', array($this, 'rgb2hex'), $css_to_compress);
 				break;
 			case 3: // -> RGB
 				$css_to_compress = str_ireplace($keyword_named_colors, $rgb_named_colors, $css_to_compress);
@@ -235,6 +237,16 @@ class CSSLisible {
 	// Conversion d'un des triplets RGB en hexadécimal
 	private function rgb_part2hex($rgb_part) {
 		return str_pad(dechex($rgb_part), 2, '0', STR_PAD_LEFT);
+	}
+	
+	// Conversion d'un code RGB de pourcentages à valeurs chiffrées
+	private function rgb_percent2value($matches) {
+		return $matches[1] . $this->rgb_part_percent2value($matches[2]) . ',' . $this->rgb_part_percent2value($matches[3]) . ',' . $this->rgb_part_percent2value($matches[4]) . $matches[5];
+	}
+	
+	// Conversion d'un des triplets RGB de pourcentage à une valeur chiffrée
+	private function rgb_part_percent2value($percent) {
+		return round($percent*255/100);
 	}
 
 	private function format_hex_color_values($matches) {
