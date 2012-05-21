@@ -206,6 +206,8 @@ class CSSLisible {
 		
 		// Fix url()
 		$css_to_clean = preg_replace('#(url|rgba|rgb|hsl|hsla|attr)\((.*)\)(\S)#isU', '$1($2) $3', $css_to_clean);
+		// Fix media query : and ()
+		$css_to_clean = str_replace(' and(', ' and (', $css_to_clean);
 		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
 		
 		// Début du listing des propriétés
