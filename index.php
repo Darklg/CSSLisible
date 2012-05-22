@@ -28,6 +28,7 @@ include dirname(__FILE__) . '/inc/header.php';
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/hex_colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
@@ -45,6 +46,13 @@ include dirname(__FILE__) . '/inc/header.php';
 				<button id="options_toggle" class="go_clean_css go_options">&rarrhk; Options</button>
 			</div>
 		</form>
+	</div>
+	<div id="footer">
+		Source disponible sur 
+		<a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a>. 
+		Contributeurs : 
+		<a target="_blank" href="http://github.com/Darklg">Darklg</a>,
+		<a target="_blank" href="http://github.com/NumEricR">NumEricR</a>.
 	</div>
 	<a href="http://github.com/darklg/CSSLisible"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/fork-me.png" alt="Fork me on GitHub" /></a>
 	
