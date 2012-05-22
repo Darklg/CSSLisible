@@ -53,16 +53,16 @@ $listing_proprietes = array(
 	'height',
 	
 	'margin',
+	'margin-top',
+	'margin-right',
 	'margin-bottom',
 	'margin-left',
-	'margin-right',
-	'margin-top',
 	
 	'padding',
+	'padding-top',
+	'padding-right',
 	'padding-bottom',
 	'padding-left',
-	'padding-right',
-	'padding-top',
 
 	'max-height',
 	'max-width',
@@ -70,6 +70,16 @@ $listing_proprietes = array(
 	'min-width',
 	
 	'border',
+
+	'border-top',
+	'border-top-color',
+	'border-top-style',
+	'border-top-width',
+
+	'border-right',
+	'border-right-color',
+	'border-right-style',
+	'border-right-width',
 
 	'border-bottom',
 	'border-bottom-color',
@@ -80,17 +90,7 @@ $listing_proprietes = array(
 	'border-left-color',
 	'border-left-style',
 	'border-left-width',
-	
-	'border-right',
-	'border-right-color',
-	'border-right-style',
-	'border-right-width',
-	
-	'border-top',
-	'border-top-color',
-	'border-top-style',
-	'border-top-width',
-	
+
 	'border-collapse',
 	'border-color',
 	'border-spacing',
@@ -151,22 +151,6 @@ $listing_proprietes = array(
 	'outline-width',
 	
 /* --------------------------------------------------------------------
-	Transformation & Transitions
-	----------------------------------------------------------------- */
-	
-	'-webkit-transition',
-	'-moz-transition',
-	'-ms-transition',
-	'-o-transition',
-	'transition',	
-	
-	'-webkit-transform',
-	'-moz-transform',
-	'-ms-transform',
-	'-o-transform',
-	'transform',
-	
-/* --------------------------------------------------------------------
 	Decoration
    ----------------------------------------------------------------- */
 	
@@ -176,6 +160,7 @@ $listing_proprietes = array(
 	'list-style-type',
 	
 	'color',
+	'opacity',
 	
 	'background',
 	'background-attachment',
@@ -200,12 +185,27 @@ $listing_proprietes = array(
 	'-moz-box-shadow',
 	'box-shadow',
 
-	
 	'-webkit-animation',
 	'-moz-animation',
 	'-o-animation',
 	'animation',
-	
+
+/* --------------------------------------------------------------------
+	Transformation & Transitions
+	----------------------------------------------------------------- */
+
+	'-webkit-transition',
+	'-moz-transition',
+	'-ms-transition',
+	'-o-transition',
+	'transition',	
+
+	'-webkit-transform',
+	'-moz-transform',
+	'-ms-transform',
+	'-o-transform',
+	'transform',
+
 /* --------------------------------------------------------------------
 	Comportements
    ----------------------------------------------------------------- */
