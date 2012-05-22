@@ -169,7 +169,7 @@ class CSSLisible {
 
 		// Ecriture trop lourde
 		$css_to_compress = str_replace(';;', ';', $css_to_compress);
-		$css_to_compress = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_compress);
+		$css_to_compress = preg_replace('#([\s]|:)0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)#', '${1}0', $css_to_compress);
 		// Suppression des décimales inutiles
 		$css_to_compress = preg_replace('#:(([^;]*[0-9]*)\.|([^;]*[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
