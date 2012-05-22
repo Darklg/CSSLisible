@@ -24,6 +24,12 @@ class CSSLisible {
 		'Une',
 		'Deux'
 	);
+	public $listing_colors_formats = array(
+		'Inchangé',
+		'Noms',
+		'Hex',
+		'RGB'
+	);
 	public $listing_hex_colors_formats = array(
 		'Inchangé',
 		'Minuscules',
@@ -33,6 +39,7 @@ class CSSLisible {
 		'separateur' => 0,
 		'indentation' => 4,
 		'distance_selecteurs' => 1,
+		'colors_format' => 0,
 		'hex_colors_format' => 0,
 		'selecteurs_multiples_separes' => true,
 		'supprimer_selecteurs_vides' => false,
@@ -125,6 +132,10 @@ class CSSLisible {
 		$this->set_option('tout_compresse', isset($_POST['tout_compresse']));
 		$this->set_option('add_header', isset($_POST['add_header']));
 
+		if (isset($_POST['colors_format']) && array_key_exists($_POST['colors_format'],$this->listing_colors_formats)) {
+			$this->set_option('colors_format', $_POST['colors_format']);
+		}
+
 		if (isset($_POST['hex_colors_format']) && array_key_exists($_POST['hex_colors_format'],$this->listing_hex_colors_formats)) {
 			$this->set_option('hex_colors_format', $_POST['hex_colors_format']);
 		}
@@ -156,22 +167,87 @@ class CSSLisible {
 		// Suppression des tabulations, espaces multiples, retours à la ligne, etc.
 		$css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $css_to_compress);
 
-		// Suppression des derniers espaces inutiles
-		$css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
-
 		// Ecriture trop lourde
 		$css_to_compress = str_replace(';;', ';', $css_to_compress);
 		$css_to_compress = preg_replace('#:0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm);#', ':0;', $css_to_compress);
+		// Suppression des décimales inutiles
+		$css_to_compress = preg_replace('#:(([^;]*[0-9]*)\.|([^;]*[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
+		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
+		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
+		// Simplification des codes RGB et RGBA utilisant des % en valeurs chiffrées
+		$css_to_compress = preg_replace_callback('#(:[^;]*rgb\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%(\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
+		$css_to_compress = preg_replace_callback('#(:[^;]*rgba\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%([\s]*,[\s]*\d(\.\d+)?\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
+		// Conversion des codes couleurs
+		if ($this->get_option('colors_format') != 0) {
+			$css_to_compress = $this->convert_colors($css_to_compress);
+		}
 		// Simplification des codes couleurs hexadécimaux
 		$css_to_compress = preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array($this, 'short_hex_color_values'), $css_to_compress);
 		
+		// Suppression des derniers espaces inutiles
+		$css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
 		
 		if($lvl>0){
 			$css_to_compress = str_replace(';}', '}', $css_to_compress);
 		}
 		
 		return $css_to_compress;
+	}
+	
+	// Changement de format des codes couleurs
+	private function convert_colors($css_to_compress) {
+		$keyword_named_colors = array('aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'marron', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen');
+		$hex_named_colors = array('#f0f8ff', '#faebd7', '#00ffff', '#7fffd4', '#f0ffff', '#f5f5dc', '#ffe4c4', '#000000', '#ffebcd', '#0000ff', '#8a2be2', '#a52a2a', '#deb887', '#5f9ea0', '#7fff00', '#d2691e', '#ff7f50', '#6495ed', '#fff8dc', '#dc143c', '#00ffff', '#00008b', '#008b8b', '#b8860b', '#a9a9a9', '#006400', '#a9a9a9', '#bdb76b', '#8b008b', '#556b2f', '#ff8c00', '#9932cc', '#8b0000', '#e9967a', '#8fbc8f', '#483d8b', '#2f4f4f', '#2f4f4f', '#00ced1', '#9400d3', '#ff1493', '#00bfff', '#696969', '#696969', '#1e90ff', '#b22222', '#fffaf0', '#228b22', '#ff00ff', '#dcdcdc', '#f8f8ff', '#ffd700', '#daa520', '#808080', '#008000', '#adff2f', '#808080', '#f0fff0', '#ff69b4', '#cd5c5c', '#4b0082', '#fffff0', '#f0e68c', '#e6e6fa', '#fff0f5', '#7cfc00', '#fffacd', '#add8e6', '#f08080', '#e0ffff', '#fafad2', '#d3d3d3', '#90ee90', '#d3d3d3', '#ffb6c1', '#ffa07a', '#20b2aa', '#87cefa', '#778899', '#778899', '#b0c4de', '#ffffe0', '#00ff00', '#32cd32', '#faf0e6', '#ff00ff', '#800000', '#66cdaa', '#0000cd', '#ba55d3', '#9370db', '#3cb371', '#7b68ee', '#00fa9a', '#48d1cc', '#c71585', '#191970', '#f5fffa', '#ffe4e1', '#ffe4b5', '#ffdead', '#000080', '#fdf5e6', '#808000', '#6b8e23', '#ffa500', '#ff4500', '#da70d6', '#eee8aa', '#98fb98', '#afeeee', '#db7093', '#ffefd5', '#ffdab9', '#cd853f', '#ffc0cb', '#dda0dd', '#b0e0e6', '#800080', '#ff0000', '#bc8f8f', '#4169e1', '#8b4513', '#fa8072', '#f4a460', '#2e8b57', '#fff5ee', '#a0522d', '#c0c0c0', '#87ceeb', '#6a5acd', '#708090', '#708090', '#fffafa', '#00ff7f', '#4682b4', '#d2b48c', '#008080', '#d8bfd8', '#ff6347', '#40e0d0', '#ee82ee', '#f5deb3', '#ffffff', '#f5f5f5', '#ffff00', '#9acd32');
+		$rgb_named_colors = array('rgb(240,248,255)', 'rgb(250,235,215)', 'rgb(0,255,255)', 'rgb(127,255,212)', 'rgb(240,255,255)', 'rgb(245,245,220)', 'rgb(255,228,196)', 'rgb(0,0,0)', 'rgb(255,235,205)', 'rgb(0,0,255)', 'rgb(138,43,226)', 'rgb(165,42,42)', 'rgb(222,184,135)', 'rgb(95,158,160)', 'rgb(127,255,0)', 'rgb(210,105,30)', 'rgb(255,127,80)', 'rgb(100,149,237)', 'rgb(255,248,220)', 'rgb(220,20,60)', 'rgb(0,255,255)', 'rgb(0,0,139)', 'rgb(0,139,139)', 'rgb(184,134,11)', 'rgb(169,169,169)', 'rgb(0,100,0)', 'rgb(169,169,169)', 'rgb(189,183,107)', 'rgb(139,0,139)', 'rgb(85,107,47)', 'rgb(255,140,0)', 'rgb(153,50,204)', 'rgb(139,0,0)', 'rgb(233,150,122)', 'rgb(143,188,143)', 'rgb(72,61,139)', 'rgb(47,79,79)', 'rgb(47,79,79)', 'rgb(0,206,209)', 'rgb(148,0,211)', 'rgb(255,20,147)', 'rgb(0,191,255)', 'rgb(105,105,105)', 'rgb(105,105,105)', 'rgb(30,144,255)', 'rgb(178,34,34)', 'rgb(255,250,240)', 'rgb(34,139,34)', 'rgb(255,0,255)', 'rgb(220,220,220)', 'rgb(248,248,255)', 'rgb(255,215,0)', 'rgb(218,165,32)', 'rgb(128,128,128)', 'rgb(0,128,0)', 'rgb(173,255,47)', 'rgb(128,128,128)', 'rgb(240,255,240)', 'rgb(255,105,180)', 'rgb(205,92,92)', 'rgb(75,0,130)', 'rgb(255,255,240)', 'rgb(240,230,140)', 'rgb(230,230,250)', 'rgb(255,240,245)', 'rgb(124,252,0)', 'rgb(255,250,205)', 'rgb(173,216,230)', 'rgb(240,128,128)', 'rgb(224,255,255)', 'rgb(250,250,210)', 'rgb(211,211,211)', 'rgb(144,238,144)', 'rgb(211,211,211)', 'rgb(255,182,193)', 'rgb(255,160,122)', 'rgb(32,178,170)', 'rgb(135,206,250)', 'rgb(119,136,153)', 'rgb(119,136,153)', 'rgb(176,196,222)', 'rgb(255,255,224)', 'rgb(0,255,0)', 'rgb(50,205,50)', 'rgb(250,240,230)', 'rgb(255,0,255)', 'rgb(128,0,0)', 'rgb(102,205,170)', 'rgb(0,0,205)', 'rgb(186,85,211)', 'rgb(147,112,219)', 'rgb(60,179,113)', 'rgb(123,104,238)', 'rgb(0,250,154)', 'rgb(72,209,204)', 'rgb(199,21,133)', 'rgb(25,25,112)', 'rgb(245,255,250)', 'rgb(255,228,225)', 'rgb(255,228,181)', 'rgb(255,222,173)', 'rgb(0,0,128)', 'rgb(253,245,230)', 'rgb(128,128,0)', 'rgb(107,142,35)', 'rgb(255,165,0)', 'rgb(255,69,0)', 'rgb(218,112,214)', 'rgb(238,232,170)', 'rgb(152,251,152)', 'rgb(175,238,238)', 'rgb(219,112,147)', 'rgb(255,239,213)', 'rgb(255,218,185)', 'rgb(205,133,63)', 'rgb(255,192,203)', 'rgb(221,160,221)', 'rgb(176,224,230)', 'rgb(128,0,128)', 'rgb(255,0,0)', 'rgb(188,143,143)', 'rgb(65,105,225)', 'rgb(139,69,19)', 'rgb(250,128,114)', 'rgb(244,164,96)', 'rgb(46,139,87)', 'rgb(255,245,238)', 'rgb(160,82,45)', 'rgb(192,192,192)', 'rgb(135,206,235)', 'rgb(106,90,205)', 'rgb(112,128,144)', 'rgb(112,128,144)', 'rgb(255,250,250)', 'rgb(0,255,127)', 'rgb(70,130,180)', 'rgb(210,180,140)', 'rgb(0,128,128)', 'rgb(216,191,216)', 'rgb(255,99,71)', 'rgb(64,224,208)', 'rgb(238,130,238)', 'rgb(245,222,179)', 'rgb(255,255,255)', 'rgb(245,245,245)', 'rgb(255,255,0)', 'rgb(154,205,50)');
+
+		switch($this->get_option('colors_format')) {
+			case 1: // -> Named
+				$css_to_compress = str_replace($rgb_named_colors, $keyword_named_colors, $css_to_compress);
+				$css_to_compress = str_replace($hex_named_colors, $keyword_named_colors, $css_to_compress);
+				break;
+			case 2: // -> Hex
+				$css_to_compress = str_ireplace($keyword_named_colors, $hex_named_colors, $css_to_compress);
+				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#i', array($this, 'rgb2hex'), $css_to_compress);
+				break;
+			case 3: // -> RGB
+				$css_to_compress = str_ireplace($keyword_named_colors, $rgb_named_colors, $css_to_compress);
+				$css_to_compress = preg_replace_callback('#(:[^;]*)\#((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'hex2rgb'), $css_to_compress);
+				break;
+		}
+
+		return $css_to_compress;
+	}
+	
+	// Conversion d'un code couleur hexadécimal en RGB
+	private function hex2rgb($matches) {
+		$hex_color = str_split($matches[2], 2);
+		$hex_color = hexdec($hex_color[0]) . ',' . hexdec($hex_color[1]) . ',' . hexdec($hex_color[2]);
+
+		return $matches[1] . 'rgb(' . $hex_color . ')' . $matches[5];
+	}
+	
+	// Conversion d'un code couleur RGB en hexadécimal
+	private function rgb2hex($matches) {
+		$rgb_color = explode(',', str_replace(' ', '', $matches[2]));
+		$rgb_color = $this->rgb_part2hex($rgb_color[0]) . $this->rgb_part2hex($rgb_color[1]) . $this->rgb_part2hex($rgb_color[2]);
+		
+		return $matches[1] . '#' . $rgb_color . $matches[6];
+	}
+	
+	// Conversion d'un des triplets RGB en hexadécimal
+	private function rgb_part2hex($rgb_part) {
+		return str_pad(dechex($rgb_part), 2, '0', STR_PAD_LEFT);
+	}
+	
+	// Conversion d'un code RGB de pourcentages à valeurs chiffrées
+	private function rgb_percent2value($matches) {
+		return $matches[1] . $this->rgb_part_percent2value($matches[2]) . ',' . $this->rgb_part_percent2value($matches[3]) . ',' . $this->rgb_part_percent2value($matches[4]) . $matches[5];
+	}
+	
+	// Conversion d'un des triplets RGB de pourcentage à une valeur chiffrée
+	private function rgb_part_percent2value($percent) {
+		return round($percent*255/100);
 	}
 
 	private function format_hex_color_values($matches) {
@@ -206,6 +282,8 @@ class CSSLisible {
 		
 		// Fix url()
 		$css_to_clean = preg_replace('#(url|rgba|rgb|hsl|hsla|attr)\((.*)\)(\S)#isU', '$1($2) $3', $css_to_clean);
+		// Fix media query : and ()
+		$css_to_clean = str_replace(' and(', ' and (', $css_to_clean);
 		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
 		
 		// Début du listing des propriétés
