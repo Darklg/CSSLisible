@@ -116,7 +116,7 @@ class CSSLisible {
 	private function get_options_from_post() {
 
 		if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $this->listing_separateurs)) {
-			$this->set_option('separateur', $this->listing_separateurs[$_POST['type_separateur']]);
+			$this->set_option('separateur', $_POST['type_separateur']);
 		}
 
 		if (isset($_POST['distance_selecteurs']) && ctype_digit($_POST['distance_selecteurs'])) {
