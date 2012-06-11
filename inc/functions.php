@@ -447,13 +447,13 @@ class CSSLisible {
 			// On trie les proprietes récupérées
 			foreach ($this->listing_proprietes as $propriete) {
 				if (isset($properties_tmp[$propriete])) {
-					$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->get_option('separateur') . $properties_tmp[$propriete] . ';';
+					$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('separateur')] . $properties_tmp[$propriete] . ';';
 					unset($properties_tmp[$propriete]);
 				}
 				// On regarde aussi dans les doublons
 				if (isset($properties_dbl[$propriete])) {
 					foreach ($properties_dbl[$propriete] as $values) {
-						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->get_option('separateur') . $values[1] . ';';
+						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('separateur')] . $values[1] . ';';
 					}
 					unset($properties_dbl[$propriete]);
 				}
@@ -461,11 +461,11 @@ class CSSLisible {
 
 			// On ajoute les proprietes qui n'ont pas été affichée pour l'instant
 			foreach ($properties_tmp as $propriete => $valeur) {
-				$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->get_option('separateur') . $valeur . ';';
+				$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('separateur')] . $valeur . ';';
 				// On regarde aussi dans les doublons
 				if (isset($properties_dbl[$propriete])) {
 					foreach ($properties_dbl[$propriete] as $values) {
-						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->get_option('separateur') . $values[1] . ';';
+						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('separateur')] . $values[1] . ';';
 					}
 					unset($properties_dbl[$propriete]);
 				}
