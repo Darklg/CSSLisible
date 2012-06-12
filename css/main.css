@@ -112,6 +112,7 @@ a:active {
 	Formulaire
 	========================================================================== */
 
+.btn_try_itÒ,
 .go_clean_css,
 #clean_css {
 	-webkit-transition:border,background 0.3s ease;
@@ -180,6 +181,7 @@ label,
 	border-radius:2px;
 }
 
+.go_clean_css.go_try_me,
 .go_clean_css.go_options {
 	-ms-filter:"alpha(Opacity=50)";
 	filter: alpha(opacity=50);
@@ -188,5 +190,9 @@ label,
 
 .go_clean_css:hover {
 	background:#e0e0e0;
+}
+
+.go_clean_css.go_try_me {
+    float:left;
 }
 
