@@ -1,0 +1,12 @@
+.maclass{-webkit-border-radius: 3px;-moz-background-clip: border;
+-moz-border-radius : 3px;border-radius :3px;-webkit-background-clip: border;
+background-clip: border;}
+.maclass:before{content:'•'}
+
+a{border:1px solid red;-webkit-box-shadow: inset 0 0 0 1px #000;-moz-box-shadow: inset 0 0 0 1px #000;
+box-shadow: inset 0 0 0 1px #000;}
+
+@media all and (max-width:600px) {
+	body{background-color:red;
+	    border-left:0px}
+}

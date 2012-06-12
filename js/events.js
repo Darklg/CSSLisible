@@ -1,16 +1,4 @@
-function $(id){
-	return document.getElementById(id);
-}
 
-function toggle(element){
-	return (element.style.display = (element.style.display == 'block') ? 'none' : 'block');
-}
-
-function show_hide_blocks_if_checked(element_checked,blocks){
-	for(block in blocks){
-		$(blocks[block]).style.display = (element_checked.checked ? 'none' : 'block');
-	}
-}
 
 // Affiche ou non des blocs selon le type d'indentation demandé.
 if($('selecteur_par_ligne') && $('tout_compresse')){
@@ -40,5 +28,55 @@ if($('options_toggle') && $('options_block')){
 	$('options_toggle').onclick = function(){
 		toggle($('options_block'));
 		return false;
+	};
+}
+
+if($('try_me') && $('clean_css')){
+    $('try_me').onclick = function(){
+        
+        var xhr=null;
+
+        if (window.XMLHttpRequest) { 
+            xhr = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.onreadystatechange = function() { 
+            if (xhr.readyState==4) {
+                $('clean_css').value = xhr.responseText;
+            }
+        };
+
+        //on appelle le fichier reponse.txt
+        xhr.open("GET", 'css/code-sale.css?t='+microtime(), true);
+        xhr.send(null);
+        
+        return false;
+    };
+}
+
+/* ----------------------------------------------------------
+   Fonctions
+   ------------------------------------------------------- */
+
+function $(id){
+	return document.getElementById(id);
+}
+
+function toggle(element){
+	return (element.style.display = (element.style.display == 'block') ? 'none' : 'block');
+}
+
+function show_hide_blocks_if_checked(element_checked,blocks){
+	for(block in blocks){
+		$(blocks[block]).style.display = (element_checked.checked ? 'none' : 'block');
 	}
 }
+
+
+function microtime(){
+    return new Date().getTime()
+}
+
+ 
