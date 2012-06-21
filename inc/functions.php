@@ -49,7 +49,7 @@ class CSSLisible {
 	);
 	private $strings_tofix = array(
 		'url_data_etc' => array(
-			'regex' => '#url\((.*)\)#',
+			'regex' => '#url\((.*)\)#U',
 			'list' => array()
 		),
 		'ms_filter' => array(
