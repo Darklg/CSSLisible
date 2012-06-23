@@ -29,6 +29,7 @@ if($('options_toggle') && $('options_block')){
 	// On ne les affiche/masque qu'au clic du bouton d'options
 	$('options_toggle').onclick = function(){
 		toggle($('options_block'));
+		$('options_toggle').title = ($('options_block').style.display == 'block') ? 'Masquer les options' : 'Afficher les options';
 		return false;
 	};
 }
