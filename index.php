@@ -45,7 +45,7 @@ include dirname(__FILE__) . '/inc/header.php';
 			<div class="submit-block">
 				<button id="try_me" class="go_clean_css go_try_me">&#x2023; Code de démo</button>
 				<span>
-					<button id="options_toggle" class="go_clean_css go_options">&rarrhk; Options</button>
+					<button id="options_toggle" class="go_clean_css go_options" title="Afficher les options">&rarrhk; Options</button>
 					<button class="go_clean_css">Nettoyer le code &rarr;</button>
 				</span>
 			</div>
