@@ -169,7 +169,6 @@ label,
 }
 
 .go_clean_css {
-	float:right;
 	height:25px;
 	cursor:pointer;
 	background:#f0f0f0;
@@ -191,7 +190,6 @@ label,
 	background:#e0e0e0;
 }
 
-.go_clean_css.go_try_me {
-  float:left;
+.submit-block span {
+  float:right;
 }
-
