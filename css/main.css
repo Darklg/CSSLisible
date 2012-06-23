@@ -190,6 +190,10 @@ label,
 	background:#e0e0e0;
 }
 
+.no-js .go_options {
+  display:none;
+}
+
 .submit-block span {
   float:right;
 }

@@ -9,7 +9,7 @@ include dirname(__FILE__) . '/inc/header.php';
 		<meta name="viewport" content="width=680" />
 		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
 	</head>
-	<body>
+	<body class="no-js">
 	<div id="main-container">
 		<h1><?php echo TITRE_SITE; ?></h1>
 		<form id="main-form" action="" method="post">

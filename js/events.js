@@ -1,4 +1,6 @@
-
+// Ajout d'une classe sur le body pour détecter le support du Javascript
+var body = document.getElementsByTagName('body')[0];
+body.className = 'js';
 
 // Affiche ou non des blocs selon le type d'indentation demandé.
 if($('selecteur_par_ligne') && $('tout_compresse')){
