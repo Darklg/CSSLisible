@@ -9,7 +9,7 @@ include dirname(__FILE__) . '/inc/header.php';
 		<meta name="viewport" content="width=680" />
 		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
 	</head>
-	<body>
+	<body class="no-js">
 	<div id="main-container">
 		<h1><?php echo TITRE_SITE; ?></h1>
 		<form id="main-form" action="" method="post">
@@ -43,9 +43,11 @@ include dirname(__FILE__) . '/inc/header.php';
 				</div>
 			</div>
 			<div class="submit-block">
-				<button class="go_clean_css">Nettoyer le code &rarr;</button>
 				<button id="try_me" class="go_clean_css go_try_me">&#x2023; Code de démo</button>
-				<button id="options_toggle" class="go_clean_css go_options">&rarrhk; Options</button>
+				<span>
+					<button id="options_toggle" class="go_clean_css go_options" title="Afficher les options">&rarrhk; Options</button>
+					<button class="go_clean_css">Nettoyer le code &rarr;</button>
+				</span>
 			</div>
 		</form>
 	</div>
