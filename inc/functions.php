@@ -63,7 +63,6 @@ class CSSLisible {
 	function __construct($listing_proprietes = array()) {
 
 		$this->listing_proprietes = $listing_proprietes;
-		$this->init_session();
 
 		if (isset($_POST['clean_css'])) {
 			$this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
@@ -89,26 +88,24 @@ class CSSLisible {
 			}
 			
 		} else {
-			$this->get_options_from_session();
+			$this->get_options_from_cookies();
 		}
 	}
 
-	private function init_session() {
-		if (!session_id()) {
-			session_start();
-		}
-
-		if (!isset($_SESSION['CSSLisible'])) {
-			$_SESSION['CSSLisible'] = array('options' => array());
-		}
+	private function save_options() {
+	    setcookie ("CSSLisible", serialize(array('options' => $this->options)), time() + 365*24*3600);
 	}
 
-	// On vérifie la présence de réglages dans la session
-	private function get_options_from_session() {
-		foreach ($this->options as $option => $value) {
-			if (isset($_SESSION['CSSLisible']['options'][$option])) {
-				$this->set_option($option, $_SESSION['CSSLisible']['options'][$option]);
-			}
+	// On vérifie la présence de réglages dans les cookies
+	private function get_options_from_cookies() {
+	    if(isset($_COOKIE['CSSLisible'])){
+    	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE['CSSLisible']) : $_COOKIE['CSSLisible'];
+    	    $options_cookie = unserialize($options_cookie_brutes);
+    		foreach ($this->options as $option => $value) {
+    			if (isset($options_cookie['options'][$option])) {
+    				$this->set_option($option, $options_cookie['options'][$option]);
+    			}
+    		}
 		}
 	}
 
@@ -139,6 +136,9 @@ class CSSLisible {
 		if (isset($_POST['hex_colors_format']) && array_key_exists($_POST['hex_colors_format'],$this->listing_hex_colors_formats)) {
 			$this->set_option('hex_colors_format', $_POST['hex_colors_format']);
 		}
+		
+		$this->save_options();
+
 	}
 
 	public function get_option($option) {
@@ -147,7 +147,6 @@ class CSSLisible {
 
 	private function set_option($option, $value) {
 		$this->options[$option] = $value;
-		$_SESSION['CSSLisible']['options'][$option] = $value;
 	}
 
 	public function short_hex_color_values($matches) {
