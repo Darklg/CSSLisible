@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/inc/header.php';
 <html lang="fr">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo TITRE_SITE; ?></title>
+		<title><?php echo TITRE_SITE; ?> - Ranger vos CSS et les rendre lisibles</title>
 		<meta name="viewport" content="width=680" />
 		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
 	</head>
@@ -16,7 +16,7 @@ include dirname(__FILE__) . '/inc/header.php';
 			<p>
 				CSSLisible va r&eacute;indenter vos blocks de code, 
 				<a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, 
-				afin de fournir un code CSS Lisible et maintenable. 
+				afin de fournir un code CSS Lisible et plus maintenable. 
 				Attention, les commentaires internes aux sélecteurs sont retir&eacute;s !
 			</p>
 			<div class="form-block">
