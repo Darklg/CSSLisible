@@ -36,8 +36,8 @@ class CSSLisible {
 		'Majuscules'
 	);
 	private $options = array(
-		'type_separateur' => 0,
-		'type_indentation' => 4,
+		'type_separateur' => 2,
+		'type_indentation' => 3,
 		'distance_selecteurs' => 1,
 		'colors_format' => 0,
 		'hex_colors_format' => 0,
