@@ -60,6 +60,15 @@ include dirname(__FILE__) . '/inc/header.php';
 	</div>
 	<a href="http://github.com/darklg/CSSLisible"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/fork-me.png" alt="Fork me on GitHub" /></a>
 	
+	<?php
+	// Fichier conditionnel pour charger boutons like, google analytics, etc.
+	$hollow_file = realpath(dirname(__FILE__)).'/inc/hollow-file.php';
+	if(file_exists($hollow_file)){
+	    include $hollow_file;
+	}
+	?>
+	
+	
 	<script src="js/events.js?1329773844" type="text/javascript" charset="utf-8"></script>
 	
 	</body>
