@@ -36,8 +36,8 @@ class CSSLisible {
 		'Majuscules'
 	);
 	private $options = array(
-		'separateur' => 0,
-		'indentation' => 4,
+		'type_separateur' => 0,
+		'type_indentation' => 4,
 		'distance_selecteurs' => 1,
 		'colors_format' => 0,
 		'hex_colors_format' => 0,
@@ -101,6 +101,8 @@ class CSSLisible {
 	    if(isset($_COOKIE['CSSLisible'])){
     	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE['CSSLisible']) : $_COOKIE['CSSLisible'];
     	    $options_cookie = unserialize($options_cookie_brutes);
+    	    
+    	    // On parcourt les options
     		foreach ($this->options as $option => $value) {
     			if (isset($options_cookie['options'][$option])) {
     				$this->set_option($option, $options_cookie['options'][$option]);
@@ -108,35 +110,24 @@ class CSSLisible {
     		}
 		}
 	}
-
+	
 	// On récupère les nouveaux réglages transmis via POST
 	private function get_options_from_post() {
+	    
+	    $options_choice = array('type_separateur', 'type_indentation', 'distance_selecteurs', 'colors_format', 'hex_colors_format');
 
-		if (isset($_POST['type_separateur']) && array_key_exists($_POST['type_separateur'], $this->listing_separateurs)) {
-			$this->set_option('separateur', $_POST['type_separateur']);
-		}
-
-		if (isset($_POST['distance_selecteurs']) && ctype_digit($_POST['distance_selecteurs'])) {
-			$this->set_option('distance_selecteurs', $_POST['distance_selecteurs']);
-		}
-
-		if (isset($_POST['type_indentation']) && ctype_digit($_POST['type_indentation'])) {
-			$this->set_option('indentation', $_POST['type_indentation']);
-		}
-		$this->set_option('selecteurs_multiples_separes', isset($_POST['selecteurs_multiples_separes']));
-		$this->set_option('supprimer_selecteurs_vides', isset($_POST['supprimer_selecteurs_vides']));
-		$this->set_option('selecteur_par_ligne', isset($_POST['selecteur_par_ligne']));
-		$this->set_option('tout_compresse', isset($_POST['tout_compresse']));
-		$this->set_option('add_header', isset($_POST['add_header']));
-
-		if (isset($_POST['colors_format']) && array_key_exists($_POST['colors_format'],$this->listing_colors_formats)) {
-			$this->set_option('colors_format', $_POST['colors_format']);
-		}
-
-		if (isset($_POST['hex_colors_format']) && array_key_exists($_POST['hex_colors_format'],$this->listing_hex_colors_formats)) {
-			$this->set_option('hex_colors_format', $_POST['hex_colors_format']);
-		}
-		
+        foreach($options_choice as $option){
+            if (isset($_POST[$option])) {
+    			$this->set_option($option, $_POST[$option]);
+    		}
+        }
+        
+        $options_bool = array('selecteurs_multiples_separes', 'supprimer_selecteurs_vides', 'selecteur_par_ligne', 'tout_compresse', 'add_header');
+        
+        foreach($options_bool as $option){
+    		$this->set_option($option, isset($_POST[$option]));
+        }
+        
 		$this->save_options();
 
 	}
@@ -145,8 +136,47 @@ class CSSLisible {
 		return isset($this->options[$option]) ? $this->options[$option] : false;
 	}
 
-	private function set_option($option, $value) {
-		$this->options[$option] = $value;
+	private function set_option($option_name, $option_value) {
+	    
+	    // On verifie que l'option envoyée est ok.
+	    switch($option_name) {
+            case 'type_separateur': 
+                $option_ok = array_key_exists($option_value,$this->listing_separateurs);
+            break;
+            case 'type_indentation': 
+                $option_ok = array_key_exists($option_value,$this->listing_indentations);
+            break;
+            case 'distance_selecteurs':
+                $option_ok = array_key_exists($option_value,$this->listing_distances);
+            break;
+            case 'colors_format':
+                $option_ok = array_key_exists($option_value,$this->listing_colors_formats);
+            break;
+            case 'hex_colors_format':
+                $option_ok = array_key_exists($option_value,$this->listing_hex_colors_formats);
+            break;
+            case 'selecteurs_multiples_separes':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'supprimer_selecteurs_vides':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'selecteur_par_ligne':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'tout_compresse':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'add_header':
+                $option_ok = is_bool($option_value);
+            break;
+            default :
+		        $option_ok = false;
+        }
+	    
+	    if($option_ok){
+		    $this->options[$option_name] = $option_value;
+		}
 	}
 
 	public function short_hex_color_values($matches) {
@@ -351,7 +381,7 @@ class CSSLisible {
 
 		$str_lines = explode("\n", $string);
 		foreach ($str_lines as &$line) {
-			$line = $this->listing_indentations[$this->get_option('indentation')][0] . $line;
+			$line = $this->listing_indentations[$this->get_option('type_indentation')][0] . $line;
 		}
 
 		$return_str = implode("\n", $str_lines);
@@ -446,13 +476,13 @@ class CSSLisible {
 			// On trie les proprietes récupérées
 			foreach ($this->listing_proprietes as $propriete) {
 				if (isset($properties_tmp[$propriete])) {
-					$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('separateur')] . $properties_tmp[$propriete] . ';';
+					$new_lines[] = $this->listing_indentations[$this->get_option('type_indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('type_separateur')] . $properties_tmp[$propriete] . ';';
 					unset($properties_tmp[$propriete]);
 				}
 				// On regarde aussi dans les doublons
 				if (isset($properties_dbl[$propriete])) {
 					foreach ($properties_dbl[$propriete] as $values) {
-						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('separateur')] . $values[1] . ';';
+						$new_lines[] = $this->listing_indentations[$this->get_option('type_indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('type_separateur')] . $values[1] . ';';
 					}
 					unset($properties_dbl[$propriete]);
 				}
@@ -460,11 +490,11 @@ class CSSLisible {
 
 			// On ajoute les proprietes qui n'ont pas été affichée pour l'instant
 			foreach ($properties_tmp as $propriete => $valeur) {
-				$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('separateur')] . $valeur . ';';
+				$new_lines[] = $this->listing_indentations[$this->get_option('type_indentation')][0] . $propriete . $this->listing_separateurs[$this->get_option('type_separateur')] . $valeur . ';';
 				// On regarde aussi dans les doublons
 				if (isset($properties_dbl[$propriete])) {
 					foreach ($properties_dbl[$propriete] as $values) {
-						$new_lines[] = $this->listing_indentations[$this->get_option('indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('separateur')] . $values[1] . ';';
+						$new_lines[] = $this->listing_indentations[$this->get_option('type_indentation')][0] . $values[0] . $this->listing_separateurs[$this->get_option('type_separateur')] . $values[1] . ';';
 					}
 					unset($properties_dbl[$propriete]);
 				}
@@ -487,7 +517,7 @@ class CSSLisible {
 	private function add_header($cleaned_css) {
 		if (strlen($cleaned_css)) {
 			$str_date = date('Y-m-d H:i (U)');
-			$indentation = $this->listing_indentations[$this->get_option('indentation')][0];
+			$indentation = $this->listing_indentations[$this->get_option('type_indentation')][0];
 
 			$header = <<<EOT
 /*
