@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/inc/header.php';
 <html lang="fr">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo TITRE_SITE; ?> - Ranger vos CSS et les rendre lisibles</title>
+		<title><?php echo TITRE_SITE; ?> - Ranger votre CSS et le rendre lisible</title>
 		<meta name="viewport" content="width=680" />
 		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
 	</head>
