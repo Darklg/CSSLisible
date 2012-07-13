@@ -86,6 +86,8 @@ class CSSLisible {
 			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
 				$this->buffer = $this->add_header($this->buffer);
 			}
+            
+            $this->buffer = $this->_cleanGradients($this->buffer);
 			
 		} else {
 			$this->get_options_from_cookies();
@@ -530,4 +532,63 @@ EOT;
 		
 		return $cleaned_css;
 	}
+    
+    /**
+     * Make gradients more readable
+     * 
+     * @param string $css CSS code
+     * 
+     * @return string
+     * */
+    private function _cleanGradients($css)
+    {
+        $indent=$this->listing_indentations[$this->get_option('type_indentation')][0];
+        $linebreak=PHP_EOL.$indent.$indent;
+        preg_match_all(
+            "#-*-linear-gradient\((.*)\)#",
+            $css, $matches, PREG_SET_ORDER
+        );
+        foreach ($matches as $match) {
+            $result = $linebreak.$match[1].PHP_EOL.$indent;
+            $result=str_replace(",rgb", ",".$linebreak."rgb", $result);
+            $result=str_replace($match[1], $result, $match[0]);
+            $css=str_replace($match[0], $result, $css);
+        }
+        preg_match_all(
+            "#-webkit-gradient\((.*)\)#",
+            $css, $matches, PREG_SET_ORDER
+        );
+        foreach ($matches as $match) {
+            $result = $linebreak.$match[1].PHP_EOL.$indent;
+            $result=str_replace(
+                ",color-stop", ",".$linebreak."color-stop", $result
+            );
+            $result=str_replace($match[1], $result, $match[0]);
+            $css=str_replace($match[0], $result, $css);
+        }
+        preg_match_all(
+            "#-*-radial-gradient\((.*)\)#",
+            $css, $matches, PREG_SET_ORDER
+        );
+        foreach ($matches as $match) {
+            $result = $linebreak.$match[1].PHP_EOL.$indent;
+            $result=str_replace(
+                ",", ",".$linebreak, $result
+            );
+            $result=str_replace($match[1], $result, $match[0]);
+            preg_match_all(
+                "#rgb(a*)\([0-9]+%*,".
+                $linebreak."[0-9]+%*,".
+                $linebreak."[0-9]+%*(,".
+                $linebreak."\.[0-9])*\) [0-9]+%#s",
+                $result, $matchesRGB, PREG_SET_ORDER
+            );
+            foreach ($matchesRGB as $matchRGB) {
+                $resultRGB=str_replace(PHP_EOL.$indent.$indent, " ", $matchRGB[0]);
+                $result=str_replace($matchRGB[0], $resultRGB, $result);
+            }
+            $css=str_replace($match[0], $result, $css);
+        }
+        return $css;
+    }
 }
