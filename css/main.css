@@ -1,63 +1,63 @@
-/* =============================================================================
-	Reset CSS : Eric Meyer.
-	========================================================================== */
+/* ----------------------------------------------------------
+   Reset CSS : Eric Meyer.
+   ------------------------------------------------------- */
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block}
-body {line-height:1}
-ol,ul {list-style:none}
-blockquote,q {quotes:none}
-blockquote:before,blockquote:after,q:before,q:after {content:'';content:none}
-table {border-collapse:collapse;border-spacing:0}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1;}
+ol, ul {list-style:none;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';content:none;}
+table {border-collapse:collapse;border-spacing:0;}
 
-/* =============================================================================
-	Base Layout
-	========================================================================== */
+/* ----------------------------------------------------------
+   Base Layout
+   ------------------------------------------------------- */
 
 html {
-	background:#f0f0f0;
+    background: #f0f0f0;
 }
 
 body {
-	font:62.5% sans-serif;
+    font: 62.5% sans-serif;
 }
 
 #main-container {
-	width:600px;
-	margin:20px auto;
-	padding:20px;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-	background:#FFF;
-	-webkit-background-clip:padding-box;
+    width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #FFF;
+    -webkit-background-clip: padding-box;
 }
 
 h1 {
-	margin-bottom:10px;
-	padding-bottom:10px;
-	border-bottom:1px solid #f0f0f0;
-	font-size:20px;
-	color:#989796;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 20px;
+    color: #989796;
 }
 
 p {
-	margin-bottom:16px;
-	font-size:12px;
-	line-height:16px;
-	color:#333;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #333;
 }
 
 a {
-	color:#369;
+    color: #369;
 }
 
 a:hover {
-	color:#963;
+    color: #963;
 }
 
 a:active {
-	color:#000;
+    color: #000;
 }
 
 /* ----------------------------------------------------------
@@ -65,135 +65,215 @@ a:active {
    ------------------------------------------------------- */
 
 #footer {
-	text-align:center;
-	color:#676767;
-	font-size:11px;
-	margin-bottom:20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: #676767;
 }
 
-/* =============================================================================
-	Grids
-	========================================================================== */
+/* ----------------------------------------------------------
+   Grids
+   ------------------------------------------------------- */
 
 .the_grid {
-	clear:both;
-	overflow:hidden;
+    clear: both;
+    overflow: hidden;
 }
 
 .the_grid > * {
-	float:left;
-	zoom:1;
-	overflow:hidden;
+    float: left;
+    zoom: 1;
+    overflow: hidden;
 }
 
 .the_grid:after {
-	content:" ";
-	display:block;
-	visibility:hidden;
-	clear:both;
-	height:0;
+    content: " ";
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
 }
 
 .the_grid.gri-1-2 >:last-child,
 .the_grid.gri-2-1 >:first-child {
-	width:66.6%;
+    width: 66.6%;
 }
 
 .the_grid.gri-1-2 >:first-child,
 .the_grid.gri-2-1 >:last-child {
-	width:33.3%;
+    width: 33.3%;
 }
 
 .the_grid.gri-1-1 > * {
-	width:50%;
+    width: 50%;
 }
 
-/* =============================================================================
-	Formulaire
-	========================================================================== */
+/* ----------------------------------------------------------
+   Base des onglets
+   ------------------------------------------------------- */
+
+.cssnt-tabs-clic {
+    position: relative;
+    top: 1px;
+    overflow: hidden;
+}
+
+.cssnt-tabs-clic li {
+    float: left;
+}
+
+.cssnt-tabs-clic label {
+    display: block;
+    float: left;
+}
+
+.cssnt-tabs-clic label input {
+    position:absolute;
+    top:-100px;
+    left:-100px;
+}
+
+.cssnt-tabs-target {
+    padding-top: 5px;
+    margin-bottom: 15px;
+    border-top: 1px solid #ccc;
+}
+
+/* Style par défaut */
+
+.cssnt-tabs-clic li {
+    margin-right: 3px;
+    font-size: 12px;
+}
+
+.cssnt-tabs-clic label {
+    padding: 0 6px;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    text-decoration: none;
+    line-height: 25px;
+    background-color: #f0f0f0;
+    -webkit-background-clip: border;
+    -moz-background-clip: border;
+    background-clip: border;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.cssnt-tabs-clic .active label {
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+}
+
+/* ----------------------------------------------------------
+   Formulaire
+   ------------------------------------------------------- */
 
 .go_clean_css,
+#clean_css_url,
 #clean_css {
-	-webkit-transition:border,background 0.3s ease;
-	-moz-transition:border,background 0.3s ease;
-	-o-transition:border,background 0.3s ease;
-	transition:border,background 0.3s ease;
+    -webkit-transition: border,background 0.3s ease;
+    -moz-transition: border,background 0.3s ease;
+    -o-transition: border,background 0.3s ease;
+    transition: border,background 0.3s ease;
+}
+
+#clean_css_url,
+#clean_css {
+    display: block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #c0c0c0;
+    outline: 0;
+    background: #f0f0f0;
 }
 
 #clean_css {
-	width:100%;
-	margin-bottom:15px;
-	border:1px solid #c0c0c0;
-	outline:0;
-	background:#f0f0f0;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	box-sizing:border-box;
-	resize:vertical;
+    resize: vertical;
 }
 
+#clean_css_url {
+    height: 25px;
+    padding: 0 5px;
+    vertical-align: middle;
+}
+
+#clean_css_url:focus,
+#clean_css_url:hover,
 #clean_css:focus,
 #clean_css:hover {
-	border-color:#999;
+    border-color: #999;
 }
 
+#clean_css_url:focus,
 #clean_css:focus {
-	background:#fff;
+    background: #fff;
 }
 
 label {
-	font-size:12px;
+    font-size: 12px;
 }
 
 label,
 .in-block {
-	display:inline-block;
-	line-height:25px;
+    display: inline-block;
+    line-height: 25px;
 }
 
 .in-block {
-	width:91px;
-	margin-right:5px;
-	text-align:left;
+    width: 91px;
+    margin-right: 5px;
+    text-align: left;
 }
 
 .in-block select {
-	width:90px;
+    width: 90px;
 }
 
 .check-block,
 .select-block,
 .submit-block {
-	height:25px;
-	overflow:hidden;
+    height: 25px;
+    overflow: hidden;
 }
 
 .go_clean_css {
-	height:25px;
-	cursor:pointer;
-	background:#f0f0f0;
-	-webkit-background-clip:padding-box;
-	border:1px solid #c0c0c0;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
+    height: 25px;
+    border: 1px solid #c0c0c0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background: #f0f0f0;
+    -webkit-background-clip: padding-box;
+    cursor: pointer;
 }
 
 .go_clean_css.go_try_me,
 .go_clean_css.go_options {
-	-ms-filter:"alpha(Opacity=50)";
-	filter: alpha(opacity=50);
-	opacity:0.50;
+    opacity: 0.50;
+    filter: alpha(opacity=50);
 }
 
 .go_clean_css:hover {
-	background:#e0e0e0;
+    background: #e0e0e0;
 }
 
 .no-js .go_options {
-  display:none;
+    display: none;
 }
 
 .submit-block span {
-  float:right;
+    float: right;
 }
