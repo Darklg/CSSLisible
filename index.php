@@ -7,22 +7,24 @@ include dirname(__FILE__) . '/inc/header.php';
 		<meta charset="utf-8"/>
 		<title><?php echo TITRE_SITE; ?> - Ranger votre CSS et le rendre lisible</title>
 		<meta name="viewport" content="width=680" />
-		<link rel="stylesheet" href="css/main.css?201112141443" type="text/css" />
+		<link rel="stylesheet" href="css/main.css?201207222320" type="text/css" />
 	</head>
 	<body class="no-js">
 	<div id="main-container">
 		<h1><?php echo TITRE_SITE; ?></h1>
-		<form id="main-form" action="" method="post">
+		<form id="main-form" action="" method="post" enctype="multipart/form-data">
 			<p>
 				CSSLisible va r&eacute;indenter vos blocks de code, 
 				<a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, 
 				afin de fournir un code CSS Lisible et plus maintenable. 
 				Attention, les commentaires internes aux sélecteurs sont retir&eacute;s !
 			</p>
-			<div class="form-block">
-				<label for="clean_css">CSS &agrave; nettoyer :</label><br />
-				<textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
-			</div>
+			
+
+            
+			<?php include dirname(__FILE__) . '/inc/tpl/errors.php'; ?>
+			<?php include dirname(__FILE__) . '/inc/tpl/formulaire/tabs.php'; ?>
+
 			<div id="options_block">
 				<div class="the_grid gri-2-1">
 					<div>
@@ -34,6 +36,7 @@ include dirname(__FILE__) . '/inc/header.php';
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/add_header.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/return_file.php'; ?>
 					&nbsp;</div>
 					<div>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
@@ -70,7 +73,7 @@ include dirname(__FILE__) . '/inc/header.php';
 	?>
 	
 	
-	<script src="js/events.js?1329773844" type="text/javascript" charset="utf-8"></script>
+	<script src="js/events.js?1342992052" type="text/javascript" charset="utf-8"></script>
 	
 	</body>
 </html>
