@@ -2,6 +2,11 @@
 var body = document.getElementsByTagName('body')[0];
 body.className = 'js';
 
+if($('tab-list')) {
+    var tabs = $('tab-list').getElementsByTagName('LI');
+    hideAllTabsBut(tabs,0);
+}
+
 // Affiche ou non des blocs selon le type d'indentation demandé.
 if($('selecteur_par_ligne') && $('tout_compresse')){
 	
@@ -67,6 +72,41 @@ function $(id){
 	return document.getElementById(id);
 }
 
+function getClass(element){
+    var listreturn = [];
+    if(element.className){
+        listreturn = element.className.split(' ');
+    }
+    else {
+        element.className = '';
+    }
+    return listreturn;
+}
+
+function hasClass(element,classe){
+    var classes = getClass(element);
+    return inArray(classes,classe);
+}
+
+function addClass(element,classe){
+    if(!hasClass(element,classe)){
+        var classes = getClass(element);
+        classes.push(classe);
+        element.className = classes.join(' ');
+    }
+}
+
+function removeClass(element,classe){
+    var newclasses = [];
+    var classes = getClass(element);
+    for(var i = 0; i < classes.length; i++){
+        if(classe != classes[i]){
+            newclasses.push(classes[i]);
+        }
+    }
+    element.className = newclasses.join(' ');
+}
+
 function toggle(element){
 	return (element.style.display = (element.style.display == 'block') ? 'none' : 'block');
 }
@@ -77,9 +117,39 @@ function show_hide_blocks_if_checked(element_checked,blocks){
 	}
 }
 
-
 function microtime(){
     return new Date().getTime()
 }
 
- 
+function hideAllTabsBut(tabs,but){
+    for(var i = 0; i<tabs.length; i++){
+        if(tabs[i].getAttribute('data-cible') != null){
+            if(tabs[i].getAttribute('data-count') == null){
+                tabs[i].setAttribute('data-count',i);
+                tabs[i].onclick = function(){
+                    var datacount = parseInt(this.getAttribute('data-count'));
+                    hideAllTabsBut(tabs,datacount);
+                }
+            }
+            var cible = $(tabs[i].getAttribute('data-cible'));
+            cible.style.display = 'none';
+            removeClass(tabs[i],'active');
+            removeClass(cible,'active');
+        }
+    }
+    var cible = $(tabs[but].getAttribute('data-cible'));
+    cible.style.display = 'block';
+    addClass(tabs[but],'active');
+    addClass(cible,'active');
+}
+
+/* Source : http://akoo.be/2008/06/in_array-en-javascript/ */
+function inArray(array, p_val) {
+    var l = array.length;
+    for(var i = 0; i < l; i++) {
+        if(array[i] == p_val) {
+            return true;
+        }
+    }
+    return false;
+}
