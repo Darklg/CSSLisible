@@ -52,11 +52,12 @@ include dirname(__FILE__) . '/inc/header.php';
 		</form>
 	</div>
 	<div id="footer">
+	    <a target="_blank" href="https://github.com/Darklg/CSSLisible/blob/master/README.md">Documentation</a> - 
 		Source disponible sur 
-		<a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a>. 
+		<a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a> - 
 		Contributeurs : 
 		<a target="_blank" href="http://github.com/Darklg">Darklg</a>,
-		<a target="_blank" href="http://github.com/NumEricR">NumEricR</a>.
+		<a target="_blank" href="http://github.com/NumEricR">NumEricR</a>
 	</div>
 	<a href="http://github.com/darklg/CSSLisible"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/fork-me.png" alt="Fork me on GitHub" /></a>
 	
