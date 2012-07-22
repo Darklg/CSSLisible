@@ -46,6 +46,7 @@ class CSSLisible {
 		'selecteur_par_ligne' => false,
 		'tout_compresse' => false,
 		'add_header' => false,
+		'return_file' => false,
 	);
 	private $strings_tofix = array(
 		'url_data_etc' => array(
@@ -57,6 +58,11 @@ class CSSLisible {
 			'list' => array()
 		),
 	);
+	private $errors = array(
+	);
+	private $config = array(
+	   'max_filesize' => 307200,
+	);
 
 	private $comments_isoles = array();
 
@@ -65,28 +71,34 @@ class CSSLisible {
 		$this->listing_proprietes = $listing_proprietes;
 
 		if (isset($_POST['clean_css'])) {
-			$this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
+			$this->get_buffer();
 			$this->get_options_from_post();
 
-			if(!$this->get_option('tout_compresse')){
-				$this->buffer = $this->mise_ecart_commentaires($this->buffer);
-			}
-			$this->buffer = $this->mise_ecart_propriete($this->buffer);
-			$this->buffer = $this->clean_css($this->buffer);
-			$this->buffer = $this->sort_css($this->buffer);
-			$this->buffer = $this->reindent_media_queries($this->buffer);
-			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
-			if(!$this->get_option('tout_compresse')){
-				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
-			}
-			if($this->get_option('tout_compresse')){
-				$this->buffer = $this->compress_css($this->buffer,1);
-			}
-			
-			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
-				$this->buffer = $this->add_header($this->buffer);
-			}
-			
+            if(empty($this->errors)){
+    			if(!$this->get_option('tout_compresse')){
+    				$this->buffer = $this->mise_ecart_commentaires($this->buffer);
+    			}
+    			$this->buffer = $this->mise_ecart_propriete($this->buffer);
+    			$this->buffer = $this->clean_css($this->buffer);
+    			$this->buffer = $this->sort_css($this->buffer);
+    			$this->buffer = $this->reindent_media_queries($this->buffer);
+    			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+    			if(!$this->get_option('tout_compresse')){
+    				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
+    			}
+    			if($this->get_option('tout_compresse')){
+    				$this->buffer = $this->compress_css($this->buffer,1);
+    			}
+
+    			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
+    				$this->buffer = $this->add_header($this->buffer);
+    			}
+
+    			if($this->get_option('return_file')){
+    			    $this->return_file();
+    			}
+            }
+
 		} else {
 			$this->get_options_from_cookies();
 		}
@@ -94,6 +106,10 @@ class CSSLisible {
 
 	private function save_options() {
 	    setcookie ("CSSLisible", serialize(array('options' => $this->options)), time() + 365*24*3600);
+	}
+	
+	public function display_errors(){
+	    return implode('<br />',$this->errors);
 	}
 
 	// On vérifie la présence de réglages dans les cookies
@@ -111,6 +127,94 @@ class CSSLisible {
 		}
 	}
 	
+	private function get_buffer(){
+	    $tab_opened = 'form';
+	    if(isset($_POST['tab_opened'])){
+	        $tab_opened = $_POST['tab_opened'];
+	    }
+	    
+        switch ($tab_opened) {
+            case 'url':
+                $this->get_buffer_from_url();
+            break;
+            
+            case 'file' :
+                $this->get_buffer_from_file();
+            break; 
+
+            default:
+                $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
+            break;
+        }
+	}
+	
+	private function get_buffer_from_url(){
+	    if(isset($_POST['clean_css_url'])){
+	        // On vérifie que l'url n'est pas vide.
+	        if(empty($_POST['clean_css_url'])){
+	            $this->errors[] = 'Aucune URL n’a été fournie.';
+	        }
+	        // On verifie que l'url est valide
+	        if(empty($this->errors) && !filter_var($_POST['clean_css_url'], FILTER_VALIDATE_URL)){
+	            $this->errors[] = 'La valeur fournie n’est pas une URL.';
+	        }
+	        // On verifie que l'url contient ".css"
+	        if(empty($this->errors)){
+	            $url_parsee = parse_url($_POST['clean_css_url']);
+	            if(!isset($url_parsee['path']) || substr($url_parsee['path'],-4,4) != '.css'){
+	                $this->errors[] = 'L’URL doit être celle d’un fichier CSS.';
+	            }
+	        }
+	        // On telecharge le contenu de l'url
+	        if(empty($this->errors)){
+	            $css_to_parse = $this->get_url_contents($_POST['clean_css_url']);
+	        }
+	        // Si le contenu de l'url existe, on l'utilise comme buffer
+	        if(empty($this->errors) && $css_to_parse !== false){
+	            $this->buffer = $css_to_parse;
+	        }
+	    }
+	}
+	
+	private function get_url_contents($url){
+	    $result = '';
+	    $ch = curl_init();
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+        curl_setopt ($ch, CURLOPT_USERAGENT, 'CSSLisible');
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5); 
+        curl_exec($ch);
+        if(!$result = curl_exec($ch)) {
+            $this->errors[] = 'Impossible de télécharger ce fichier.';
+        }
+        curl_close($ch);
+        return $result;
+	}
+	
+	private function get_buffer_from_file(){
+	    if(isset($_FILES['clean_css_file']) && !empty($_FILES['clean_css_file'])){
+	        $file = $_FILES['clean_css_file'];
+	        if(empty($this->errors) && $file['error'] != 0){
+	            $this->errors[] = 'Impossible d’uploader ce fichier';
+	        }
+	        if(empty($this->errors) && $file['type'] != 'text/css') {
+	            $this->errors[] = 'Il ne s’agit pas d’un fichier CSS.';
+	        }
+	        if(empty($this->errors) && $file['size'] > $this->config['max_filesize']){
+	            $this->errors[] = 'Le fichier CSS est trop lourd. (Maximum : '.round($this->config['max_filesize']/1024).' ko)';
+	        }
+	        if(empty($this->errors)){
+	            $this->buffer = file_get_contents($file['tmp_name']);
+	        }
+	        
+	        // On fait le ménage
+	        if(isset($file['tmp_name'])){
+	            @unlink($file['tmp_name']);
+	        }
+	    }
+	}
+	
 	// On récupère les nouveaux réglages transmis via POST
 	private function get_options_from_post() {
 	    
@@ -122,7 +226,7 @@ class CSSLisible {
     		}
         }
         
-        $options_bool = array('selecteurs_multiples_separes', 'supprimer_selecteurs_vides', 'selecteur_par_ligne', 'tout_compresse', 'add_header');
+        $options_bool = array('selecteurs_multiples_separes', 'supprimer_selecteurs_vides', 'selecteur_par_ligne', 'tout_compresse', 'add_header', 'return_file');
         
         foreach($options_bool as $option){
     		$this->set_option($option, isset($_POST[$option]));
@@ -168,6 +272,9 @@ class CSSLisible {
                 $option_ok = is_bool($option_value);
             break;
             case 'add_header':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'return_file':
                 $option_ok = is_bool($option_value);
             break;
             default :
@@ -529,5 +636,21 @@ EOT;
 		}
 		
 		return $cleaned_css;
+	}
+	
+	// Renvoie un fichier CSS
+	private function return_file(){
+	    if(empty($errors)){
+	        header('Content-Disposition: attachment; filename=csslisible-'.time().'.css');
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+	        echo $this->buffer;
+            flush();
+            exit();
+            
+	    }
+	    exit;
 	}
 }
