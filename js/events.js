@@ -11,7 +11,7 @@ if($('tab-list')) {
 if($('selecteur_par_ligne') && $('tout_compresse')){
 	
 	var blocks_options_selecteur = ['block_tout_compresse','block_distance_selecteurs','block_selecteurs_multiples_separes'];
-	var blocks_options_tout = ['block_selecteur_par_ligne','block_type_separateur','block_distance_selecteurs','block_type_indentation','block_selecteurs_multiples_separes','block_hex_colors_format','block_supprimer_selecteurs_vides','block_add_header'];
+	var blocks_options_tout = ['block_selecteur_par_ligne','block_type_separateur','block_distance_selecteurs','block_type_indentation','block_selecteurs_multiples_separes','block_colors_format','block_hex_colors_format','block_supprimer_selecteurs_vides'];
 	
 	if($('selecteur_par_ligne').checked){
 		show_hide_blocks_if_checked($('selecteur_par_ligne'),blocks_options_selecteur);
@@ -29,12 +29,15 @@ if($('selecteur_par_ligne') && $('tout_compresse')){
 }
 
 if($('options_toggle') && $('options_block')){
+    var options_toggle_name = '';
 	// On masque les options
 	$('options_block').style.display = 'none';
 	// On ne les affiche/masque qu'au clic du bouton d'options
 	$('options_toggle').onclick = function(){
 		toggle($('options_block'));
-		$('options_toggle').title = ($('options_block').style.display == 'block') ? 'Masquer les options' : 'Afficher les options';
+		options_toggle_name = ($('options_block').style.display == 'block') ? 'Masquer les options' : 'Afficher les options';
+		$('options_toggle').title = options_toggle_name
+		$('options_toggle').innerHTML = '&rarrhk; '+options_toggle_name
 		return false;
 	};
 }
