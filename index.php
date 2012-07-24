@@ -7,7 +7,7 @@ include dirname(__FILE__) . '/inc/header.php';
 		<meta charset="utf-8"/>
 		<title><?php echo TITRE_SITE; ?> - Ranger votre CSS et le rendre lisible</title>
 		<meta name="viewport" content="width=680" />
-		<link rel="stylesheet" href="css/main.css?201207222320" type="text/css" />
+		<link rel="stylesheet" href="css/main.css?201207242100" type="text/css" />
 	</head>
 	<body class="no-js">
 	<div id="main-container">
@@ -66,7 +66,7 @@ include dirname(__FILE__) . '/inc/header.php';
 	?>
 	
 	
-	<script src="js/events.js?1342992052" type="text/javascript" charset="utf-8"></script>
+	<script src="js/events.js?1342992053" type="text/javascript" charset="utf-8"></script>
 	
 	</body>
 </html>
