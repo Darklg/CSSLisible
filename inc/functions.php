@@ -536,6 +536,10 @@ class CSSLisible {
 		foreach ($matches[0] as $match) {
 			$css_to_reindent = str_replace($match, '}' . "\n" . '}', $css_to_reindent);
 		}
+		
+		// On supprime les derniers espaces qui traînent.
+		$css_to_reindent = preg_replace('/{(\s+)\n/isU', "{\n", $css_to_reindent);
+		
 
 		return $css_to_reindent;
 	}
