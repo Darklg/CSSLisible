@@ -15,7 +15,7 @@ include dirname(__FILE__) . '/inc/header.php';
 		<form id="main-form" action="" method="post" enctype="multipart/form-data">
 			<p>
 				CSSLisible va r&eacute;indenter vos blocks de code, 
-				<a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external">ordonner vos propri&eacute;t&eacute;s</a>, 
+				<a href="http://blog.goetter.fr/post/14503308074/ordonnez-vos-declarations-css" rel="external" target="_blank">ordonner vos propri&eacute;t&eacute;s</a>, 
 				afin de fournir un code CSS Lisible et plus maintenable. 
 				Attention, les commentaires internes aux sélecteurs sont retir&eacute;s !
 			</p>
@@ -23,7 +23,7 @@ include dirname(__FILE__) . '/inc/header.php';
 
             
 			<?php include dirname(__FILE__) . '/inc/tpl/errors.php'; ?>
-			<?php include dirname(__FILE__) . '/inc/tpl/formulaire/tabs.php'; ?>
+			<?php include dirname(__FILE__) . '/inc/tpl/tabs.php'; ?>
 
 			<div id="options_block">
 				<div class="the_grid gri-2-1">
@@ -35,23 +35,16 @@ include dirname(__FILE__) . '/inc/header.php';
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/hex_colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/add_header.php'; ?>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/return_file.php'; ?>
 					&nbsp;</div>
 					<div>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/tout_compresse.php'; ?>
-
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/return_file.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/add_header.php'; ?>
 					&nbsp;</div>
 				</div>
 			</div>
-			<div class="submit-block">
-				<button id="try_me" class="go_clean_css go_try_me">&#x2023; Code de démo</button>
-				<span>
-					<button id="options_toggle" class="go_clean_css go_options" title="Afficher les options">&rarrhk; Options</button>
-					<button class="go_clean_css">Nettoyer le code &rarr;</button>
-				</span>
-			</div>
+			<?php include dirname(__FILE__) . '/inc/tpl/submit.php'; ?>
 		</form>
 	</div>
 	<div id="footer">

@@ -249,6 +249,16 @@ label,
     overflow: hidden;
 }
 
+.submit-block > div {
+    float: left;
+    text-align: left;
+}
+
+.submit-block > div + div {
+    float: right;
+    text-align: right;
+}
+
 .go_clean_css {
     height: 25px;
     border: 1px solid #c0c0c0;
@@ -272,8 +282,4 @@ label,
 
 .no-js .go_options {
     display: none;
-}
-
-.submit-block span {
-    float: right;
 }
