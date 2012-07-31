@@ -6,8 +6,8 @@ include dirname(__FILE__) . '/inc/header.php';
 	<head>
 		<meta charset="utf-8"/>
 		<title><?php echo TITRE_SITE; ?> - Ranger votre CSS et le rendre lisible</title>
-		<meta name="viewport" content="width=680" />
-		<link rel="stylesheet" href="css/main.css?201207242100" type="text/css" />
+		<meta name="viewport" content="width=790" />
+		<link rel="stylesheet" href="css/main.css?1343765818" type="text/css" />
 	</head>
 	<body class="no-js">
 	<div id="main-container">
@@ -21,24 +21,30 @@ include dirname(__FILE__) . '/inc/header.php';
 			</p>
 			
 
-            
 			<?php include dirname(__FILE__) . '/inc/tpl/errors.php'; ?>
 			<?php include dirname(__FILE__) . '/inc/tpl/tabs.php'; ?>
 
 			<div id="options_block">
-				<div class="the_grid gri-2-1">
+				<div class="the_grid gri-4-3-3">
 					<div>
+					    <h3 id="titre-formatage">Formatage</h3>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/distance_selecteurs.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_indentation.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/type_separateur.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/colors_format.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/hex_colors_format.php'; ?>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+						&nbsp;</div>
+					<div>
+					    <h3 id="titre-presentation">Présentation</h3>
+					    <?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/valeurs_multiples_separees.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
+                       
 					&nbsp;</div>
 					<div>
-						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
+					    <h3>Options avancées</h3>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/tout_compresse.php'; ?>
+						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/return_file.php'; ?>
 						<?php include dirname(__FILE__) . '/inc/tpl/formulaire/add_header.php'; ?>
 					&nbsp;</div>
@@ -66,7 +72,7 @@ include dirname(__FILE__) . '/inc/header.php';
 	?>
 	
 	
-	<script src="js/events.js?1342992053" type="text/javascript" charset="utf-8"></script>
+	<script src="js/events.js?t=1343765818" type="text/javascript" charset="utf-8"></script>
 	
 	</body>
 </html>

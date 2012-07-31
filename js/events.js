@@ -10,8 +10,25 @@ if($('tab-list')) {
 // Affiche ou non des blocs selon le type d'indentation demandé.
 if($('selecteur_par_ligne') && $('tout_compresse')){
 	
-	var blocks_options_selecteur = ['block_tout_compresse','block_distance_selecteurs','block_selecteurs_multiples_separes'];
-	var blocks_options_tout = ['block_selecteur_par_ligne','block_type_separateur','block_distance_selecteurs','block_type_indentation','block_selecteurs_multiples_separes','block_colors_format','block_hex_colors_format','block_supprimer_selecteurs_vides'];
+	var blocks_options_selecteur = [
+	    'block_tout_compresse',
+	    'block_distance_selecteurs',
+	    'block_selecteurs_multiples_separes',
+	    'block_valeurs_multiples_separees'
+	];
+	var blocks_options_tout = [
+	    'titre-formatage',
+	    'titre-presentation',
+	    'block_selecteur_par_ligne',
+	    'block_type_separateur',
+	    'block_distance_selecteurs',
+	    'block_type_indentation',
+	    'block_selecteurs_multiples_separes',
+	    'block_valeurs_multiples_separees',
+	    'block_colors_format',
+	    'block_hex_colors_format',
+	    'block_supprimer_selecteurs_vides'
+	];
 	
 	if($('selecteur_par_ligne').checked){
 		show_hide_blocks_if_checked($('selecteur_par_ligne'),blocks_options_selecteur);

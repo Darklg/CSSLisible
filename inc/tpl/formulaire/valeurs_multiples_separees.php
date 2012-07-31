@@ -1,0 +1,4 @@
+<div class="check-block" id="block_valeurs_multiples_separees">
+	<input type="checkbox" name="valeurs_multiples_separees" id="valeurs_multiples_separees" <?php echo ($CSSLisible->get_option('valeurs_multiples_separees') ? 'checked="checked"':''); ?>/>
+	<label for="valeurs_multiples_separees">Valeurs multiples s&eacute;par&eacute;es</label>
+</div>
