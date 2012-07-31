@@ -20,6 +20,7 @@ Ci-dessous, les paramètres à utiliser sous le format :
 * 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie. 
 * 'type_separateur' : (0,1,/2/,3) : Type de séparateur entre propriété et valeur
 * 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple. (Booleen)
+* 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgulet d'une valeur multiple. (Booleen)
 * 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement)
 * 'colors_format' : (/0/,1,2,3) : Formatage avancé des couleurs.
 
