@@ -23,7 +23,7 @@ body {
 }
 
 #main-container {
-    width: 600px;
+    width: 750px;
     margin: 20px auto;
     padding: 20px;
     -webkit-border-radius: 3px;
@@ -94,19 +94,14 @@ a:active {
     height: 0;
 }
 
-.the_grid.gri-1-2 >:last-child,
-.the_grid.gri-2-1 >:first-child {
-    width: 66.6%;
+.the_grid.gri-4-3-3 > * {
+    width:30%;
 }
 
-.the_grid.gri-1-2 >:first-child,
-.the_grid.gri-2-1 >:last-child {
-    width: 33.3%;
+.the_grid.gri-4-3-3 > :first-child {
+    width: 40%;
 }
 
-.the_grid.gri-1-1 > * {
-    width: 50%;
-}
 
 /* ----------------------------------------------------------
    Base des onglets
@@ -220,6 +215,13 @@ a:active {
 #clean_css_url:focus,
 #clean_css:focus {
     background: #fff;
+}
+
+
+#options_block h3 {
+    font-size:14px;
+    font-weight:bold;
+    margin:5px 0;
 }
 
 label {
