@@ -42,6 +42,7 @@ class CSSLisible {
 		'colors_format' => 0,
 		'hex_colors_format' => 0,
 		'selecteurs_multiples_separes' => true,
+		'valeurs_multiples_separees' => false,
 		'supprimer_selecteurs_vides' => false,
 		'selecteur_par_ligne' => false,
 		'tout_compresse' => false,
@@ -218,7 +219,13 @@ class CSSLisible {
 	// On récupère les nouveaux réglages transmis via POST
 	private function get_options_from_post() {
 	    
-	    $options_choice = array('type_separateur', 'type_indentation', 'distance_selecteurs', 'colors_format', 'hex_colors_format');
+	    $options_choice = array(
+	        'type_separateur', 
+	        'type_indentation', 
+	        'distance_selecteurs', 
+	        'colors_format', 
+	        'hex_colors_format'
+	    );
 
         foreach($options_choice as $option){
             if (isset($_POST[$option])) {
@@ -226,7 +233,15 @@ class CSSLisible {
     		}
         }
         
-        $options_bool = array('selecteurs_multiples_separes', 'supprimer_selecteurs_vides', 'selecteur_par_ligne', 'tout_compresse', 'add_header', 'return_file');
+        $options_bool = array(
+            'selecteurs_multiples_separes',
+            'valeurs_multiples_separees', 
+            'supprimer_selecteurs_vides', 
+            'selecteur_par_ligne', 
+            'tout_compresse', 
+            'add_header', 
+            'return_file'
+        );
         
         foreach($options_bool as $option){
     		$this->set_option($option, isset($_POST[$option]));
@@ -260,6 +275,9 @@ class CSSLisible {
                 $option_ok = array_key_exists($option_value,$this->listing_hex_colors_formats);
             break;
             case 'selecteurs_multiples_separes':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'valeurs_multiples_separees':
                 $option_ok = is_bool($option_value);
             break;
             case 'supprimer_selecteurs_vides':
@@ -400,6 +418,26 @@ class CSSLisible {
 		}
 
 		return $matches[1] . $formatted_color . $matches[5];
+	}
+	
+	// Formatage multiligne des propriétés à valeurs multiples
+	private function format_multiple_values($css){
+	    $indent = $this->listing_indentations[$this->get_option('type_indentation')][0];
+	    preg_match_all('/'.$this->listing_separateurs[$this->get_option('type_separateur')].'((.+)\,(.*));/i',$css,$matches);
+	    
+	    if(!empty($matches[1])){
+	        foreach($matches[1] as $match){
+	            $new_match = '';
+	            $new_match_parts = explode(',',$match);
+	            foreach($new_match_parts as &$part){
+	                $part = "\n".$indent.$indent.trim($part);
+	            }
+	            
+	            $css = str_replace($match,implode(',',$new_match_parts),$css);
+	        }
+	    }
+	    
+	    return $css;
 	}
 
 	private function clean_css($css_to_clean) {
@@ -620,6 +658,10 @@ class CSSLisible {
 				 $new_props
 			)
 		);
+		
+		if($this->get_option('valeurs_multiples_separees')){
+		    $new_props = $this->format_multiple_values($new_props);
+		}
 
 		return $new_props;
 	}
