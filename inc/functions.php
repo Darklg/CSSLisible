@@ -58,6 +58,10 @@ class CSSLisible {
 			'regex' => '#progid(.*);#',
 			'list' => array()
 		),
+		'quotes' => array(
+		    'regex' => '/("(.+)")/isU',
+		    'list' => array()
+		)
 	);
 	private $errors = array(
 	);
