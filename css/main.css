@@ -217,11 +217,11 @@ a:active {
     background: #fff;
 }
 
-
-#options_block h3 {
-    font-size:14px;
-    font-weight:bold;
-    margin:5px 0;
+#options_block legend {
+    display: block;
+    padding: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 label {
