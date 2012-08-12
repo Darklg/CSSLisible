@@ -45,16 +45,16 @@ if($('selecteur_par_ligne') && $('tout_compresse')){
 	}
 }
 
-if($('options_toggle') && $('options_block')){
+if($('options_toggle') && $('options_block') && $('txt_show_options') && $('txt_hide_options')){
     var options_toggle_name = '';
 	// On masque les options
 	$('options_block').style.display = 'none';
 	// On ne les affiche/masque qu'au clic du bouton d'options
 	$('options_toggle').onclick = function(){
 		toggle($('options_block'));
-		options_toggle_name = ($('options_block').style.display == 'block') ? 'Masquer les options' : 'Afficher les options';
-		$('options_toggle').title = options_toggle_name
-		$('options_toggle').innerHTML = '&rarrhk; '+options_toggle_name
+		options_toggle_name = ($('options_block').style.display == 'block') ? $('txt_hide_options').value : $('txt_show_options').value;
+		$('options_toggle').title = options_toggle_name;
+		$('options_toggle').innerHTML = '&rarrhk; ' + options_toggle_name;
 		return false;
 	};
 }
