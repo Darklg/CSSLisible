@@ -320,6 +320,10 @@ class CSSLisible {
 		}
 	}
 
+	public function identify_and_short_hex_color_values($css_to_compress) {
+		return preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array($this, 'short_hex_color_values'), $css_to_compress);
+	}
+
 	public function short_hex_color_values($matches) {
 		array_shift($matches);
 		return implode($matches);
@@ -329,8 +333,12 @@ class CSSLisible {
 		
 		$css_to_compress = strip_tags($css_to_compress);
 
-		// Suppression des commentaires
 		if($this->get_option('tout_compresse')){
+			// 0.1em => .1em
+			$css_to_compress = preg_replace('#(\s|:)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
+			// Simplification des codes couleurs hexadécimaux
+			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
+			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
 		
@@ -353,7 +361,7 @@ class CSSLisible {
 			$css_to_compress = $this->convert_colors($css_to_compress);
 		}
 		// Simplification des codes couleurs hexadécimaux
-		$css_to_compress = preg_replace_callback('#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array($this, 'short_hex_color_values'), $css_to_compress);
+		$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 		
 		// Suppression des derniers espaces inutiles
 		$css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
