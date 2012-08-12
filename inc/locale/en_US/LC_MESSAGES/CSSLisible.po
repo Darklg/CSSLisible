@@ -2,33 +2,171 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CSSLisible\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 21:15+0100\n"
+"POT-Creation-Date: 2012-08-12 22:54+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin <kevin@rocher.me>\n"
 "Language-Team: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: .\n"
-"Language: en_US\n"
 "X-Poedit-SearchPath-0: ../../../..\n"
 
-#: ../../../../index.php:30
+#: ../../../../index.php:17
+msgid "CSSLisible va réindenter vos blocks de code,"
+msgstr "CSSLisible will re-indent your code blocks,"
+
+#: ../../../../index.php:18
+msgid "ordonner vos propriétés"
+msgstr "order your properties"
+
+#: ../../../../index.php:19
+msgid "afin de fournir un code CSS Lisible et plus maintenable. "
+msgstr "to provide a more maintainable and readable CSS code."
+
+#: ../../../../index.php:20
+msgid "Attention, les commentaires internes aux sélecteurs sont retirés !"
+msgstr "Please note, comments in selectors are removed !"
+
+#: ../../../../index.php:29
 msgid "Formatage"
-msgstr ""
+msgstr "Formatting"
 
-#: ../../../../index.php:38 ../../../../index.php:45
+#: ../../../../index.php:37
 msgid "Présentation"
-msgstr ""
+msgstr "Presentation"
 
-#: ../../../../index.php:58
+#: ../../../../index.php:44
+msgid "Options avancées"
+msgstr "Advanced options"
+
+#: ../../../../index.php:56
+msgid "Documentation"
+msgstr "Documentation"
+
+#: ../../../../index.php:57
 msgid "Source disponible sur"
 msgstr "Source available on"
 
-#: ../../../../index.php:60
+#: ../../../../index.php:59
 msgid "Contributeurs : "
-msgstr ""
+msgstr "Contributors :"
+
+#: ../../../../inc/config.php:3
+msgid "Ordonner votre CSS et le rendre lisible"
+msgstr "Order your CSS and make it readable"
+
+#: ../../../../inc/functions.php:92
+msgid "1 espace"
+msgstr "1 space"
+
+#: ../../../../inc/functions.php:93
+msgid "2 espaces"
+msgstr "2 spaces"
+
+#: ../../../../inc/functions.php:94
+msgid "3 espaces"
+msgstr "3 spaces"
+
+#: ../../../../inc/functions.php:95
+msgid "4 espaces"
+msgstr "4 spaces"
+
+#: ../../../../inc/functions.php:96
+msgid "1 tab"
+msgstr "1 tab"
+
+#: ../../../../inc/functions.php:97
+msgid "2 tabs"
+msgstr "2 tabs"
+
+#: ../../../../inc/functions.php:98 ../../../../inc/functions.php:107
+msgid "Aucune"
+msgstr "None"
+
+#: ../../../../inc/functions.php:108
+msgid "Une"
+msgstr "One"
+
+#: ../../../../inc/functions.php:109
+msgid "Deux"
+msgstr "Two"
+
+#: ../../../../inc/functions.php:112 ../../../../inc/functions.php:118
+msgid "Inchangé"
+msgstr "Unchanged"
+
+#: ../../../../inc/functions.php:113
+msgid "Noms"
+msgstr "Names"
+
+#: ../../../../inc/functions.php:114
+msgid "Hex"
+msgstr "Hex"
+
+#: ../../../../inc/functions.php:115
+msgid "RGB"
+msgstr "RGB"
+
+#: ../../../../inc/functions.php:119
+msgid "Minuscules"
+msgstr "Lowercase"
+
+#: ../../../../inc/functions.php:120
+msgid "Majuscules"
+msgstr "Uppercase"
+
+#: ../../../../inc/functions.php:172
+msgid "Aucune URL n’a été fournie."
+msgstr "No URL was provided."
+
+#: ../../../../inc/functions.php:176
+msgid "La valeur fournie n’est pas une URL."
+msgstr "The provided value is not a URL."
+
+#: ../../../../inc/functions.php:182
+msgid "L’URL doit être celle d’un fichier CSS."
+msgstr "The URL should be the URL of a CSS file."
+
+#: ../../../../inc/functions.php:206
+msgid "Impossible de télécharger ce fichier."
+msgstr "Can not download this file."
+
+#: ../../../../inc/functions.php:216
+msgid "Impossible d’uploader ce fichier"
+msgstr "Can not upload this file."
+
+#: ../../../../inc/functions.php:219
+msgid "Il ne s’agit pas d’un fichier CSS."
+msgstr "This is not a CSS file."
+
+#: ../../../../inc/functions.php:222
+#, php-format
+msgid "Le fichier CSS est trop lourd. (Maximum : %d ko)"
+msgstr "The CSS file is to heavy (Max: %d kb)"
+
+#: ../../../../inc/tpl/errors.php:4
+#, php-format
+msgid "Erreur%s"
+msgstr "Error%s"
+
+#: ../../../../inc/tpl/submit.php:3 ../../../../inc/tpl/submit.php:5
+msgid "Afficher les options"
+msgstr "Show options"
+
+#: ../../../../inc/tpl/submit.php:4
+msgid "Masquer les options"
+msgstr "Hide options"
+
+#: ../../../../inc/tpl/submit.php:6
+msgid "Code de test"
+msgstr "Test code"
+
+#: ../../../../inc/tpl/submit.php:9
+msgid "Nettoyer ce code"
+msgstr "Clean this code"
 
 #: ../../../../inc/tpl/tabs.php:6
 msgid "Formulaire"

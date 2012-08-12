@@ -2,7 +2,7 @@
 
 $lang = 'fr_FR';
 $more_languages = array(
-    'en' => 'en_US',
+    'en' => 'en_US.utf8',
 );
 
 // Si la traduction en la langue demandée est disponible
@@ -16,4 +16,5 @@ setlocale(LC_ALL, $lang);
 
 // On charge la traduction
 bindtextdomain("CSSLisible", dirname(__FILE__)."/locale");
+bind_textdomain_codeset("CSSLisible", "UTF-8"); 
 textdomain("CSSLisible");

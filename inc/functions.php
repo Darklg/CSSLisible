@@ -4,37 +4,7 @@ class CSSLisible {
 
 	public $buffer = '';
 	public $listing_proprietes = array();
-	public $listing_indentations = array(
-		array(' ', '1 espace'),
-		array('  ', '2 espaces'),
-		array('   ', '3 espaces'),
-		array('    ', '4 espaces'),
-		array("\t", '1 tab'),
-		array("\t\t", '2 tabs'),
-		array("", 'Aucune'),
-	);
-	public $listing_separateurs = array(
-		':',
-		' :',
-		': ',
-		' : ',
-	);
-	public $listing_distances = array(
-		'Aucune',
-		'Une',
-		'Deux'
-	);
-	public $listing_colors_formats = array(
-		'Inchangé',
-		'Noms',
-		'Hex',
-		'RGB'
-	);
-	public $listing_hex_colors_formats = array(
-		'Inchangé',
-		'Minuscules',
-		'Majuscules'
-	);
+
 	private $options = array(
 		'type_separateur' => 2,
 		'type_indentation' => 3,
@@ -73,6 +43,8 @@ class CSSLisible {
 
 	function __construct($listing_proprietes = array()) {
 
+        $this->set_default_values();
+
 		$this->listing_proprietes = $listing_proprietes;
 
 		if (isset($_POST['clean_css'])) {
@@ -107,6 +79,46 @@ class CSSLisible {
 		} else {
 			$this->get_options_from_cookies();
 		}
+	}
+	
+	public $listing_indentations = array();
+	public $listing_separateurs = array();
+	public $listing_distances = array();
+	public $listing_colors_formats = array();
+	public $listing_hex_colors_formats = array();
+	
+	private function set_default_values() {
+	    $this->listing_indentations = array(
+    		array(' ', _('1 espace')),
+    		array('  ', _('2 espaces')),
+    		array('   ', _('3 espaces')),
+    		array('    ', _('4 espaces')),
+    		array("\t", _('1 tab')),
+    		array("\t\t", _('2 tabs')),
+    		array("", _('Aucune')),
+    	);
+    	$this->listing_separateurs = array(
+    		':',
+    		' :',
+    		': ',
+    		' : ',
+    	);
+    	$this->listing_distances = array(
+    		_('Aucune'),
+    		_('Une'),
+    		_('Deux')
+    	);
+    	$this->listing_colors_formats = array(
+    		_('Inchangé'),
+    		_('Noms'),
+    		_('Hex'),
+    		_('RGB')
+    	);
+    	$this->listing_hex_colors_formats = array(
+    		_('Inchangé'),
+    		_('Minuscules'),
+    		_('Majuscules')
+    	);
 	}
 
 	private function save_options() {
@@ -157,17 +169,17 @@ class CSSLisible {
 	    if(isset($_POST['clean_css_url'])){
 	        // On vérifie que l'url n'est pas vide.
 	        if(empty($_POST['clean_css_url'])){
-	            $this->errors[] = 'Aucune URL n’a été fournie.';
+	            $this->errors[] = _('Aucune URL n’a été fournie.');
 	        }
 	        // On verifie que l'url est valide
 	        if(empty($this->errors) && !filter_var($_POST['clean_css_url'], FILTER_VALIDATE_URL)){
-	            $this->errors[] = 'La valeur fournie n’est pas une URL.';
+	            $this->errors[] = _('La valeur fournie n’est pas une URL.');
 	        }
 	        // On verifie que l'url contient ".css"
 	        if(empty($this->errors)){
 	            $url_parsee = parse_url($_POST['clean_css_url']);
 	            if(!isset($url_parsee['path']) || substr($url_parsee['path'],-4,4) != '.css'){
-	                $this->errors[] = 'L’URL doit être celle d’un fichier CSS.';
+	                $this->errors[] = _('L’URL doit être celle d’un fichier CSS.');
 	            }
 	        }
 	        // On telecharge le contenu de l'url
@@ -191,7 +203,7 @@ class CSSLisible {
         curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5); 
         curl_exec($ch);
         if(!$result = curl_exec($ch)) {
-            $this->errors[] = 'Impossible de télécharger ce fichier.';
+            $this->errors[] = _('Impossible de télécharger ce fichier.');
         }
         curl_close($ch);
         return $result;
@@ -201,13 +213,13 @@ class CSSLisible {
 	    if(isset($_FILES['clean_css_file']) && !empty($_FILES['clean_css_file'])){
 	        $file = $_FILES['clean_css_file'];
 	        if(empty($this->errors) && $file['error'] != 0){
-	            $this->errors[] = 'Impossible d’uploader ce fichier';
+	            $this->errors[] = _('Impossible d’uploader ce fichier');
 	        }
 	        if(empty($this->errors) && $file['type'] != 'text/css') {
-	            $this->errors[] = 'Il ne s’agit pas d’un fichier CSS.';
+	            $this->errors[] = _('Il ne s’agit pas d’un fichier CSS.');
 	        }
 	        if(empty($this->errors) && $file['size'] > $this->config['max_filesize']){
-	            $this->errors[] = 'Le fichier CSS est trop lourd. (Maximum : '.round($this->config['max_filesize']/1024).' ko)';
+	            $this->errors[] = sprintf(_('Le fichier CSS est trop lourd. (Maximum : %d ko)'), round($this->config['max_filesize']/1024));
 	        }
 	        if(empty($this->errors)){
 	            $this->buffer = file_get_contents($file['tmp_name']);
