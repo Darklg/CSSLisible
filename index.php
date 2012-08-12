@@ -1,5 +1,5 @@
 <?php
-define('DIR_SITE', DIR_SITE);
+define('DIR_SITE', dirname(__FILE__));
 include DIR_SITE . '/inc/header.php';
 ?>
 <!doctype html>
