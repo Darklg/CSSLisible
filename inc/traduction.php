@@ -2,7 +2,7 @@
 
 $lang = 'fr_FR';
 $more_languages = array(
-    'en' => 'en_EN',
+    'en' => 'en_US',
 );
 
 // Si la traduction en la langue demandée est disponible
