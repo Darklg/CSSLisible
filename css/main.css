@@ -33,14 +33,6 @@ body {
     -webkit-background-clip: padding-box;
 }
 
-h1 {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 20px;
-    color: #989796;
-}
-
 p {
     margin-bottom: 16px;
     font-size: 12px;
@@ -61,8 +53,44 @@ a:active {
 }
 
 /* ----------------------------------------------------------
+   Header
+   ------------------------------------------------------- */
+
+#header {
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 20px;
+    line-height: 35px;
+    color: #989796;
+}
+
+.lang_menu {
+    float: right;
+}
+
+.lang_menu li {
+    display: inline;
+    margin-left: 5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 35px;
+}
+
+.lang_menu .current {
+    font-weight: bold;
+}
+
+.lang_menu a {
+    text-decoration: none;
+}
+
+/* ----------------------------------------------------------
    Footer
-   ------------------------------------------------------- */
+   ------------------------------------------------------- */
 
 #footer {
     margin-bottom: 20px;
