@@ -6,5 +6,5 @@
 		<?php endforeach; ?>
 		</select>
 	</span>
-	<label for="type_indentation">Type d'indentation</label>
+	<label for="type_indentation"><?php echo _('Type d’indentation'); ?></label>
 </div>

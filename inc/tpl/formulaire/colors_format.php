@@ -6,5 +6,5 @@
 		<?php endforeach; ?>
 		</select>
 	</span>
-	<label for="colors_format">Format des codes couleurs</label>
+	<label for="colors_format"><?php echo _('Format des codes couleurs'); ?></label>
 </div>

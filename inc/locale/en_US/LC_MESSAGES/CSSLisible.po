@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CSSLisible\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 22:54+0100\n"
+"POT-Creation-Date: 2012-08-12 23:02+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin <kevin@rocher.me>\n"
 "Language-Team: \n"
@@ -187,3 +187,51 @@ msgstr "CSS File to clean:"
 #: ../../../../inc/tpl/tabs.php:32
 msgid "URL du CSS à nettoyer :"
 msgstr "CSS URL to clean:"
+
+#: ../../../../inc/tpl/formulaire/add_header.php:3
+msgid "Ajout d’un timestamp"
+msgstr "Add a timestamp"
+
+#: ../../../../inc/tpl/formulaire/colors_format.php:9
+msgid "Format des codes couleurs"
+msgstr "Color codes' format"
+
+#: ../../../../inc/tpl/formulaire/distance_selecteurs.php:9
+msgid "Ligne(s) entre les sélecteurs"
+msgstr "Line(s) between selectors"
+
+#: ../../../../inc/tpl/formulaire/hex_colors_format.php:9
+msgid "Format des codes hexadécimaux"
+msgstr "Hexadecimal codes' format"
+
+#: ../../../../inc/tpl/formulaire/return_file.php:3
+msgid "Récupérer un fichier CSS"
+msgstr "Get a CSS file"
+
+#: ../../../../inc/tpl/formulaire/selecteur_par_ligne.php:3
+msgid "Un sélecteur par ligne"
+msgstr "One selector by line"
+
+#: ../../../../inc/tpl/formulaire/selecteurs_multiples_separes.php:3
+msgid "Sélecteurs multiples séparés"
+msgstr "Multiple selectors separated"
+
+#: ../../../../inc/tpl/formulaire/supprimer_selecteurs_vides.php:3
+msgid "Supprimer les sélecteurs vides"
+msgstr "Delete empty selectors"
+
+#: ../../../../inc/tpl/formulaire/tout_compresse.php:3
+msgid "Tout compressé !"
+msgstr "All compressed!"
+
+#: ../../../../inc/tpl/formulaire/type_indentation.php:9
+msgid "Type d’indentation"
+msgstr "Type of indentation"
+
+#: ../../../../inc/tpl/formulaire/type_separateur.php:9
+msgid "Type de séparateur"
+msgstr "Type of separator"
+
+#: ../../../../inc/tpl/formulaire/valeurs_multiples_separees.php:3
+msgid "Valeurs multiples séparées"
+msgstr "Separate multiple values"
