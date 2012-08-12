@@ -6,5 +6,5 @@
 		<?php endforeach; ?>
 		</select>
 	</span>
-	<label for="hex_colors_format">Format des codes hexadécimaux</label>
+	<label for="hex_colors_format"><?php echo _('Format des codes hexadécimaux'); ?></label>
 </div>
