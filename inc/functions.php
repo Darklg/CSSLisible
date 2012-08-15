@@ -15,6 +15,7 @@ class CSSLisible {
 		'valeurs_multiples_separees' => false,
 		'supprimer_selecteurs_vides' => false,
 		'selecteur_par_ligne' => false,
+		'raccourcir_valeurs' => false,
 		'tout_compresse' => false,
 		'add_header' => false,
 		'return_file' => false,
@@ -254,6 +255,7 @@ class CSSLisible {
             'valeurs_multiples_separees', 
             'supprimer_selecteurs_vides', 
             'selecteur_par_ligne', 
+            'raccourcir_valeurs', 
             'tout_compresse', 
             'add_header', 
             'return_file'
@@ -300,6 +302,9 @@ class CSSLisible {
                 $option_ok = is_bool($option_value);
             break;
             case 'selecteur_par_ligne':
+                $option_ok = is_bool($option_value);
+            break;
+            case 'raccourcir_valeurs':
                 $option_ok = is_bool($option_value);
             break;
             case 'tout_compresse':
@@ -364,6 +369,11 @@ class CSSLisible {
 		}
 		// Simplification des codes couleurs hexadécimaux
 		$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
+		
+		// Simplification des valeurs par utilisation des raccourcis
+		if ($this->get_option('raccourcir_valeurs')) {
+			$css_to_compress = $this->shorten_values($css_to_compress);
+		}
 		
 		// Suppression des derniers espaces inutiles
 		$css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
