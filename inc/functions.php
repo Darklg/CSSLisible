@@ -338,6 +338,8 @@ class CSSLisible {
 			$css_to_compress = preg_replace('#(\s|:)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
+			// Simplification des valeurs par utilisation des raccourcis
+			$css_to_compress = $this->short_values($css_to_compress);
 			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
@@ -462,6 +464,20 @@ class CSSLisible {
 	    }
 	    
 	    return $css;
+	}
+
+	// Simplification des valeurs par utilisation des raccourcis
+	private function short_values($css) {
+		// 1px 1px 1px 1px => 1px
+		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\s\5\s\5;#', '$1$5;', $css);
+		
+		// 1px 2px 1px 2px => 1px 2px
+		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\7;#', '$1$5$7;', $css);
+		
+		// 1px 2px 3px 2px => 1px 2px 3px
+		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\7;#', '$1$5$7 $9;', $css);
+		
+		return $css;
 	}
 
 	private function clean_css($css_to_clean) {
