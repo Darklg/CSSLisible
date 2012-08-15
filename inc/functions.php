@@ -479,13 +479,13 @@ class CSSLisible {
 	// Simplification des valeurs par utilisation des raccourcis
 	private function shorten_values($css) {
 		// 1px 1px 1px 1px => 1px
-		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)(([0-9]+|[0-9]*\.[0-9]+)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\s\5\s\5;#', '$1$5;', $css);
+		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|[0-9]*\.[0-9]+)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\s\5\s\5;#', '$1$5;', $css);
 		
 		// 1px 2px 1px 2px => 1px 2px
-		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\9;#', '$1$5$9;', $css);
+		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\9;#', '$1$5$9;', $css);
 		
 		// 1px 2px 3px 2px => 1px 2px 3px
-		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\9;#', '$1$5$9 $13;', $css);
+		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\9;#', '$1$5$9 $13;', $css);
 		
 		return $css;
 	}
