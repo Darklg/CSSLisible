@@ -339,7 +339,7 @@ class CSSLisible {
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 			// Simplification des valeurs par utilisation des raccourcis
-			$css_to_compress = $this->short_values($css_to_compress);
+			$css_to_compress = $this->shorten_values($css_to_compress);
 			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
@@ -467,7 +467,7 @@ class CSSLisible {
 	}
 
 	// Simplification des valeurs par utilisation des raccourcis
-	private function short_values($css) {
+	private function shorten_values($css) {
 		// 1px 1px 1px 1px => 1px
 		$css = preg_replace('#((margin|padding|border-width|outline-width)(\s)*:(\s)*)([0-9]+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\s\5\s\5;#', '$1$5;', $css);
 		
