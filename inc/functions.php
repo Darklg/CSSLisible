@@ -343,7 +343,7 @@ class CSSLisible {
 			$css_to_compress = preg_replace('#(\s|:)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
-			// Simplification des valeurs par utilisation des raccourcis
+			// Simplification des valeurs à 4 paramètres chiffrés
 			$css_to_compress = $this->shorten_values($css_to_compress);
 			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
@@ -370,7 +370,7 @@ class CSSLisible {
 		// Simplification des codes couleurs hexadécimaux
 		$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 		
-		// Simplification des valeurs par utilisation des raccourcis
+		// Simplification des valeurs à 4 paramètres chiffrés
 		if ($this->get_option('raccourcir_valeurs')) {
 			$css_to_compress = $this->shorten_values($css_to_compress);
 		}
@@ -476,16 +476,18 @@ class CSSLisible {
 	    return $css;
 	}
 
-	// Simplification des valeurs par utilisation des raccourcis
+	// Simplification des valeurs à 4 paramètres chiffrés
 	private function shorten_values($css) {
+		$property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
+		$parameter = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+		$parameter_space = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
+		
 		// 1px 1px 1px 1px => 1px
-		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|[0-9]*\.[0-9]+)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\s\5\s\5;#', '$1$5;', $css);
-		
+		$css = preg_replace('#' . $property . $parameter . '\s\5\s\5\s\5;#', '$1$5;', $css);
 		// 1px 2px 1px 2px => 1px 2px
-		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\5\9;#', '$1$5$9;', $css);
-		
+		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s\5\9;#', '$1$5$9;', $css);
 		// 1px 2px 3px 2px => 1px 2px 3px
-		$css = preg_replace('#((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))\s\9;#', '$1$5$9 $13;', $css);
+		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s' . $parameter_space . '\9;#', '$1$5$9 $13;', $css);
 		
 		return $css;
 	}
