@@ -479,15 +479,30 @@ class CSSLisible {
 	// Simplification des valeurs à 4 paramètres chiffrés
 	private function shorten_values($css) {
 		$property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
+		$border_radius = '((border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
 		$parameter = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
 		$parameter_space = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
 		
 		// 1px 1px 1px 1px => 1px
 		$css = preg_replace('#' . $property . $parameter . '\s\5\s\5\s\5;#', '$1$5;', $css);
+		// Border-radius : 1px 1px 1px 1px / ... => 1px / ...
+		$css = preg_replace('#' . $border_radius . $parameter . '\s\5\s\5\s\5(\s\/\s[^;]+;)#', '$1$5$9', $css);
+		// Border-radius : ... / 1px 1px 1px 1px  =>  ... / 1px
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter . '\s\6\s\6\s\6;#', '$1$5$6;', $css);
+		
 		// 1px 2px 1px 2px => 1px 2px
 		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s\5\9;#', '$1$5$9;', $css);
+		// Border-radius : 1px 2px 1px 2px / ... => 1px 2px / ...
+		$css = preg_replace('#' . $border_radius . $parameter_space . $parameter . '\s\5\9(\s\/\s[^;]+;)#', '$1$5$9$13', $css);
+		// Border-radius : ... / 1px 2px 1px 2px  => ... / 1px 2px
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s\6\10;#', '$1$5$6$10;', $css);
+		
 		// 1px 2px 3px 2px => 1px 2px 3px
 		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s' . $parameter_space . '\9;#', '$1$5$9 $13;', $css);
+		// Border-radius : 1px 2px 3px 2px / ... => 1px 2px 3px / ...
+		$css = preg_replace('#' . $border_radius . $parameter_space . $parameter . '\s' . $parameter . '\s\9(\s\/\s[^;]+;)#', '$1$5$9 $13$17', $css);
+		// Border-radius : ... / 1px 2px 3px 2px => ... / 1px 2px 3px
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s' . $parameter . '\s\10;#', '$1$5$6$10 $14;', $css);
 		
 		return $css;
 	}
