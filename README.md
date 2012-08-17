@@ -23,6 +23,7 @@ Ci-dessous, les paramètres à utiliser sous le format :
 * 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple. (Booleen)
 * 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement)
 * 'colors_format' : (/0/,1,2,3) : Formatage avancé des couleurs.
+* 'raccourcir_valeurs' : (/0/,1) : Utilisation de raccourcis CSS sur les valeurs à 4 paramètres chiffrés. (Booleen)
 
 ### Valeurs des paramètres
 
