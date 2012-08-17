@@ -504,6 +504,9 @@ class CSSLisible {
 		// Border-radius : ... / 1px 2px 3px 2px => ... / 1px 2px 3px
 		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s' . $parameter . '\s\10;#', '$1$5$6$10 $14;', $css);
 		
+		// Border-radius : 1px / 1px => 1px
+		$css = preg_replace('#' . $border_radius . '([^;]+)\s\/\s\5;#', '$1$5;', $css);
+		
 		return $css;
 	}
 
