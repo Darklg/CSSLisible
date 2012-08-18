@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CSSLisible\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 23:40+0100\n"
+"POT-Creation-Date: 2012-08-18 15:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin <kevin@rocher.me>\n"
 "Language-Team: \n"
@@ -130,6 +130,15 @@ msgstr "This is not a CSS file."
 #, php-format
 msgid "Le fichier CSS est trop lourd. (Maximum : %d ko)"
 msgstr "The CSS file is to heavy (Max: %d kb)"
+
+#: ../../../../inc/functions.php:701
+msgid "Formaté :"
+msgstr "Formatted:"
+
+#: ../../../../inc/functions.php:702
+#, php-format
+msgid "avec %s"
+msgstr "with %s"
 
 #: ../../../../inc/tpl/errors.php:4
 #, php-format
