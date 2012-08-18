@@ -696,12 +696,11 @@ class CSSLisible {
 			$str_date = date('Y-m-d H:i (U)');
 			$indentation = $this->listing_indentations[$this->get_option('type_indentation')][0];
 
-			$header = <<<EOT
-/*
-${indentation}Formatted: $str_date
-${indentation}With CSSLisible - http://github.com/Darklg/CSSLisible
-*/
-EOT;
+			$header = "\n" . "/*" . "\n" . 
+                $indentation . _('Formaté :') . " " . $str_date . "\n".
+                $indentation . sprintf(_('avec %s'),'CSSLisible') . " - http://github.com/Darklg/CSSLisible" . "\n".
+                "*/" . "\n";
+                
 			$cleaned_css = $header	. str_pad('', $this->get_option('distance_selecteurs') + 1, "\n") . $cleaned_css;
 		}
 		
