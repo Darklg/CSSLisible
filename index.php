@@ -37,13 +37,12 @@ include DIR_SITE . '/inc/header.php';
 					    <?php include DIR_SITE . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/valeurs_multiples_separees.php'; ?>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
-                       
+						<?php include DIR_SITE . '/inc/tpl/formulaire/raccourcir_valeurs.php'; ?>
 					&nbsp;</fieldset>
 					<fieldset>
 					    <legend><?php echo _('Options avancées'); ?></legend>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/tout_compresse.php'; ?>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/selecteur_par_ligne.php'; ?>
-						<?php include DIR_SITE . '/inc/tpl/formulaire/raccourcir_valeurs.php'; ?>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/return_file.php'; ?>
 						<?php include DIR_SITE . '/inc/tpl/formulaire/add_header.php'; ?>
 					&nbsp;</fieldset>
