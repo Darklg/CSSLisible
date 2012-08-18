@@ -8,7 +8,7 @@ include DIR_SITE . '/inc/header.php';
 		<meta charset="utf-8"/>
 		<title><?php echo TITRE_SITE . ' - ' . SLOGAN_SITE; ?></title>
 		<meta name="viewport" content="width=790" />
-		<link rel="stylesheet" href="css/main.css?t=201208122335" type="text/css" />
+		<link rel="stylesheet" href="css/main.css?t=201208181531" type="text/css" />
 	</head>
 	<body class="no-js">
 	<div id="main-container">
@@ -69,7 +69,7 @@ include DIR_SITE . '/inc/header.php';
 	?>
 	
 	
-	<script src="js/events.js?t=201208122335" type="text/javascript" charset="utf-8"></script>
+	<script src="js/events.js?t=201208181531" type="text/javascript" charset="utf-8"></script>
 	
 	</body>
 </html>
