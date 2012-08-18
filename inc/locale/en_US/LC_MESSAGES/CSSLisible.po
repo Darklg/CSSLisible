@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CSSLisible\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-18 15:12+0100\n"
+"POT-Creation-Date: 2012-08-18 15:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin <kevin@rocher.me>\n"
 "Language-Team: \n"
@@ -26,15 +26,15 @@ msgstr "Presentation"
 msgid "Options avancées"
 msgstr "Advanced options"
 
-#: ../../../../index.php:55
+#: ../../../../index.php:56
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../../../index.php:56
+#: ../../../../index.php:57
 msgid "Source disponible sur"
 msgstr "Source available on"
 
-#: ../../../../index.php:58
+#: ../../../../index.php:59
 msgid "Contributeurs : "
 msgstr "Contributors :"
 
@@ -42,100 +42,100 @@ msgstr "Contributors :"
 msgid "Ordonner votre CSS et le rendre lisible"
 msgstr "Order your CSS and make it readable"
 
-#: ../../../../inc/functions.php:92
+#: ../../../../inc/functions.php:93
 msgid "1 espace"
 msgstr "1 space"
 
-#: ../../../../inc/functions.php:93
+#: ../../../../inc/functions.php:94
 msgid "2 espaces"
 msgstr "2 spaces"
 
-#: ../../../../inc/functions.php:94
+#: ../../../../inc/functions.php:95
 msgid "3 espaces"
 msgstr "3 spaces"
 
-#: ../../../../inc/functions.php:95
+#: ../../../../inc/functions.php:96
 msgid "4 espaces"
 msgstr "4 spaces"
 
-#: ../../../../inc/functions.php:96
+#: ../../../../inc/functions.php:97
 msgid "1 tab"
 msgstr "1 tab"
 
-#: ../../../../inc/functions.php:97
+#: ../../../../inc/functions.php:98
 msgid "2 tabs"
 msgstr "2 tabs"
 
-#: ../../../../inc/functions.php:98 ../../../../inc/functions.php:107
+#: ../../../../inc/functions.php:99 ../../../../inc/functions.php:108
 msgid "Aucune"
 msgstr "None"
 
-#: ../../../../inc/functions.php:108
+#: ../../../../inc/functions.php:109
 msgid "Une"
 msgstr "One"
 
-#: ../../../../inc/functions.php:109
+#: ../../../../inc/functions.php:110
 msgid "Deux"
 msgstr "Two"
 
-#: ../../../../inc/functions.php:112 ../../../../inc/functions.php:118
+#: ../../../../inc/functions.php:113 ../../../../inc/functions.php:119
 msgid "Inchangé"
 msgstr "Unchanged"
 
-#: ../../../../inc/functions.php:113
+#: ../../../../inc/functions.php:114
 msgid "Noms"
 msgstr "Names"
 
-#: ../../../../inc/functions.php:114
+#: ../../../../inc/functions.php:115
 msgid "Hex"
 msgstr "Hex"
 
-#: ../../../../inc/functions.php:115
+#: ../../../../inc/functions.php:116
 msgid "RGB"
 msgstr "RGB"
 
-#: ../../../../inc/functions.php:119
+#: ../../../../inc/functions.php:120
 msgid "Minuscules"
 msgstr "Lowercase"
 
-#: ../../../../inc/functions.php:120
+#: ../../../../inc/functions.php:121
 msgid "Majuscules"
 msgstr "Uppercase"
 
-#: ../../../../inc/functions.php:172
+#: ../../../../inc/functions.php:173
 msgid "Aucune URL n’a été fournie."
 msgstr "No URL was provided."
 
-#: ../../../../inc/functions.php:176
+#: ../../../../inc/functions.php:177
 msgid "La valeur fournie n’est pas une URL."
 msgstr "The provided value is not a URL."
 
-#: ../../../../inc/functions.php:182
+#: ../../../../inc/functions.php:183
 msgid "L’URL doit être celle d’un fichier CSS."
 msgstr "The URL should be the URL of a CSS file."
 
-#: ../../../../inc/functions.php:206
+#: ../../../../inc/functions.php:207
 msgid "Impossible de télécharger ce fichier."
 msgstr "Can not download this file."
 
-#: ../../../../inc/functions.php:216
+#: ../../../../inc/functions.php:217
 msgid "Impossible d’uploader ce fichier"
 msgstr "Can not upload this file."
 
-#: ../../../../inc/functions.php:219
+#: ../../../../inc/functions.php:220
 msgid "Il ne s’agit pas d’un fichier CSS."
 msgstr "This is not a CSS file."
 
-#: ../../../../inc/functions.php:222
+#: ../../../../inc/functions.php:223
 #, php-format
 msgid "Le fichier CSS est trop lourd. (Maximum : %d ko)"
 msgstr "The CSS file is to heavy (Max: %d kb)"
 
-#: ../../../../inc/functions.php:701
+#: ../../../../inc/functions.php:746
 msgid "Formaté :"
 msgstr "Formatted:"
 
-#: ../../../../inc/functions.php:702
+#: ../../../../inc/functions.php:747
 #, php-format
 msgid "avec %s"
 msgstr "with %s"
@@ -212,6 +212,10 @@ msgstr "Line(s) between selectors"
 #: ../../../../inc/tpl/formulaire/hex_colors_format.php:9
 msgid "Format des codes hexadécimaux"
 msgstr "Hexadecimal codes' format"
+
+#: ../../../../inc/tpl/formulaire/raccourcir_valeurs.php:3
+msgid "Raccourcir les valeurs"
+msgstr "Shorten values"
 
 #: ../../../../inc/tpl/formulaire/return_file.php:3
 msgid "Récupérer un fichier CSS"

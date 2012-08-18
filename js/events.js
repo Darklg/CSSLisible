@@ -20,6 +20,7 @@ if($('selecteur_par_ligne') && $('tout_compresse')){
 	    'titre-formatage',
 	    'titre-presentation',
 	    'block_selecteur_par_ligne',
+	    'block_raccourcir_valeurs',
 	    'block_type_separateur',
 	    'block_distance_selecteurs',
 	    'block_type_indentation',
