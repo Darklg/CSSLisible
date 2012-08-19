@@ -340,7 +340,7 @@ class CSSLisible {
 
 		if($this->get_option('tout_compresse')){
 			// 0.1em => .1em
-			$css_to_compress = preg_replace('#(\s|:)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
+			$css_to_compress = preg_replace('#((\s|:)-?)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 			// Simplification des valeurs à 4 paramètres chiffrés
@@ -356,7 +356,7 @@ class CSSLisible {
 		$css_to_compress = str_replace(';;', ';', $css_to_compress);
 		$css_to_compress = preg_replace('#([\s]|:)0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)#', '${1}0', $css_to_compress);
 		// Suppression des décimales inutiles
-		$css_to_compress = preg_replace('#:(([^;]*[0-9]*)\.|([^;]*[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
+		$css_to_compress = preg_replace('#:(([^;]*-?[0-9]*)\.|([^;]*-?[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
 		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
 		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
@@ -480,8 +480,8 @@ class CSSLisible {
 	private function shorten_values($css) {
 		$property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
 		$border_radius = '((border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
-		$parameter = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-		$parameter_space = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
+		$parameter = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+		$parameter_space = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
 		$important = '(\s*!important\s*)?';
 		
 		// 1px 1px 1px 1px => 1px
