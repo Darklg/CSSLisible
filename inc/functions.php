@@ -349,8 +349,11 @@ class CSSLisible {
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
 		
-		// Suppression des tabulations, espaces multiples, retours à la ligne, etc.
-		$css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $css_to_compress);
+		// Suppression des espaces multiples
+		$css_to_compress = preg_replace('/([ ]{2,})/', ' ', $css_to_compress);
+
+		// Suppression des tabulations, retours à la ligne, etc.
+		$css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t"), '', $css_to_compress);
 
 		// Ecriture trop lourde
 		$css_to_compress = str_replace(';;', ';', $css_to_compress);
