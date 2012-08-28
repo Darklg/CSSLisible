@@ -65,15 +65,14 @@ class CSSLisible {
     			$this->buffer = $this->sort_css($this->buffer);
     			$this->buffer = $this->reindent_media_queries($this->buffer);
     			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
-    			if(!$this->get_option('tout_compresse')){
-    				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
-    			}
+
     			if($this->get_option('tout_compresse')){
     				$this->buffer = $this->compress_css($this->buffer,1);
-    			}
-
-    			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
-    				$this->buffer = $this->add_header($this->buffer);
+    			} else {
+    				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
+    				if($this->get_option('add_header')){
+        				$this->buffer = $this->add_header($this->buffer);
+    				}
     			}
 
     			if($this->get_option('return_file')){
@@ -344,7 +343,7 @@ class CSSLisible {
 
 		if($this->get_option('tout_compresse')){
 			// 0.1em => .1em
-			$css_to_compress = preg_replace('#(\s|:)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
+			$css_to_compress = preg_replace('#((\s|:)-?)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 			// Simplification des valeurs à 4 paramètres chiffrés
@@ -353,14 +352,17 @@ class CSSLisible {
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
 		
-		// Suppression des tabulations, espaces multiples, retours à la ligne, etc.
-		$css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '   ', '    '), '', $css_to_compress);
+		// Suppression des espaces multiples
+		$css_to_compress = preg_replace('/([ ]{2,})/', ' ', $css_to_compress);
+
+		// Suppression des tabulations, retours à la ligne, etc.
+		$css_to_compress = str_replace(array("\r\n", "\r", "\n", "\t"), '', $css_to_compress);
 
 		// Ecriture trop lourde
 		$css_to_compress = str_replace(';;', ';', $css_to_compress);
 		$css_to_compress = preg_replace('#([\s]|:)0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)#', '${1}0', $css_to_compress);
 		// Suppression des décimales inutiles
-		$css_to_compress = preg_replace('#:(([^;]*[0-9]*)\.|([^;]*[0-9]*\.[0-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
+		$css_to_compress = preg_replace('#:(([^;]*-?[0-9]*)\.|([^;]*-?[0-9]*\.[1-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
 		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
 		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
@@ -484,32 +486,32 @@ class CSSLisible {
 	private function shorten_values($css) {
 		$property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
 		$border_radius = '((border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
-		$parameter = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-		$parameter_space = '(([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
+		$parameter = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+		$parameter_space = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
+		$important = '(\s*!important\s*)?';
 		
 		// 1px 1px 1px 1px => 1px
-		$css = preg_replace('#' . $property . $parameter . '\s\5\s\5\s\5;#', '$1$5;', $css);
-		// Border-radius : 1px 1px 1px 1px / ... => 1px / ...
+		$css = preg_replace('#' . $property . $parameter . '\s\5\s\5\s\5' . $important . ';#', '$1$5$9;', $css);// Border-radius : 1px 1px 1px 1px / ... => 1px / ...
 		$css = preg_replace('#' . $border_radius . $parameter . '\s\5\s\5\s\5(\s\/\s[^;]+;)#', '$1$5$9', $css);
 		// Border-radius : ... / 1px 1px 1px 1px  =>  ... / 1px
-		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter . '\s\6\s\6\s\6;#', '$1$5$6;', $css);
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter . '\s\6\s\6\s\6' . $important . ';#', '$1$5$6$10;', $css);
 		
 		// 1px 2px 1px 2px => 1px 2px
-		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s\5\9;#', '$1$5$9;', $css);
+		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s\5\9' . $important . ';#', '$1$5$9$13;', $css);
+		
 		// Border-radius : 1px 2px 1px 2px / ... => 1px 2px / ...
 		$css = preg_replace('#' . $border_radius . $parameter_space . $parameter . '\s\5\9(\s\/\s[^;]+;)#', '$1$5$9$13', $css);
 		// Border-radius : ... / 1px 2px 1px 2px  => ... / 1px 2px
-		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s\6\10;#', '$1$5$6$10;', $css);
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s\6\10' . $important . ';#', '$1$5$6$10$14;', $css);
 		
 		// 1px 2px 3px 2px => 1px 2px 3px
-		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s' . $parameter_space . '\9;#', '$1$5$9 $13;', $css);
+		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s' . $parameter . '\s\9' . $important . ';#', '$1$5$9 $13$17;', $css);
 		// Border-radius : 1px 2px 3px 2px / ... => 1px 2px 3px / ...
 		$css = preg_replace('#' . $border_radius . $parameter_space . $parameter . '\s' . $parameter . '\s\9(\s\/\s[^;]+;)#', '$1$5$9 $13$17', $css);
 		// Border-radius : ... / 1px 2px 3px 2px => ... / 1px 2px 3px
-		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s' . $parameter . '\s\10;#', '$1$5$6$10 $14;', $css);
-		
+		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s' . $parameter . '\s\10' . $important . ';#', '$1$5$6$10 $14$18;', $css);
 		// Border-radius : 1px / 1px => 1px
-		$css = preg_replace('#' . $border_radius . '([^;]+)\s\/\s\5;#', '$1$5;', $css);
+		$css = preg_replace('#' . $border_radius . '([^;]+)\s\/\s\5' . $important . ';#', '$1$5$6;', $css);
 		
 		return $css;
 	}

@@ -28,7 +28,8 @@ if($('selecteur_par_ligne') && $('tout_compresse')){
 	    'block_valeurs_multiples_separees',
 	    'block_colors_format',
 	    'block_hex_colors_format',
-	    'block_supprimer_selecteurs_vides'
+	    'block_supprimer_selecteurs_vides',
+	    'block_add_header'
 	];
 	
 	if($('selecteur_par_ligne').checked){
