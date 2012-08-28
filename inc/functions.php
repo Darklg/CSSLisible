@@ -1,5 +1,9 @@
 <?php
 
+//     CSSLisible
+//     (c) 2012 Kevin Rocher
+//     CSSLisible may be freely distributed under the MIT license.
+
 class CSSLisible {
 
 	public $buffer = '';
