@@ -61,15 +61,14 @@ class CSSLisible {
     			$this->buffer = $this->sort_css($this->buffer);
     			$this->buffer = $this->reindent_media_queries($this->buffer);
     			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
-    			if(!$this->get_option('tout_compresse')){
-    				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
-    			}
+
     			if($this->get_option('tout_compresse')){
     				$this->buffer = $this->compress_css($this->buffer,1);
-    			}
-
-    			if(!$this->get_option('tout_compresse') && $this->get_option('add_header')){
-    				$this->buffer = $this->add_header($this->buffer);
+    			} else {
+    				$this->buffer = $this->suppression_mise_ecart_commentaires($this->buffer);
+    				if($this->get_option('add_header')){
+        				$this->buffer = $this->add_header($this->buffer);
+    				}
     			}
 
     			if($this->get_option('return_file')){
