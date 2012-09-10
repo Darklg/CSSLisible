@@ -365,7 +365,7 @@ class CSSLisible {
 		$css_to_compress = preg_replace('#:(([^;]*-?[0-9]*)\.|([^;]*-?[0-9]*\.[1-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
 		
 		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
-		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
+		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^a-fA-F\d;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
 		// Simplification des codes RGB et RGBA utilisant des % en valeurs chiffrées
 		$css_to_compress = preg_replace_callback('#(:[^;]*rgb\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%(\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
 		$css_to_compress = preg_replace_callback('#(:[^;]*rgba\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%([\s]*,[\s]*\d(\.\d+)?\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
