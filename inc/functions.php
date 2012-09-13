@@ -343,7 +343,7 @@ class CSSLisible {
 
 		if($this->get_option('tout_compresse')){
 			// 0.1em => .1em
-			$css_to_compress = preg_replace('#((\s|:)-?)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$2', $css_to_compress);
+			$css_to_compress = preg_replace('#((\s|:)-?)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$3', $css_to_compress);
 			// Simplification des codes couleurs hexadécimaux
 			$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
 			// Simplification des valeurs à 4 paramètres chiffrés
