@@ -64,7 +64,7 @@ class CSSLisible {
     			$this->buffer = $this->clean_css($this->buffer);
     			$this->buffer = $this->sort_css($this->buffer);
     			$this->buffer = $this->reindent_media_queries($this->buffer);
-                $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+    			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
     			$this->buffer = $this->small_clean($this->buffer);
 
     			if($this->get_option('tout_compresse')){
