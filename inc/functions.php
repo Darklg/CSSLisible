@@ -84,13 +84,13 @@ class CSSLisible {
 			$this->get_options_from_cookies();
 		}
 	}
-	
+
 	public $listing_indentations = array();
 	public $listing_separateurs = array();
 	public $listing_distances = array();
 	public $listing_colors_formats = array();
 	public $listing_hex_colors_formats = array();
-	
+
 	private function set_default_values() {
 	    $this->listing_indentations = array(
     		array(' ', _('1 espace')),
@@ -128,7 +128,7 @@ class CSSLisible {
 	private function save_options() {
 	    setcookie ("CSSLisible", serialize(array('options' => $this->options)), time() + 365*24*3600);
 	}
-	
+
 	public function display_errors(){
 	    return implode('<br />',$this->errors);
 	}
@@ -138,7 +138,7 @@ class CSSLisible {
 	    if(isset($_COOKIE['CSSLisible'])){
     	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE['CSSLisible']) : $_COOKIE['CSSLisible'];
     	    $options_cookie = unserialize($options_cookie_brutes);
-    	    
+
     	    // On parcourt les options
     		foreach ($this->options as $option => $value) {
     			if (isset($options_cookie['options'][$option])) {
@@ -147,28 +147,28 @@ class CSSLisible {
     		}
 		}
 	}
-	
+
 	private function get_buffer(){
 	    $tab_opened = 'form';
 	    if(isset($_POST['tab_opened'])){
 	        $tab_opened = $_POST['tab_opened'];
 	    }
-	    
+
         switch ($tab_opened) {
             case 'url':
                 $this->get_buffer_from_url();
             break;
-            
+
             case 'file' :
                 $this->get_buffer_from_file();
-            break; 
+            break;
 
             default:
                 $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
             break;
         }
 	}
-	
+
 	private function get_buffer_from_url(){
 	    if(isset($_POST['clean_css_url'])){
 	        // On vérifie que l'url n'est pas vide.
@@ -196,15 +196,15 @@ class CSSLisible {
 	        }
 	    }
 	}
-	
+
 	private function get_url_contents($url){
 	    $result = '';
 	    $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_HEADER, 0);
         curl_setopt ($ch, CURLOPT_USERAGENT, 'CSSLisible');
-        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5); 
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_exec($ch);
         if(!$result = curl_exec($ch)) {
             $this->errors[] = _('Impossible de télécharger ce fichier.');
@@ -212,7 +212,7 @@ class CSSLisible {
         curl_close($ch);
         return $result;
 	}
-	
+
 	private function get_buffer_from_file(){
 	    if(isset($_FILES['clean_css_file']) && !empty($_FILES['clean_css_file'])){
 	        $file = $_FILES['clean_css_file'];
@@ -228,22 +228,22 @@ class CSSLisible {
 	        if(empty($this->errors)){
 	            $this->buffer = file_get_contents($file['tmp_name']);
 	        }
-	        
+
 	        // On fait le ménage
 	        if(isset($file['tmp_name'])){
 	            @unlink($file['tmp_name']);
 	        }
 	    }
 	}
-	
+
 	// On récupère les nouveaux réglages transmis via POST
 	private function get_options_from_post() {
-	    
+
 	    $options_choice = array(
-	        'type_separateur', 
-	        'type_indentation', 
-	        'distance_selecteurs', 
-	        'colors_format', 
+	        'type_separateur',
+	        'type_indentation',
+	        'distance_selecteurs',
+	        'colors_format',
 	        'hex_colors_format'
 	    );
 
@@ -252,22 +252,22 @@ class CSSLisible {
     			$this->set_option($option, $_POST[$option]);
     		}
         }
-        
+
         $options_bool = array(
             'selecteurs_multiples_separes',
-            'valeurs_multiples_separees', 
-            'supprimer_selecteurs_vides', 
-            'selecteur_par_ligne', 
-            'raccourcir_valeurs', 
-            'tout_compresse', 
-            'add_header', 
+            'valeurs_multiples_separees',
+            'supprimer_selecteurs_vides',
+            'selecteur_par_ligne',
+            'raccourcir_valeurs',
+            'tout_compresse',
+            'add_header',
             'return_file'
         );
-        
+
         foreach($options_bool as $option){
     		$this->set_option($option, isset($_POST[$option]));
         }
-        
+
 		$this->save_options();
 
 	}
@@ -277,13 +277,13 @@ class CSSLisible {
 	}
 
 	private function set_option($option_name, $option_value) {
-	    
+
 	    // On verifie que l'option envoyée est ok.
 	    switch($option_name) {
-            case 'type_separateur': 
+            case 'type_separateur':
                 $option_ok = array_key_exists($option_value,$this->listing_separateurs);
             break;
-            case 'type_indentation': 
+            case 'type_indentation':
                 $option_ok = array_key_exists($option_value,$this->listing_indentations);
             break;
             case 'distance_selecteurs':
@@ -322,7 +322,7 @@ class CSSLisible {
             default :
 		        $option_ok = false;
         }
-	    
+
 	    if($option_ok){
 		    $this->options[$option_name] = $option_value;
 		}
@@ -338,7 +338,7 @@ class CSSLisible {
 	}
 
 	private function compress_css($css_to_compress,$lvl=0){
-		
+
 		$css_to_compress = strip_tags($css_to_compress);
 
 		if($this->get_option('tout_compresse')){
@@ -351,7 +351,7 @@ class CSSLisible {
 			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
 		}
-		
+
 		// Suppression des espaces multiples
 		$css_to_compress = preg_replace('/([ ]{2,})/', ' ', $css_to_compress);
 
@@ -363,7 +363,7 @@ class CSSLisible {
 		$css_to_compress = preg_replace('#([\s]|:)0(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)#', '${1}0', $css_to_compress);
 		// Suppression des décimales inutiles
 		$css_to_compress = preg_replace('#:(([^;]*-?[0-9]*)\.|([^;]*-?[0-9]*\.[1-9]+))0+(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)([^;]*);#', ':$2$3$4$5;', $css_to_compress);
-		
+
 		// Passage temporaire des codes hexa de 3 en 6 caractères (pour les conversions de couleurs)
 		$css_to_compress = preg_replace('#(:[^;]*\#)([a-fA-F\d])([a-fA-F\d])([a-fA-F\d])([^a-fA-F\d;]*;)#', '$1$2$2$3$3$4$4$5', $css_to_compress);
 		// Simplification des codes RGB et RGBA utilisant des % en valeurs chiffrées
@@ -375,22 +375,22 @@ class CSSLisible {
 		}
 		// Simplification des codes couleurs hexadécimaux
 		$css_to_compress = $this->identify_and_short_hex_color_values($css_to_compress);
-		
+
 		// Simplification des valeurs à 4 paramètres chiffrés
 		if ($this->get_option('raccourcir_valeurs')) {
 			$css_to_compress = $this->shorten_values($css_to_compress);
 		}
-		
+
 		// Suppression des derniers espaces inutiles
 		$css_to_compress = preg_replace('#([\s]*)([\{\}\:\;\(\)\,])([\s]*)#', '$2', $css_to_compress);
-		
+
 		if($lvl>0){
 			$css_to_compress = str_replace(';}', '}', $css_to_compress);
 		}
-		
+
 		return $css_to_compress;
 	}
-	
+
 	// Changement de format des codes couleurs
 	private function convert_colors($css_to_compress) {
 		$css_to_compress = $css_to_compress[0];
@@ -408,7 +408,7 @@ class CSSLisible {
 				$keynamed_colors_patterns = array_map(array($this,'get_keynamed_colors_patterns'), $keyword_named_colors);
 				$hex_colors_patterns = array_map(array($this,'get_coded_colors_patterns'), $hex_named_colors);
 				$css_to_compress = preg_replace($keynamed_colors_patterns, $hex_colors_patterns, $css_to_compress);
-				
+
 				// Couleurs RGB vers Hexa
 				$css_to_compress = preg_replace_callback('#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#i', array($this, 'rgb2hex'), $css_to_compress);
 				break;
@@ -417,7 +417,7 @@ class CSSLisible {
 				$keynamed_colors_patterns = array_map(array($this,'get_keynamed_colors_patterns'), $keyword_named_colors);
 				$rgb_colors_patterns = array_map(array($this,'get_coded_colors_patterns'), $rgb_named_colors);
 				$css_to_compress = preg_replace($keynamed_colors_patterns, $rgb_colors_patterns, $css_to_compress);
-				
+
 				// Couleurs Hexa vers RGB
 				$css_to_compress = preg_replace_callback('#(:[^;]*)\#((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'hex2rgb'), $css_to_compress);
 				break;
@@ -425,17 +425,17 @@ class CSSLisible {
 
 		return $css_to_compress;
 	}
-	
+
 	// Retourne une regexp identifiant une couleur nommée en valeur d'une propriété CSS
 	private function get_keynamed_colors_patterns($color_keyname) {
 		return '#(:|.*\s)(' . $color_keyname . ')(\s.*|;)#i';
 	}
-	
+
 	// Retourne une chaine de remplacement pour conversion de couleurs nommées en RGB ou hexa via regexp
 	private function get_coded_colors_patterns($color_code) {
-		return '$1' . $color_code . '$3';	
+		return '$1' . $color_code . '$3';
 	}
-	
+
 	// Conversion d'un code couleur hexadécimal en RGB
 	private function hex2rgb($matches) {
 		$hex_color = str_split($matches[2], 2);
@@ -443,25 +443,25 @@ class CSSLisible {
 
 		return $matches[1] . 'rgb(' . $hex_color . ')' . $matches[5];
 	}
-	
+
 	// Conversion d'un code couleur RGB en hexadécimal
 	private function rgb2hex($matches) {
 		$rgb_color = explode(',', str_replace(' ', '', $matches[2]));
 		$rgb_color = $this->rgb_part2hex($rgb_color[0]) . $this->rgb_part2hex($rgb_color[1]) . $this->rgb_part2hex($rgb_color[2]);
-		
+
 		return $matches[1] . '#' . $rgb_color . $matches[6];
 	}
-	
+
 	// Conversion d'un des triplets RGB en hexadécimal
 	private function rgb_part2hex($rgb_part) {
 		return str_pad(dechex($rgb_part), 2, '0', STR_PAD_LEFT);
 	}
-	
+
 	// Conversion d'un code RGB de pourcentages à valeurs chiffrées
 	private function rgb_percent2value($matches) {
 		return $matches[1] . $this->rgb_part_percent2value($matches[2]) . ',' . $this->rgb_part_percent2value($matches[3]) . ',' . $this->rgb_part_percent2value($matches[4]) . $matches[5];
 	}
-	
+
 	// Conversion d'un des triplets RGB de pourcentage à une valeur chiffrée
 	private function rgb_part_percent2value($percent) {
 		return round($percent*255/100);
@@ -483,12 +483,12 @@ class CSSLisible {
 
 		return $matches[1] . $formatted_color . $matches[5];
 	}
-	
+
 	// Formatage multiligne des propriétés à valeurs multiples
 	private function format_multiple_values($css){
 	    $indent = $this->listing_indentations[$this->get_option('type_indentation')][0];
 	    preg_match_all('/'.$this->listing_separateurs[$this->get_option('type_separateur')].'((.+)\,(.*));/i',$css,$matches);
-	    
+
 	    if(!empty($matches[1])){
 	        foreach($matches[1] as $match){
 	            $new_match = '';
@@ -496,11 +496,11 @@ class CSSLisible {
 	            foreach($new_match_parts as &$part){
 	                $part = "\n".$indent.$indent.trim($part);
 	            }
-	            
+
 	            $css = str_replace($match,implode(',',$new_match_parts),$css);
 	        }
 	    }
-	    
+
 	    return $css;
 	}
 
@@ -511,22 +511,22 @@ class CSSLisible {
 		$parameter = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
 		$parameter_space = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
 		$important = '(\s*!important\s*)?';
-		
+
 		// 1px 1px 1px 1px => 1px
 		$css = preg_replace('#' . $property . $parameter . '\s\5\s\5\s\5' . $important . ';#', '$1$5$9;', $css);
 		// Border-radius : 1px 1px 1px 1px / ... => 1px / ...
 		$css = preg_replace('#' . $border_radius . $parameter . '\s\5\s\5\s\5(\s\/\s[^;]+;)#', '$1$5$9', $css);
 		// Border-radius : ... / 1px 1px 1px 1px  =>  ... / 1px
 		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter . '\s\6\s\6\s\6' . $important . ';#', '$1$5$6$10;', $css);
-		
+
 		// 1px 2px 1px 2px => 1px 2px
 		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s\5\9' . $important . ';#', '$1$5$9$13;', $css);
-		
+
 		// Border-radius : 1px 2px 1px 2px / ... => 1px 2px / ...
 		$css = preg_replace('#' . $border_radius . $parameter_space . $parameter . '\s\5\9(\s\/\s[^;]+;)#', '$1$5$9$13', $css);
 		// Border-radius : ... / 1px 2px 1px 2px  => ... / 1px 2px
 		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s\6\10' . $important . ';#', '$1$5$6$10$14;', $css);
-		
+
 		// 1px 2px 3px 2px => 1px 2px 3px
 		$css = preg_replace('#' . $property . $parameter_space . $parameter . '\s' . $parameter . '\s\9' . $important . ';#', '$1$5$9 $13$17;', $css);
 		// Border-radius : 1px 2px 3px 2px / ... => 1px 2px 3px / ...
@@ -535,7 +535,7 @@ class CSSLisible {
 		$css = preg_replace('#' . $border_radius . '([^;]+\s\/\s)' . $parameter_space . $parameter . '\s' . $parameter . '\s\10' . $important . ';#', '$1$5$6$10 $14$18;', $css);
 		// Border-radius : 1px / 1px => 1px
 		$css = preg_replace('#' . $border_radius . '([^;]+)\s\/\s\5' . $important . ';#', '$1$5$6;', $css);
-		
+
 		return $css;
 	}
 
@@ -545,20 +545,20 @@ class CSSLisible {
 
 		// Formatage des codes couleur hexadécimaux
 		$css_to_clean = preg_replace_callback('#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array($this, 'format_hex_color_values'), $css_to_clean);
-		
+
 		// Supprime les sélecteurs vides
 		if($this->get_option('supprimer_selecteurs_vides') || $this->get_option('tout_compresse')){
 			$css_to_clean = preg_replace('#([^}]+){}#isU', '', $css_to_clean);
 		}
-		
+
 		// == Mise en page améliorée ==
-		
+
 		// Fix url()
 		$css_to_clean = preg_replace('#(url|rgba|rgb|hsl|hsla|attr)\((.*)\)(\S)#isU', '$1($2) $3', $css_to_clean);
 		// Fix media query : and ()
 		$css_to_clean = str_replace(' and(', ' and (', $css_to_clean);
 		$css_to_clean = str_replace(') ;', ');', $css_to_clean);
-		
+
 		// Début du listing des propriétés
 		$css_to_clean = str_replace('{', ' {' . "\n", $css_to_clean);
 		$css_to_clean = str_replace(';', ';' . "\n", $css_to_clean);
@@ -583,14 +583,14 @@ class CSSLisible {
 	}
 
 	private function mise_ecart_commentaires($css_to_sort){
-		
+
 		// Suppression des commentaires internes à un sélecteur.
 		$css_to_sort = preg_replace('#{([\s]*)\/\*(.*)\*\/#isU','{',$css_to_sort);
 		$css_to_sort = preg_replace('#\/\*(.*)\*\/([\s]*)}#','}',$css_to_sort);
 		$css_to_sort = preg_replace('#;([\s]*)\/\*(.*)\*\/#',';',$css_to_sort);
-		
+
 		preg_match_all('#\/\*(.*)\*\/#isU',$css_to_sort,$commentaires);
-		
+
 		if(isset($commentaires[0])) {
 			foreach($commentaires[0] as $comment){
 				$chaine_remplacement = '_||_comment_' . count($this->comments_isoles) . '_||_';
@@ -598,17 +598,17 @@ class CSSLisible {
 				$css_to_sort = str_replace($comment,$chaine_remplacement,$css_to_sort);
 			}
 		}
-		
+
 		return $css_to_sort;
 	}
 
 	private function suppression_mise_ecart_commentaires($css_to_sort){
-		
+
 		foreach($this->comments_isoles as $chaine_remplacement => $comment){
 			$comment_dist = $comment.str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
 			$css_to_sort = str_replace($chaine_remplacement,$comment_dist,$css_to_sort);
 		}
-		
+
 		return $css_to_sort;
 	}
 
@@ -643,7 +643,7 @@ class CSSLisible {
 		preg_match_all('#@media(.*){((.*)})([\s]+)}#isU', $css_to_reindent, $matches);
 
 		foreach ($matches[2] as $match_media_query) {
-	
+
 			$tmp_match_media_query = $match_media_query;
 
 			$matches_prop = array();
@@ -673,10 +673,10 @@ class CSSLisible {
 		foreach ($matches[0] as $match) {
 			$css_to_reindent = str_replace($match, '}' . "\n" . '}', $css_to_reindent);
 		}
-		
+
 		// On supprime les derniers espaces qui traînent.
 		$css_to_reindent = preg_replace('/{(\s+)\n/isU', "{\n", $css_to_reindent);
-		
+
 
 		return $css_to_reindent;
 	}
@@ -757,7 +757,7 @@ class CSSLisible {
 				 $new_props
 			)
 		);
-		
+
 		if($this->get_option('valeurs_multiples_separees')){
 		    $new_props = $this->format_multiple_values($new_props);
 		}
@@ -771,17 +771,17 @@ class CSSLisible {
 			$str_date = date('Y-m-d H:i (U)');
 			$indentation = $this->listing_indentations[$this->get_option('type_indentation')][0];
 
-			$header = "\n" . "/*" . "\n" . 
+			$header = "\n" . "/*" . "\n" .
                 $indentation . _('Formaté :') . " " . $str_date . "\n".
                 $indentation . sprintf(_('avec %s'),'CSSLisible') . " - http://github.com/Darklg/CSSLisible" . "\n".
                 "*/" . "\n";
-                
+
 			$cleaned_css = $header	. str_pad('', $this->get_option('distance_selecteurs') + 1, "\n") . $cleaned_css;
 		}
-		
+
 		return $cleaned_css;
 	}
-	
+
 	// Renvoie un fichier CSS
 	private function return_file(){
 	    if(empty($errors)){
@@ -793,7 +793,7 @@ class CSSLisible {
 	        echo $this->buffer;
             flush();
             exit();
-            
+
 	    }
 	    exit;
 	}
