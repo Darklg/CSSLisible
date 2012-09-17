@@ -1,4 +1,4 @@
-.maclass{-webkit-border-radius: 3px;-moz-background-clip: border;
+@charset "UTF-8";.maclass{-webkit-border-radius: 3px;-moz-background-clip: border;
 -moz-border-radius : 3px;border-radius :3px;-webkit-background-clip: border;
 background-clip: border;}
 .maclass:before{content:'•'}
