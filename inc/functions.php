@@ -64,7 +64,8 @@ class CSSLisible {
     			$this->buffer = $this->clean_css($this->buffer);
     			$this->buffer = $this->sort_css($this->buffer);
     			$this->buffer = $this->reindent_media_queries($this->buffer);
-    			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+                $this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+    			$this->buffer = $this->small_clean($this->buffer);
 
     			if($this->get_option('tout_compresse')){
     				$this->buffer = $this->compress_css($this->buffer,1);
@@ -764,6 +765,18 @@ class CSSLisible {
 
 		return $new_props;
 	}
+
+    private function small_clean($css) {
+
+        // Séparation après @charset
+        preg_match('/\@charset(.*)\;\\n/i',$css,$match);
+        if(isset($match[0])){
+            $interlignage = str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
+            $css = str_replace($match[0],trim($match[0]).$interlignage,$css);
+        }
+
+        return $css;
+    }
 
 	// Ajout du commentaire en entête
 	private function add_header($cleaned_css) {
