@@ -266,7 +266,7 @@ class CSSLisible {
         );
 
         foreach($options_bool as $option){
-    		$this->set_option($option, isset($_POST[$option]));
+    		$this->set_option($option, isset($_POST[$option]) && $_POST[$option] == '1');
         }
 
 		$this->save_options();
