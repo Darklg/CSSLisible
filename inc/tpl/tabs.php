@@ -26,7 +26,7 @@
 	</div>
 	<div class="form-block" id="form-block-file">
 		<label for="clean_css_file"><?php echo _('Fichier CSS à nettoyer :'); ?></label><br />
-		<input type="file" name="clean_css_file" id="clean_css_file" value="" />
+		<input type="file" name="clean_css_file" id="clean_css_file" />
 	</div>
 	<div class="form-block" id="form-block-url">
 		<label for="clean_css_url"><?php echo _('URL du CSS à nettoyer :'); ?></label><br />
