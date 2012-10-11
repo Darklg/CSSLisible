@@ -777,6 +777,9 @@ class CSSLisible {
             $css = str_replace($match[0],trim($match[0]).$interlignage,$css);
         }
 
+        // Mauvais espacement après parenthèse ") ,in"
+        $css = preg_replace('/\)\ \,([a-z]{1})/','), $1',$css);
+
         return $css;
     }
 
