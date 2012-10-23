@@ -485,26 +485,42 @@ class CSSLisible {
 		return $matches[1] . $formatted_color . $matches[5];
 	}
 
-	// Formatage multiligne des propriétés à valeurs multiples
-	private function format_multiple_values($css){
+    // Formatage multiligne des propriétés à valeurs multiples
+    private function format_multiple_values($css){
 
-	    $indent = $this->listing_indentations[$this->get_option('type_indentation')][0];
-	    preg_match_all('/'.$this->listing_separateurs[$this->get_option('type_separateur')].'((.+)\,(.*));/i',$css,$matches);
+        // On isole le contenu des parenthèses de premier niveau
+        $parentheses_isolees = array();
+        preg_match_all('/\(([^\(]*)\)/isU',$css,$matches);
+        if(isset($matches[0])){
+            foreach($matches[0] as $i => $match){
+                $replace = '_||_parentheses_'.$i.'_||_';
+                $parentheses_isolees[$replace] = $match;
+                $css = str_replace($match, $replace, $css);
+            }
+        }
 
-	    if(!empty($matches[1])){
-	        foreach($matches[1] as $match){
-	            $new_match = '';
-	            $new_match_parts = explode(',',$match);
-	            foreach($new_match_parts as &$part){
-	                $part = "\n".$indent.$indent.trim($part);
-	            }
+        $indent = $this->listing_indentations[$this->get_option('type_indentation')][0];
+        preg_match_all('/'.$this->listing_separateurs[$this->get_option('type_separateur')].'((.+)\,(.*));/i',$css,$matches);
 
-	            $css = str_replace($match,implode(',',$new_match_parts),$css);
-	        }
-	    }
+        if(!empty($matches[1])){
+            foreach($matches[1] as $match){
+                $new_match = '';
+                $new_match_parts = explode(',',$match);
+                foreach($new_match_parts as &$part){
+                    $part = "\n".$indent.$indent.trim($part);
+                }
 
-	    return $css;
-	}
+                $css = str_replace($match,implode(',',$new_match_parts),$css);
+            }
+        }
+
+        // On remet le contenu isolé
+        foreach($parentheses_isolees as $replace => $match){
+            $css = str_replace($replace, $match, $css);
+        }
+
+        return $css;
+    }
 
 	// Simplification des valeurs à 4 paramètres
 	private function shorten_values($css) {
