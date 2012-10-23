@@ -60,11 +60,11 @@ class CSSLisible {
     			if(!$this->get_option('tout_compresse')){
     				$this->buffer = $this->mise_ecart_commentaires($this->buffer);
     			}
-    			$this->buffer = $this->mise_ecart_propriete($this->buffer);
+    			$this->buffer = $this->mise_ecart_proprietes($this->buffer);
     			$this->buffer = $this->clean_css($this->buffer);
     			$this->buffer = $this->sort_css($this->buffer);
     			$this->buffer = $this->reindent_media_queries($this->buffer);
-    			$this->buffer = $this->suppression_mise_ecart_propriete($this->buffer);
+    			$this->buffer = $this->suppression_mise_ecart_proprietes($this->buffer);
     			$this->buffer = $this->small_clean($this->buffer);
 
     			if($this->get_option('tout_compresse')){
@@ -487,6 +487,7 @@ class CSSLisible {
 
 	// Formatage multiligne des propriétés à valeurs multiples
 	private function format_multiple_values($css){
+
 	    $indent = $this->listing_indentations[$this->get_option('type_indentation')][0];
 	    preg_match_all('/'.$this->listing_separateurs[$this->get_option('type_separateur')].'((.+)\,(.*));/i',$css,$matches);
 
@@ -573,7 +574,7 @@ class CSSLisible {
 		return $css_to_clean;
 	}
 
-	private function mise_ecart_propriete($css_to_sort) {
+	private function mise_ecart_proprietes($css_to_sort) {
 		foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {
 			preg_match_all($infos_tofix['regex'], $css_to_sort, $matches);
 			foreach ($matches[1] as $match) {
@@ -615,7 +616,7 @@ class CSSLisible {
 		return $css_to_sort;
 	}
 
-	private function suppression_mise_ecart_propriete($css_to_sort) {
+	private function suppression_mise_ecart_proprietes($css_to_sort) {
 		foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {
 			foreach ($infos_tofix['list'] as $match => $replace) {
 				$css_to_sort = str_replace($match, $replace, $css_to_sort);
