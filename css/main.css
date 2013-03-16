@@ -310,6 +310,7 @@ label,
     background: #e0e0e0;
 }
 
-.no-js .go_options {
+.no-js .go_options,
+#copy_button.hide {
     display: none;
 }

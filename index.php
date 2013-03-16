@@ -68,7 +68,7 @@ include DIR_SITE . '/inc/header.php';
 	}
 	?>
 	
-	
+	<script src="js/ZeroClipboard.min.js?1363440036"></script>
 	<script src="js/events.js?t=201208181531" type="text/javascript" charset="utf-8"></script>
 	
 	</body>

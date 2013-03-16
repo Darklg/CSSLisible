@@ -832,4 +832,10 @@ class CSSLisible {
 	    }
 	    exit;
 	}
+
+	// Génération de classe pour le bouton de "Copy to clipboard" :
+	// on affiche ce bouton seulement si du code a été soumis.
+	public function get_copy_btn_class() {
+		return (strlen(trim($this->buffer))) ? '' : 'hide';
+	}
 }
