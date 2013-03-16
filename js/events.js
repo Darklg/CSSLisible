@@ -86,6 +86,15 @@ if($('try_me') && $('clean_css')){
     };
 }
 
+// Bouton de copie du code une fois nettoyé
+var clip = new ZeroClipboard(
+    $('copy_button'),
+    {moviePath: 'js/ZeroClipboard.swf', hoverClass: 'zeroclipboard-is-hover', activeClass: 'zeroclipboard-is-active'}
+);
+clip.on('complete', function(client, args) {
+    $('copy_button').innerHTML = 'Code copié !';
+});
+
 /* ----------------------------------------------------------
    Fonctions
    ------------------------------------------------------- */
@@ -163,6 +172,14 @@ function hideAllTabsBut(tabs,but){
     cible.style.display = 'block';
     addClass(tabs[but],'active');
     addClass(cible,'active');
+    
+    // Affichage du bouton de copie de code uniquement avec le premier onglet
+    if(but == 0 && $('clean_css').value){
+        removeClass($('copy_button'),'hide');
+    }
+    else if(but != 0){
+        addClass($('copy_button'),'hide');
+    }
 }
 
 /* Source : http://akoo.be/2008/06/in_array-en-javascript/ */
