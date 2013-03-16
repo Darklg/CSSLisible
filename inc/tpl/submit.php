@@ -7,6 +7,6 @@
     </div>
     <div>
         <button class="go_clean_css" type="submit"><?php echo _('Nettoyer ce code'); ?> &rarr;</button>
-        <button id="copy_button" class="go_clean_css <?php echo $CSSLisible->get_copy_btn_class(); ?>" data-clipboard-target="clean_css">Copier le code</button>
+        <button id="copy_button" class="go_clean_css <?php echo $CSSLisible->get_copy_btn_class(); ?>" data-clipboard-target="clean_css"><?php echo _('Copier ce code'); ?></button>
     </div>
 </div>
