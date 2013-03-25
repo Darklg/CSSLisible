@@ -526,10 +526,10 @@ class CSSLisible {
 	private function shorten_values($css) {
 		$property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
 		$border_radius = '((border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
-		$parameter = '((-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))|auto|inherit)';
-		$numeric_parameter = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-		$parameter_space = '((-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)|auto|inherit)\s)';
-		$numeric_parameter_space = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)\s)';
+		$parameter = '((-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)?)|auto|inherit)';
+		$numeric_parameter = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)?)';
+		$parameter_space = '((-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)?|auto|inherit)\s)';
+		$numeric_parameter_space = '(-?([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm)?\s)';
 		$important = '(\s*!important\s*)?';
 
 		// 1px 1px 1px 1px => 1px
