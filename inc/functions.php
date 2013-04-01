@@ -127,7 +127,7 @@ class CSSLisible {
 	}
 
 	private function save_options() {
-	    setcookie ("CSSLisible", serialize(array('options' => $this->options)), time() + 365*24*3600);
+	    setcookie (COOKIE_NAME, serialize(array('options' => $this->options)), time() + 365*24*3600);
 	}
 
 	public function display_errors(){
@@ -136,8 +136,8 @@ class CSSLisible {
 
 	// On vérifie la présence de réglages dans les cookies
 	private function get_options_from_cookies() {
-	    if(isset($_COOKIE['CSSLisible'])){
-    	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE['CSSLisible']) : $_COOKIE['CSSLisible'];
+	    if(isset($_COOKIE[COOKIE_NAME])){
+    	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE[COOKIE_NAME]) : $_COOKIE[COOKIE_NAME];
     	    $options_cookie = unserialize($options_cookie_brutes);
 
     	    // On parcourt les options
