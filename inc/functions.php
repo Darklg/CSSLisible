@@ -808,7 +808,7 @@ class CSSLisible {
 
 			$header = "\n" . "/*" . "\n" .
                 $indentation . _('Formaté :') . " " . $str_date . "\n".
-                $indentation . sprintf(_('avec %s'),'CSSLisible') . " - http://github.com/Darklg/CSSLisible" . "\n".
+                $indentation . sprintf(_('avec %s'),TITRE_SITE) . " - http://github.com/Darklg/CSSLisible" . "\n".
                 "*/" . "\n";
 
 			$cleaned_css = $header	. str_pad('', $this->get_option('distance_selecteurs') + 1, "\n") . $cleaned_css;
