@@ -174,7 +174,7 @@ function hideAllTabsBut(tabs,but){
     addClass(cible,'active');
 
     // Affichage des bouton de test et de copie de code uniquement avec le premier onglet
-    if (but == 0) {
+    if (but == 0){
         if($('try_me')){
             removeClass($('try_me'),'hide');
         }
