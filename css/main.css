@@ -313,6 +313,7 @@ label,
 .no-js .go_options,
 #try_me.hide,
 #copy_button.hide,
+.no-js #try_me,
 .no-js #copy_button {
     display: none;
 }
