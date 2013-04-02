@@ -40,9 +40,6 @@ class CSSLisible {
 	);
 	private $errors = array(
 	);
-	private $config = array(
-	   'max_filesize' => 307200,
-	);
 
 	private $comments_isoles = array();
 
@@ -223,8 +220,8 @@ class CSSLisible {
 	        if(empty($this->errors) && $file['type'] != 'text/css') {
 	            $this->errors[] = _('Il ne s’agit pas d’un fichier CSS.');
 	        }
-	        if(empty($this->errors) && $file['size'] > $this->config['max_filesize']){
-	            $this->errors[] = sprintf(_('Le fichier CSS est trop lourd. (Maximum : %d ko)'), round($this->config['max_filesize']/1024));
+	        if(empty($this->errors) && $file['size'] > MAX_FILESIZE){
+	            $this->errors[] = sprintf(_('Le fichier CSS est trop lourd. (Maximum : %d ko)'), round(MAX_FILESIZE/1024));
 	        }
 	        if(empty($this->errors)){
 	            $this->buffer = file_get_contents($file['tmp_name']);
