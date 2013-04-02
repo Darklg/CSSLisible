@@ -172,13 +172,21 @@ function hideAllTabsBut(tabs,but){
     cible.style.display = 'block';
     addClass(tabs[but],'active');
     addClass(cible,'active');
-    
-    // Affichage du bouton de copie de code uniquement avec le premier onglet
-    if ($('copy_button')) {
-        if(but == 0 && $('clean_css').value){
+
+    // Affichage des bouton de test et de copie de code uniquement avec le premier onglet
+    if (but == 0){
+        if($('try_me')){
+            removeClass($('try_me'),'hide');
+        }
+        if($('copy_button') && $('clean_css').value){
             removeClass($('copy_button'),'hide');
         }
-        else if(but != 0){
+    }
+    else if(but != 0){
+        if($('try_me')){
+            addClass($('try_me'),'hide');
+        }
+        if($('copy_button')){
             addClass($('copy_button'),'hide');
         }
     }
