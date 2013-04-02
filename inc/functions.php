@@ -40,9 +40,6 @@ class CSSLisible {
 	);
 	private $errors = array(
 	);
-	private $config = array(
-	   'max_filesize' => 307200,
-	);
 
 	private $comments_isoles = array();
 
@@ -127,7 +124,7 @@ class CSSLisible {
 	}
 
 	private function save_options() {
-	    setcookie ("CSSLisible", serialize(array('options' => $this->options)), time() + 365*24*3600);
+	    setcookie (COOKIE_NAME, serialize(array('options' => $this->options)), time() + 365*24*3600);
 	}
 
 	public function display_errors(){
@@ -136,8 +133,8 @@ class CSSLisible {
 
 	// On vérifie la présence de réglages dans les cookies
 	private function get_options_from_cookies() {
-	    if(isset($_COOKIE['CSSLisible'])){
-    	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE['CSSLisible']) : $_COOKIE['CSSLisible'];
+	    if(isset($_COOKIE[COOKIE_NAME])){
+    	    $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes($_COOKIE[COOKIE_NAME]) : $_COOKIE[COOKIE_NAME];
     	    $options_cookie = unserialize($options_cookie_brutes);
 
     	    // On parcourt les options
@@ -203,7 +200,7 @@ class CSSLisible {
 	    $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_HEADER, 0);
-        curl_setopt ($ch, CURLOPT_USERAGENT, 'CSSLisible');
+        curl_setopt ($ch, CURLOPT_USERAGENT, CURLOPT_USERAGENT_NAME);
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_exec($ch);
@@ -223,8 +220,8 @@ class CSSLisible {
 	        if(empty($this->errors) && $file['type'] != 'text/css') {
 	            $this->errors[] = _('Il ne s’agit pas d’un fichier CSS.');
 	        }
-	        if(empty($this->errors) && $file['size'] > $this->config['max_filesize']){
-	            $this->errors[] = sprintf(_('Le fichier CSS est trop lourd. (Maximum : %d ko)'), round($this->config['max_filesize']/1024));
+	        if(empty($this->errors) && $file['size'] > MAX_FILESIZE){
+	            $this->errors[] = sprintf(_('Le fichier CSS est trop lourd. (Maximum : %d ko)'), round(MAX_FILESIZE/1024));
 	        }
 	        if(empty($this->errors)){
 	            $this->buffer = file_get_contents($file['tmp_name']);
@@ -808,7 +805,7 @@ class CSSLisible {
 
 			$header = "\n" . "/*" . "\n" .
                 $indentation . _('Formaté :') . " " . $str_date . "\n".
-                $indentation . sprintf(_('avec %s'),'CSSLisible') . " - http://github.com/Darklg/CSSLisible" . "\n".
+                $indentation . sprintf(_('avec %s'),TITRE_SITE) . " - http://github.com/Darklg/CSSLisible" . "\n".
                 "*/" . "\n";
 
 			$cleaned_css = $header	. str_pad('', $this->get_option('distance_selecteurs') + 1, "\n") . $cleaned_css;
