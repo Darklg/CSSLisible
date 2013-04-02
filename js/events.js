@@ -174,11 +174,13 @@ function hideAllTabsBut(tabs,but){
     addClass(cible,'active');
     
     // Affichage du bouton de copie de code uniquement avec le premier onglet
-    if(but == 0 && $('clean_css').value){
-        removeClass($('copy_button'),'hide');
-    }
-    else if(but != 0){
-        addClass($('copy_button'),'hide');
+    if ($('copy_button')) {
+        if(but == 0 && $('clean_css').value){
+            removeClass($('copy_button'),'hide');
+        }
+        else if(but != 0){
+            addClass($('copy_button'),'hide');
+        }
     }
 }
 
