@@ -86,6 +86,18 @@ if($('try_me') && $('clean_css')){
     };
 }
 
+// Désactivation du bouton de nettoyage au chargement avec un textarea vide
+if($('clean_css').value.length == 0){
+    $('clean_button').setAttribute('disabled', 'disabled');
+}
+ 
+// Ré-activation du bouton de nettoyage après ajout de code
+$('clean_css').onkeyup = function(){
+    if($('clean_css').value.trim().length && $('clean_button').getAttribute('disabled') != null){
+        $('clean_button').removeAttribute('disabled');
+    }
+}
+
 // Bouton de copie du code une fois nettoyé
 var clip = new ZeroClipboard(
     $('copy_button'),
