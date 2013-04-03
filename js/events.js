@@ -93,7 +93,10 @@ if($('clean_css').value.length == 0){
  
 // Ré-activation du bouton de nettoyage après ajout de code
 $('clean_css').onkeyup = function(){
-    if($('clean_css').value.trim().length && $('clean_button').getAttribute('disabled') != null){
+    if($('clean_css').value.trim().length == 0){
+        $('clean_button').setAttribute('disabled', 'disabled');
+    }
+    else if($('clean_button').getAttribute('disabled') != null){
         $('clean_button').removeAttribute('disabled');
     }
 }
