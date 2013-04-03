@@ -187,7 +187,7 @@ function hideAllTabsBut(tabs,but){
         if($('try_me')){
             removeClass($('try_me'),'hide');
         }
-        if($('copy_button') && $('clean_css').value){
+        if($('copy_button') && $('clean_css').value.trim()){
             removeClass($('copy_button'),'hide');
         }
 
