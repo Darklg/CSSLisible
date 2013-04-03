@@ -88,17 +88,11 @@ if($('try_me') && $('clean_css')){
 
 // Désactivation du bouton de nettoyage au chargement avec un textarea vide
 if($('clean_css').value.length == 0){
-    $('clean_button').setAttribute('disabled', 'disabled');
-}
- 
-// Ré-activation du bouton de nettoyage après ajout de code
+    disable_clean_button();
+} 
+// Gestion de l'activation du bouton de nettoyage selon utilisation du textarea
 $('clean_css').onkeyup = function(){
-    if($('clean_css').value.trim().length == 0){
-        $('clean_button').setAttribute('disabled', 'disabled');
-    }
-    else if($('clean_button').getAttribute('disabled') != null){
-        $('clean_button').removeAttribute('disabled');
-    }
+    manage_clean_button();
 }
 
 // Bouton de copie du code une fois nettoyé
@@ -196,6 +190,9 @@ function hideAllTabsBut(tabs,but){
         if($('copy_button') && $('clean_css').value){
             removeClass($('copy_button'),'hide');
         }
+
+        // Gestion de l'activation du bouton de nettoyage selon utilisation du textarea
+        manage_clean_button();
     }
     else if(but != 0){
         if($('try_me')){
@@ -204,7 +201,29 @@ function hideAllTabsBut(tabs,but){
         if($('copy_button')){
             addClass($('copy_button'),'hide');
         }
+
+        // Ré-activation du bouton de validation avec les tabs "Fichier" et "URL"
+        enable_clean_button();
     }
+}
+
+function manage_clean_button(){
+    if($('clean_css').value.trim().length == 0){
+        disable_clean_button();
+    }
+    else {
+        enable_clean_button();
+    }
+}
+
+function enable_clean_button(){
+    if($('clean_button').getAttribute('disabled') != null){
+        $('clean_button').removeAttribute('disabled');
+    }
+}
+
+function disable_clean_button(){
+    $('clean_button').setAttribute('disabled', 'disabled');
 }
 
 /* Source : http://akoo.be/2008/06/in_array-en-javascript/ */
