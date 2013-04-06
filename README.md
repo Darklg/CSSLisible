@@ -17,7 +17,7 @@ Ci-dessous, les paramètres à utiliser sous le format :
 ### Paramètres optionnels
 
 * 'distance_selecteurs' : (0,/1/,2) : Nombre de lignes séparant plusieurs sélecteurs.
-* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie. 
+* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie.
 * 'type_separateur' : (0,1,/2/,3) : Type de séparateur entre propriété et valeur
 * 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple. (Booleen)
 * 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple. (Booleen)
@@ -57,6 +57,20 @@ Ci-dessous, les paramètres à utiliser sous le format :
 * 2 : 'Hex' : ( rgb(0,0,0) / black -> #000 )
 * 3 : 'RGB' : ( #000 / black -> rgb(0,0,0) )
 
+## Configuration de CSSLisible
+
+CSSLisible peut être configuré via un fichier "user-config.php" placé à la racine de inc.
+Il suffit d'ajouter une constante pour écraser la valeur par défaut.
+
+### Constantes
+
+* TITRE_SITE : (string) Nom du site
+* SLOGAN_SITE : (string) Description du site
+* COOKIE_NAME : (string) Nom du Cookie utilisé
+* CURLOPT_USERAGENT_NAME : (string) User Agent déclaré lors des appels distants.
+* MAX_FILESIZE : (int) Poids maximal accepté en octets d'un fichier CSS envoyé.
+* USE_TEST_BUTTON : (bool) Afficher le bouton de test
+* USE_COPY_BUTTON : (bool) Afficher le bouton de copie
 
 ## Licence MIT
 
