@@ -75,6 +75,9 @@ if($('try_me') && $('clean_css')){
         xhr.onreadystatechange = function() { 
             if (xhr.readyState==4) {
                 $('clean_css').value = xhr.responseText;
+
+                // Enable submit button
+                manage_clean_button();
             }
         };
 
