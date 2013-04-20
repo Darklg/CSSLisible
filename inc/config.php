@@ -2,7 +2,7 @@
 if ( !defined( 'TITRE_SITE' ) )
     define( 'TITRE_SITE', 'CSSLisible' );
 if ( !defined( 'SLOGAN_SITE' ) )
-    define( 'SLOGAN_SITE', _( 'Ordonner votre CSS et le rendre lisible' ) );
+    define( 'SLOGAN_SITE', 'Ordonner votre CSS et le rendre lisible' );
 if ( !defined( 'COOKIE_NAME' ) )
     define( 'COOKIE_NAME', 'CSSLisible' );
 if ( !defined( 'CURLOPT_USERAGENT_NAME' ) )

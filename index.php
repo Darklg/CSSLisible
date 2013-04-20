@@ -6,7 +6,7 @@ include DIR_SITE . '/inc/header.php';
 <html lang="<?php echo $lang; ?>">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo TITRE_SITE . ' - ' . SLOGAN_SITE; ?></title>
+		<title><?php echo TITRE_SITE . ' - ' . _(SLOGAN_SITE); ?></title>
 		<meta name="viewport" content="width=790" />
 		<link rel="stylesheet" href="css/main.css?t=201208181531" type="text/css" />
 	</head>
@@ -14,7 +14,7 @@ include DIR_SITE . '/inc/header.php';
 	<div id="main-container">
 		<div id="header">
 		    <?php include DIR_SITE . '/inc/tpl/lang_menu.php'; ?>
-    		<h1><?php echo TITRE_SITE . ' - ' . SLOGAN_SITE; ?></h1>
+    		<h1><?php echo TITRE_SITE . ' - ' . _(SLOGAN_SITE); ?></h1>
 		</div>
 		<form id="main-form" action="" method="post" enctype="multipart/form-data">
 
@@ -52,14 +52,14 @@ include DIR_SITE . '/inc/header.php';
 		</form>
 	</div>
 	<div id="footer">
-	    <a target="_blank" href="https://github.com/Darklg/CSSLisible/blob/master/README.md"><?php echo _('Documentation'); ?></a> - 
-		<?php echo _('Source disponible sur'); ?> 
-		<a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a> - 
-		<?php echo _('Contributeurs : '); ?> 
+	    <a target="_blank" href="https://github.com/Darklg/CSSLisible/blob/master/README.md"><?php echo _('Documentation'); ?></a> -
+		<?php echo _('Source disponible sur'); ?>
+		<a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a> -
+		<?php echo _('Contributeurs : '); ?>
 		<a target="_blank" href="http://github.com/Darklg">Darklg</a>,
 		<a target="_blank" href="http://github.com/NumEricR">NumEricR</a>
 	</div>
-	
+
 	<?php
 	// Fichier conditionnel pour charger boutons like, google analytics, etc.
 	$hollow_file = realpath(DIR_SITE).'/inc/hollow-file.php';
@@ -67,9 +67,9 @@ include DIR_SITE . '/inc/header.php';
 	    include $hollow_file;
 	}
 	?>
-	
+
 	<script src="js/ZeroClipboard.min.js?1363440036"></script>
 	<script src="js/events.js?t=201208181531" type="text/javascript" charset="utf-8"></script>
-	
+
 	</body>
 </html>
