@@ -2,6 +2,11 @@
 
 Simple outil de reformatage et réorganisation du CSS
 
+## Contributeurs
+
+* @Darklg
+* @NumEricR
+
 ## API Simplifiée
 
 L'API fonctionne par POST et renvoie une réponse en texte brut. N'hésitez pas à cloner une version de CSSLisible sur votre serveur, afin de gagner en fiabilité de service !
