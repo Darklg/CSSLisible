@@ -348,6 +348,10 @@ class CSSLisible {
 			$css_to_compress = $this->shorten_values($css_to_compress);
 			// Suppression des commentaires
 			$css_to_compress = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css_to_compress);
+			// Convert font-weight named values into numeric
+			$weight_patterns = array('/(font-weight\s*:\s*)normal/','/(font-weight\s*:\s*)bold/');
+			$weight_replacements = array('${1}400','${1}700');
+			$css_to_compress = preg_replace($weight_patterns, $weight_replacements, $css_to_compress);
 		}
 
 		// Suppression des espaces multiples
