@@ -30,9 +30,47 @@ $listing_proprietes = array(
     'left',
     'zoom',
 
+    '-webkit-appearance',
+    '-moz-appearance',
+    'appearance',
+
 /* --------------------------------------------------------------------
     Box Model
    ----------------------------------------------------------------- */
+
+    /* Flex box
+       ----------------------- */
+
+    'flex',
+    'flex-basis',
+    'flex-direction',
+    'flex-flow',
+    'flex-grow',
+    'flex-shrink',
+    'flex-wrap',
+    'align-content',
+    'align-items',
+    'align-self',
+    'order',
+    'justify-content',
+
+    /* Columns
+       ----------------------- */
+
+    '-webkit-column-count',
+    '-moz-column-count',
+    '-ms-column-count',
+    '-o-column-count',
+    'column-count',
+
+    '-webkit-column-gap',
+    '-moz-column-gap',
+    '-ms-column-gap',
+    '-o-column-gap',
+    'column-gap',
+
+    /* Others
+       ----------------------- */
 
     '-webkit-box-align',
     '-moz-box-align',
@@ -134,6 +172,7 @@ $listing_proprietes = array(
     'text-align',
     'text-decoration',
     'text-indent',
+    'text-overflow',
     'text-shadow',
     'text-transform',
 
@@ -146,10 +185,16 @@ $listing_proprietes = array(
     'line-height',
 
     'letter-spacing',
+    'tab-size',
     'white-space',
     'word-spacing',
+    'word-break',
+    '-webkit-hyphens',
+    '-moz-hyphens',
+    'hyphens',
 
     'orphans',
+    'page-break',
     'page-break-after',
     'page-break-before',
     'page-break-inside',
@@ -198,10 +243,43 @@ $listing_proprietes = array(
     '-moz-box-shadow',
     'box-shadow',
 
+    /* ----------------------------------------------------------
+       Animations
+       ------------------------------------------------------- */
+
     '-webkit-animation',
     '-moz-animation',
     '-o-animation',
     'animation',
+
+    '-webkit-animation-name',
+    '-moz-animation-name',
+    '-o-animation-name',
+    'animation-name',
+    '-webkit-animation-duration',
+    '-moz-animation-duration',
+    '-o-animation-duration',
+    'animation-duration',
+    '-webkit-animation-iteration-count',
+    '-moz-animation-iteration-count',
+    '-o-animation-iteration-count',
+    'animation-iteration-count',
+    '-webkit-animation-direction',
+    '-moz-animation-direction',
+    '-o-animation-direction',
+    'animation-direction',
+    '-webkit-animation-timing-function',
+    '-moz-animation-timing-function',
+    '-o-animation-timing-function',
+    'animation-timing-function',
+    '-webkit-animation-fill-mode',
+    '-moz-animation-fill-mode',
+    '-o-animation-fill-mode',
+    'animation-fill-mode',
+    '-webkit-animation-delay',
+    '-moz-animation-delay',
+    '-o-animation-delay',
+    'animation-delay',
 
 /* --------------------------------------------------------------------
     Transformation & Transitions
@@ -219,12 +297,31 @@ $listing_proprietes = array(
     '-o-transform',
     'transform',
 
+    '-webkit-transform-style',
+    '-moz-transform-style',
+    'transform-style',
+
+    'transform-origin',
+
+    '-webkit-backface-visibility',
+    '-moz-backface-visibility',
+    'backface-visibility',
+
+    '-webkit-perspective',
+    '-moz-perspective',
+    'perspective',
+
+    '-webkit-perspective-origin',
+    '-moz-perspective-origin',
+    'perspective-origin',
+
 /* --------------------------------------------------------------------
     Comportements
    ----------------------------------------------------------------- */
 
     'resize',
     'cursor',
+    'pointer-events',
 
     '-webkit-user-select',
     '-moz-user-select',
