@@ -4,8 +4,8 @@ Simple outil de reformatage et réorganisation du CSS
 
 ## Contributeurs
 
-* @Darklg
-* @NumEricR
+* [@Darklg](https://github.com/Darklg)
+* [@NumEricR](https://github.com/NumEricR)
 
 ## API Simplifiée
 
