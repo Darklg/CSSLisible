@@ -1,4 +1,9 @@
 <?php
+
+// Verify if an user array is already loaded.
+if ( isset( $listing_proprietes ) && !empty( $listing_proprietes ) && is_array( $listing_proprietes ) ) {
+    return;
+}
 $listing_proprietes = array(
 
 /* --------------------------------------------------------------------
