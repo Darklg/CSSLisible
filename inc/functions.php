@@ -802,8 +802,8 @@ class CSSLisible {
 
         // Espace après ) si non suivi d'un espace ou d'un ;
         $css = preg_replace('/\)([^ ;]{1})/',') $1',$css);
-        // Espace avant ) si précédé d'un caractère alnum
-        $css = preg_replace('/([a-z0-9]{1})\(/','$1 (',$css);
+        // Espace avant ( si précédé d'un "and"
+        $css = str_replace('and(','and (',$css);
         // Mauvais espacement après parenthèse ") ,in"
         $css = preg_replace('/\)\ \,([a-z]{1})/','), $1',$css);
 
