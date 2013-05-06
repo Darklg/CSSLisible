@@ -800,6 +800,8 @@ class CSSLisible {
             $css = str_replace($match[0],trim($match[0]).$interlignage,$css);
         }
 
+        // Espace après ) si non suivi d'un espace ou d'un ;
+        $css = preg_replace('/\)([^ ;]{1})/',') $1',$css);
         // Mauvais espacement après parenthèse ") ,in"
         $css = preg_replace('/\)\ \,([a-z]{1})/','), $1',$css);
 
