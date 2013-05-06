@@ -352,6 +352,10 @@ class CSSLisible {
 			$weight_patterns = array('/(font-weight\s*:\s*)normal/','/(font-weight\s*:\s*)bold/');
 			$weight_replacements = array('${1}400','${1}700');
 			$css_to_compress = preg_replace($weight_patterns, $weight_replacements, $css_to_compress);
+			// Remove quotes on url values
+			$css_to_compress = preg_replace('/url\((\'|")(.*)(\'|")\)/', 'url($2)', $css_to_compress);
+			// (border|background|outline): none; => 0
+			$css_to_compress = preg_replace('/(background|border|outline)\s*:\s*none;/', '$1:0;', $css_to_compress);
 		}
 
 		// Suppression des espaces multiples
