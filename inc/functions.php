@@ -30,7 +30,7 @@ class CSSLisible {
 			'list' => array()
 		),
 		'ms_filter' => array(
-			'regex' => '#progid(.*);#',
+			'regex' => '/progid(.*);/i',
 			'list' => array()
 		),
 		'quotes' => array(
@@ -637,14 +637,15 @@ class CSSLisible {
 		return $css_to_sort;
 	}
 
-	private function suppression_mise_ecart_proprietes($css_to_sort) {
-		foreach ($this->strings_tofix as $type_tofix => $infos_tofix) {
-			foreach ($infos_tofix['list'] as $match => $replace) {
-				$css_to_sort = str_replace($match, $replace, $css_to_sort);
-			}
-		}
-		return $css_to_sort;
-	}
+    private function suppression_mise_ecart_proprietes( $css_to_sort ) {
+        $strings_tofix = array_reverse($this->strings_tofix);
+        foreach ( $strings_tofix as $type_tofix => $infos_tofix ) {
+            foreach ( $infos_tofix['list'] as $match => $replace ) {
+                $css_to_sort = str_replace( $match, $replace, $css_to_sort );
+            }
+        }
+        return $css_to_sort;
+    }
 
 	private function reindent_string($string, $trim=false) {
 
