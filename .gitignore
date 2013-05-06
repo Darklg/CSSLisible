@@ -1,2 +1,5 @@
 user-config.php
 user-values.php
+
+// Mac OS
+*.DS_Store
