@@ -1,8 +1,10 @@
 # CSSLisible
 
+English | [français](README.md)
+
 Simple tool to format and reorganize CSS
 
-## Contributeurs
+## Contributors
 
 * [@Darklg](https://github.com/Darklg)
 * [@NumEricR](https://github.com/NumEricR)
