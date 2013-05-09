@@ -18,19 +18,19 @@ Ci-dessous, les paramètres à utiliser sous le format :
 
 ### Paramètres obligatoires
 
-* 'api' : (1) : Fournir pour déclencher le retour texte récupérable
-* 'clean_css' : (css à nettoyer) : CSS à nettoyer
+* 'api' : (1) : Fournir pour déclencher le retour texte récupérable.
+* 'clean_css' : (css à nettoyer) : CSS à nettoyer.
 
 ### Paramètres optionnels
 
-* 'distance_selecteurs' : (0,/1/,2) : Nombre de lignes séparant deux règles
-* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie
-* 'type_separateur' : (0,1,/2/,3) : Format du séparateur entre propriété et valeur
-* 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple (Booleen)
-* 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple (Booleen)
-* 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement)
+* 'distance_selecteurs' : (0,/1/,2) : Nombre de lignes séparant deux sélecteurs.
+* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie.
+* 'type_separateur' : (0,1,/2/,3) : Format du séparateur entre propriété et valeur.
+* 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple (Booleen).
+* 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple (Booleen).
+* 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement).
 * 'colors_format' : (/0/,1,2,3) : Formatage avancé des couleurs.
-* 'raccourcir_valeurs' : (/0/,1) : Utilisation de raccourcis CSS sur les valeurs à 4 paramètres chiffrés. (Booleen)
+* 'raccourcir_valeurs' : (/0/,1) : Utilisation de raccourcis CSS sur les valeurs à 4 paramètres chiffrés (Booleen).
 
 ### Valeurs des paramètres
 
