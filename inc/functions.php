@@ -60,7 +60,8 @@ class CSSLisible {
     			$this->buffer = $this->mise_ecart_proprietes($this->buffer);
     			$this->buffer = $this->clean_css($this->buffer);
     			$this->buffer = $this->sort_css($this->buffer);
-    			$this->buffer = $this->reindent_media_queries($this->buffer);
+                $this->buffer = $this->reindent_media_queries($this->buffer);
+    			$this->buffer = $this->reindent_keyframes($this->buffer);
     			$this->buffer = $this->suppression_mise_ecart_proprietes($this->buffer);
     			$this->buffer = $this->small_clean($this->buffer);
 
@@ -709,6 +710,18 @@ class CSSLisible {
 
 		return $css_to_reindent;
 	}
+
+    private function reindent_keyframes($css_to_reindent){
+
+        // On récupère les keyframes
+        preg_match_all('#@(keyframes|-webkit-keyframes|-moz-keyframes|-o-keyframes)(.*){((.*)})([\s]+)}#isU', $css_to_reindent, $matches);
+
+        foreach ($matches[3] as $match_keyframes) {
+            $css_to_reindent = str_replace($match_keyframes, $this->reindent_string($match_keyframes), $css_to_reindent);
+        }
+
+        return $css_to_reindent;
+    }
 
 	// Tri des propriétés
 	public function sort_css($css_to_sort) {
