@@ -74,6 +74,18 @@ $listing_proprietes = array(
     '-o-column-gap',
     'column-gap',
 
+    '-webkit-column-width',
+    '-moz-column-width',
+    '-ms-column-width',
+    '-o-column-width',
+    'column-width',
+
+    '-webkit-column-rule',
+    '-moz-column-rule',
+    '-ms-column-rule',
+    '-o-column-rule',
+    'column-rule',
+
     /* Others
        ----------------------- */
 
