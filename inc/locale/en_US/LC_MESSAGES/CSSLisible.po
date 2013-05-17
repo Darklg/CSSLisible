@@ -37,7 +37,7 @@ msgstr "Source available on"
 
 #: ../../../../index.php:58
 msgid "Contributeurs : "
-msgstr "Contributors :"
+msgstr "Contributors: "
 
 #: ../../../../inc/config.php:3
 msgid "Ordonner votre CSS et le rendre lisible"
@@ -200,7 +200,7 @@ msgstr "to provide a more maintainable and readable CSS code."
 
 #: ../../../../inc/tpl/text.php:5
 msgid "Attention, les commentaires internes aux sélecteurs sont retirés !"
-msgstr "Please note, comments in selectors are removed !"
+msgstr "Please note, comments in selectors are removed!"
 
 #: ../../../../inc/tpl/formulaire/add_header.php:3
 msgid "Ajout d’un timestamp"
