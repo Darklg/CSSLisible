@@ -1,6 +1,6 @@
 # CSSLisible
 
-[English](README_en.md) | français
+[English](README_en.md) | Français
 
 Simple outil de reformatage et réorganisation pour CSS
 
@@ -62,7 +62,7 @@ Ci-dessous, les paramètres à utiliser sous le format :
 * 0 : 'Inchangé'
 * 1 : 'Noms' ( #000 / rgb(0,0,0)  -> white [si possible])
 * 2 : 'Hex' : ( rgb(0,0,0) / black -> #000 )
-* 3 : 'RVB' : ( #000 / black -> rgb(0,0,0) )
+* 3 : 'RGB' : ( #000 / black -> rgb(0,0,0) )
 
 ## Configuration de CSSLisible
 

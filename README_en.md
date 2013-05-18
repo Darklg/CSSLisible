@@ -1,6 +1,6 @@
 # CSSLisible
 
-English | [français](README.md)
+English | [Français](README.md)
 
 Simple tool to format and reorganize CSS
 
@@ -19,11 +19,11 @@ Below are parameters that can be used:
 ### Compulsory parameters
 
 * 'api' : (1) : Triggers text output
-* 'clean_css' : (css à nettoyer) : CSS to be cleaned
+* 'clean_css' : (css à nettoyer) : CSS to clean
 
 ### Optional Parameters
 
-* 'distance_selecteurs': (0,/1/,2) : Nummber of lines between two rule sets
+* 'distance_selecteurs': (0,/1/,2) : Number of lines between two rule sets
 * 'type_indentation': (0,1,2,/3/,4,5,6) : Type of indentation
 * 'type_separateur': (0,1,/2/,3): Format for the separator between property and value
 * 'selecteurs_multiples_separes': (0,/1/) : Adds a line break after each comma within a group of selectors (Boolean)
@@ -67,7 +67,7 @@ Below are parameters that can be used:
 ## CSSLisible configuration
 
 CSSLisible can be customized by editing "inc/user-config.php" and "user-values.php".
-Any constant in those two files will overide the default value.
+Any constant in those two files will override the default value.
 This will ensure your settings are not overridden when pulling new code.
 
 ### Constants
