@@ -378,6 +378,8 @@ class CSSLisible {
 		$css_to_compress = preg_replace_callback('#(:[^;]*rgba\()(\d{1,3})%[\s]*,[\s]*(\d{1,3})%[\s]*,[\s]*(\d{1,3})%([\s]*,[\s]*\d(\.\d+)?\)[^;]*;)#i', array($this, 'rgb_percent2value'), $css_to_compress);
 		// RGBA w/ alpha = 1 -> RGB
 		$css_to_compress = preg_replace('#(:[^;]*)rgba\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})[\s]*,[\s]*1\)([^;]*;)#i', '$1rgb($2)$6', $css_to_compress);
+		// HSLA w/ alpha = 1 -> HSL
+		$css_to_compress = preg_replace('#(:[^;]*)hsla\((\d{1,3}[\s]*,[\s]*\d{1,3}%[\s]*,[\s]*\d{1,3}%)[\s]*,[\s]*1\)([^;]*;)#i', '$1hsl($2)$3', $css_to_compress);
 		// Conversion des codes couleurs
 		if ($this->get_option('colors_format') != 0) {
 			$css_to_compress = preg_replace_callback('#:[^;]+;#', array($this, 'convert_colors'), $css_to_compress);
