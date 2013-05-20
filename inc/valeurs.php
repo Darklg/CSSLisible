@@ -193,6 +193,11 @@ $listing_proprietes = array(
     'text-shadow',
     'text-transform',
 
+    '-webkit-text-stroke',
+    '-webkit-text-stroke-width',
+    '-webkit-text-stroke-color',
+    '-webkit-text-fill-color',
+
     'font',
     'font-family',
     'font-size',
@@ -313,11 +318,11 @@ $listing_proprietes = array(
     '-ms-transform',
     '-o-transform',
     'transform',
-
     '-webkit-transform-style',
     '-moz-transform-style',
     'transform-style',
-
+    '-webkit-transform-origin',
+    '-moz-transform-origin',
     'transform-origin',
 
     '-webkit-backface-visibility',
