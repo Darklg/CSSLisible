@@ -9,21 +9,21 @@ class CSSLisible {
 	public $buffer = '';
 	public $listing_proprietes = array();
 
-	private $options = array(
-		'type_separateur' => 2,
-		'type_indentation' => 3,
-		'distance_selecteurs' => 1,
-		'colors_format' => 0,
-		'hex_colors_format' => 0,
-		'selecteurs_multiples_separes' => true,
-		'valeurs_multiples_separees' => false,
-		'supprimer_selecteurs_vides' => false,
-		'selecteur_par_ligne' => false,
-		'raccourcir_valeurs' => false,
-		'tout_compresse' => false,
-		'add_header' => false,
-		'return_file' => false,
-	);
+    public $options = array(
+        'type_separateur' => 2,
+        'type_indentation' => 3,
+        'distance_selecteurs' => 1,
+        'colors_format' => 0,
+        'hex_colors_format' => 0,
+        'selecteurs_multiples_separes' => true,
+        'valeurs_multiples_separees' => false,
+        'supprimer_selecteurs_vides' => false,
+        'selecteur_par_ligne' => false,
+        'raccourcir_valeurs' => false,
+        'tout_compresse' => false,
+        'add_header' => false,
+        'return_file' => false,
+    );
 	private $strings_tofix = array(
 		'url_data_etc' => array(
 			'regex' => '#url\((.*)\)#U',
@@ -43,11 +43,20 @@ class CSSLisible {
 
 	private $comments_isoles = array();
 
-	function __construct($listing_proprietes = array()) {
+	function __construct($args = array()) {
+
+        // Retrocompatibility : old parameters
+        if(!isset($args['listing_proprietes'])){
+            $args = array('listing_proprietes' => $args);
+        }
+        // Obtaining options from user config
+        if(isset($args['csslisible_options'])){
+            $this->options = array_merge($this->options, $args['csslisible_options']);
+        }
 
         $this->set_default_values();
 
-		$this->listing_proprietes = $listing_proprietes;
+		$this->listing_proprietes = $args['listing_proprietes'];
 
 		if (isset($_POST['clean_css'])) {
 			$this->get_buffer();

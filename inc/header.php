@@ -1,5 +1,7 @@
 <?php
 
+$args = array();
+
 /* User Configuration */
 $userConfig = dirname( __FILE__ ) . '/user-config.php';
 if ( file_exists( $userConfig ) ) {
@@ -21,7 +23,14 @@ include dirname( __FILE__ ) . '/traduction.php';
 include dirname( __FILE__ ) . '/valeurs.php';
 include dirname( __FILE__ ) . '/functions.php';
 
-$CSSLisible = new CSSLisible( $listing_proprietes );
+$args['listing_proprietes'] = $listing_proprietes;
+
+$CSSLisible = new CSSLisible( $args );
+
+// @TOFIX : Dirty method to obtain real options below
+if ( isset( $args['csslisible_options'] ) ) {
+    $CSSLisible->options = array_merge( $CSSLisible->options, $args['csslisible_options'] );
+}
 
 if ( isset( $_POST['api'] ) || isset( $_GET['api'] ) ) {
     header( 'Content-type: text/css; charset=utf-8' );
