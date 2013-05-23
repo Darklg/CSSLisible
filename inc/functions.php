@@ -38,10 +38,12 @@ class CSSLisible {
 		    'list' => array()
 		)
 	);
-	private $errors = array(
-	);
-
+	private $errors = array();
 	private $comments_isoles = array();
+    private $translation_table = array(
+        'lines_between_rules' => 'distance_selecteurs',
+        'shorten_values' => 'raccourcir_valeurs'
+    );
 
 	function __construct($args = array()) {
 
@@ -54,11 +56,12 @@ class CSSLisible {
             $this->options = array_merge($this->options, $args['csslisible_options']);
         }
 
-        $this->set_default_values();
+        $this->set_default_values($_POST);
+        $this->posted_values = $this->translating_values($this->posted_values);
 
 		$this->listing_proprietes = $args['listing_proprietes'];
 
-		if (isset($_POST['clean_css'])) {
+		if (isset($this->posted_values['clean_css'])) {
 			$this->get_buffer();
 			$this->get_options_from_post();
 
@@ -99,39 +102,50 @@ class CSSLisible {
 	public $listing_colors_formats = array();
 	public $listing_hex_colors_formats = array();
 
-	private function set_default_values() {
-	    $this->listing_indentations = array(
-    		array(' ', _('1 espace')),
-    		array('  ', _('2 espaces')),
-    		array('   ', _('3 espaces')),
-    		array('    ', _('4 espaces')),
-    		array("\t", _('1 tab')),
-    		array("\t\t", _('2 tabs')),
-    		array("", _('Aucune')),
-    	);
-    	$this->listing_separateurs = array(
-    		':',
-    		' :',
-    		': ',
-    		' : ',
-    	);
-    	$this->listing_distances = array(
-    		_('Aucune'),
-    		_('Une'),
-    		_('Deux')
-    	);
-    	$this->listing_colors_formats = array(
-    		_('Inchangé'),
-    		_('Noms'),
-    		_('Hex'),
-    		_('RGB')
-    	);
-    	$this->listing_hex_colors_formats = array(
-    		_('Inchangé'),
-    		_('Minuscules'),
-    		_('Majuscules')
-    	);
-	}
+    private function set_default_values($posted_values) {
+        $this->posted_values = $posted_values;
+        $this->listing_indentations = array(
+            array(' ', _('1 espace')),
+            array('  ', _('2 espaces')),
+            array('   ', _('3 espaces')),
+            array('    ', _('4 espaces')),
+            array("\t", _('1 tab')),
+            array("\t\t", _('2 tabs')),
+            array("", _('Aucune')),
+        );
+        $this->listing_separateurs = array(
+            ':',
+            ' :',
+            ': ',
+            ' : ',
+        );
+        $this->listing_distances = array(
+            _('Aucune'),
+            _('Une'),
+            _('Deux')
+        );
+        $this->listing_colors_formats = array(
+            _('Inchangé'),
+            _('Noms'),
+            _('Hex'),
+            _('RGB')
+        );
+        $this->listing_hex_colors_formats = array(
+            _('Inchangé'),
+            _('Minuscules'),
+            _('Majuscules')
+        );
+    }
+
+    // Allowing english parameters and routing them to historical parameters.
+    private function translating_values($values){
+        foreach($this->translation_table as $before => $after){
+            if(isset($values[$before])){
+                $values[$after] = $values[$before];
+            }
+        }
+        return $values;
+    }
 
 	private function save_options() {
 	    setcookie (COOKIE_NAME, serialize(array('options' => $this->options)), time() + 365*24*3600);
@@ -158,8 +172,8 @@ class CSSLisible {
 
 	private function get_buffer(){
 	    $tab_opened = 'form';
-	    if(isset($_POST['tab_opened'])){
-	        $tab_opened = $_POST['tab_opened'];
+	    if(isset($this->posted_values['tab_opened'])){
+	        $tab_opened = $this->posted_values['tab_opened'];
 	    }
 
         switch ($tab_opened) {
@@ -172,31 +186,31 @@ class CSSLisible {
             break;
 
             default:
-                $this->buffer = get_magic_quotes_gpc() ? stripslashes($_POST['clean_css']) : $_POST['clean_css'];
+                $this->buffer = get_magic_quotes_gpc() ? stripslashes($this->posted_values['clean_css']) : $this->posted_values['clean_css'];
             break;
         }
 	}
 
 	private function get_buffer_from_url(){
-	    if(isset($_POST['clean_css_url'])){
+	    if(isset($this->posted_values['clean_css_url'])){
 	        // On vérifie que l'url n'est pas vide.
-	        if(empty($_POST['clean_css_url'])){
+	        if(empty($this->posted_values['clean_css_url'])){
 	            $this->errors[] = _('Aucune URL n’a été fournie.');
 	        }
 	        // On verifie que l'url est valide
-	        if(empty($this->errors) && !filter_var($_POST['clean_css_url'], FILTER_VALIDATE_URL)){
+	        if(empty($this->errors) && !filter_var($this->posted_values['clean_css_url'], FILTER_VALIDATE_URL)){
 	            $this->errors[] = _('La valeur fournie n’est pas une URL.');
 	        }
 	        // On verifie que l'url contient ".css"
 	        if(empty($this->errors)){
-	            $url_parsee = parse_url($_POST['clean_css_url']);
+	            $url_parsee = parse_url($this->posted_values['clean_css_url']);
 	            if(!isset($url_parsee['path']) || substr($url_parsee['path'],-4,4) != '.css'){
 	                $this->errors[] = _('L’URL doit être celle d’un fichier CSS.');
 	            }
 	        }
 	        // On telecharge le contenu de l'url
 	        if(empty($this->errors)){
-	            $css_to_parse = $this->get_url_contents($_POST['clean_css_url']);
+	            $css_to_parse = $this->get_url_contents($this->posted_values['clean_css_url']);
 	        }
 	        // Si le contenu de l'url existe, on l'utilise comme buffer
 	        if(empty($this->errors) && $css_to_parse !== false){
@@ -256,8 +270,8 @@ class CSSLisible {
 	    );
 
         foreach($options_choice as $option){
-            if (isset($_POST[$option])) {
-    			$this->set_option($option, $_POST[$option]);
+            if (isset($this->posted_values[$option])) {
+    			$this->set_option($option, $this->posted_values[$option]);
     		}
         }
 
@@ -273,7 +287,7 @@ class CSSLisible {
         );
 
         foreach($options_bool as $option){
-    		$this->set_option($option, isset($_POST[$option]) && $_POST[$option] == '1');
+    		$this->set_option($option, isset($this->posted_values[$option]) && $this->posted_values[$option] == '1');
         }
 
 		$this->save_options();
