@@ -41,8 +41,14 @@ class CSSLisible {
 	private $errors = array();
 	private $comments_isoles = array();
     private $translation_table = array(
+        'type_separator' => 'type_separateur',
         'lines_between_rules' => 'distance_selecteurs',
-        'shorten_values' => 'raccourcir_valeurs'
+        'remove_empty_rules' => 'supprimer_selecteurs_vides',
+        'separate_multiple_selectors' => 'selecteurs_multiples_separes',
+        'separate_multiple_values' => 'valeurs_multiples_separees',
+        'selector_per_line' => 'selecteur_par_ligne',
+        'shorten_values' => 'raccourcir_valeurs',
+        'compress_code' => 'tout_compresse',
     );
 
 	function __construct($args = array()) {
