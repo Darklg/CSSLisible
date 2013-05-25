@@ -21,15 +21,15 @@
 </ul>
 <div id="tab-dest-list" class="cssnt-tabs-target">
     <div class="form-block" id="form-block-form">
-		<label for="clean_css"><?php echo _('CSS à nettoyer :'); ?></label><br />
-		<textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
-	</div>
-	<div class="form-block" id="form-block-file">
-		<label for="clean_css_file"><?php echo _('Fichier CSS à nettoyer :'); ?></label><br />
-		<input type="file" name="clean_css_file" id="clean_css_file" />
-	</div>
-	<div class="form-block" id="form-block-url">
-		<label for="clean_css_url"><?php echo _('URL du CSS à nettoyer :'); ?></label><br />
-		<input type="url" name="clean_css_url" value="" id="clean_css_url" />
-	</div>
+        <label for="clean_css"><?php echo _('CSS à nettoyer :'); ?></label><br />
+        <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
+    </div>
+    <div class="form-block" id="form-block-file">
+        <label for="clean_css_file"><?php echo _('Fichier CSS à nettoyer :'); ?></label><br />
+        <input type="file" name="clean_css_file" id="clean_css_file" />
+    </div>
+    <div class="form-block" id="form-block-url">
+        <label for="clean_css_url"><?php echo _('URL du CSS à nettoyer :'); ?></label><br />
+        <input type="url" name="clean_css_url" value="" id="clean_css_url" />
+    </div>
 </div>
