@@ -21,7 +21,7 @@ include dirname( __FILE__ ) . '/traduction.php';
 
 /* Core */
 include dirname( __FILE__ ) . '/valeurs.php';
-include dirname( __FILE__ ) . '/functions.php';
+include dirname( __FILE__ ) . '/classes/csslisible.class.php';
 
 $args['listing_proprietes'] = $listing_proprietes;
 
