@@ -1,0 +1,24 @@
+/* The humans responsible & colophon */
+/* humanstxt.org */
+
+/* CSSLisible TEAM */
+	Creator: Kevin ROCHER
+	Twitter: @Darklg
+	Location: Paris, France
+
+	Contributor: Eric R
+	Twitter: @NumEricR
+	Location: Nantes, France
+
+
+/* THANKS */
+	Thierry Le Moulec for his Sublime Text Package "Sublime-Csslisible"
+	http://github.com/thierrylemoulec/Sublime-Csslisible
+	Twitter: @thierrylemoulec
+
+
+/* SITE */
+	Language: French / English
+	Software: Sublime Text, Git
+	Standards: HTML5, CSS3
+	Source: http://github.com/Darklg/CSSLisible
