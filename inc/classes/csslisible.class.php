@@ -414,6 +414,8 @@ class CSSLisible {
         // Simplification des codes couleurs hexadécimaux
         $css_to_compress = $this->identify_and_short_hex_color_values( $css_to_compress );
 
+        // Use CSS shorthands (margin only)
+        $css_to_compress = preg_replace_callback( '#{[^}]*}#', array( $this, 'use_shorthands' ), $css_to_compress );
         // Simplification des valeurs à 4 paramètres
         if ( $this->get_option( 'raccourcir_valeurs' ) ) {
             $css_to_compress = $this->shorten_values( $css_to_compress );
@@ -553,6 +555,25 @@ class CSSLisible {
         // On remet le contenu isolé
         foreach ( $parentheses_isolees as $replace => $match ) {
             $css = str_replace( $replace, $match, $css );
+        }
+
+        return $css;
+    }
+
+    private function use_shorthands( $matches ) {
+        $css = $matches[0];
+        $value = '-?(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+        $is_margin_top = preg_match( '/(.*)(margin-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
+        $is_margin_right = preg_match( '/(.*)(margin-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
+        $is_margin_bottom = preg_match( '/(.*)(margin-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
+        $is_margin_left = preg_match( '/(.*)(margin-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
+
+        if ( $is_margin_top && $is_margin_right && $is_margin_bottom && $is_margin_left ) {
+            // Remove margin properties
+            $css = str_replace( array( $match_top[2], $match_right[2], $match_bottom[2] ), '', $css );
+            // Remplace them by only one with all values
+            $merged_margins = 'margin: ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
+            $css = str_replace( $match_left[2], $merged_margins, $css );
         }
 
         return $css;
