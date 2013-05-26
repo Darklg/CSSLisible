@@ -568,6 +568,9 @@ class CSSLisible {
         // Padding shorthand
         $css = $this->use_margins_shorthand( $css, 'padding' );
 
+        // Outline shorthand
+        $css = $this->use_outline_shorthand( $css );
+
         return $css;
     }
 
@@ -584,6 +587,22 @@ class CSSLisible {
             // Remplace them by only one with all values
             $merged_properties = $margin_type . ': ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
             $css = str_replace( $match_left[2], $merged_properties, $css );
+        }
+
+        return $css;
+    }
+
+    private function use_outline_shorthand( $css ) {
+        $is_width = preg_match( '/(.*)(outline-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
+        $is_style = preg_match( '/(.*)(outline-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
+        $is_color = preg_match( '/(.*)(outline-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+
+        if ( $is_width && $is_style && $is_color ) {
+            // Remove specific properties
+            $css = str_replace( array( $match_width[2], $match_style[2] ), '', $css );
+            // Remplace them by only one with all values
+            $merged_properties = 'outline: ' . $match_width[3] . ' ' . $match_style[3] . ' ' . $match_color[3] . ';';
+            $css = str_replace( $match_color[2], $merged_properties, $css );
         }
 
         return $css;
