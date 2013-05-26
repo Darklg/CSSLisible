@@ -562,34 +562,28 @@ class CSSLisible {
 
     private function use_shorthands( $matches ) {
         $css = $matches[0];
-        $value = '-?(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
 
         // Margin shorthand
-        $is_margin_top = preg_match( '/(.*)(margin-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
-        $is_margin_right = preg_match( '/(.*)(margin-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
-        $is_margin_bottom = preg_match( '/(.*)(margin-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
-        $is_margin_left = preg_match( '/(.*)(margin-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
-
-        if ( $is_margin_top && $is_margin_right && $is_margin_bottom && $is_margin_left ) {
-            // Remove margin properties
-            $css = str_replace( array( $match_top[2], $match_right[2], $match_bottom[2] ), '', $css );
-            // Remplace them by only one with all values
-            $merged_margins = 'margin: ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
-            $css = str_replace( $match_left[2], $merged_margins, $css );
-        }
-
+        $css = $this->use_margins_shorthand( $css );
         // Padding shorthand
-        $is_padding_top = preg_match( '/(.*)(padding-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
-        $is_padding_right = preg_match( '/(.*)(padding-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
-        $is_padding_bottom = preg_match( '/(.*)(padding-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
-        $is_padding_left = preg_match( '/(.*)(padding-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
+        $css = $this->use_margins_shorthand( $css, 'padding' );
 
-        if ( $is_padding_top && $is_padding_right && $is_padding_bottom && $is_padding_left ) {
-            // Remove padding properties
+        return $css;
+    }
+
+    private function use_margins_shorthand( $css, $margin_type = 'margin' ) {
+        $value = '-?(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+        $is_top = preg_match( '/(.*)(' . $margin_type . '-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
+        $is_right = preg_match( '/(.*)(' . $margin_type . '-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
+        $is_bottom = preg_match( '/(.*)(' . $margin_type . '-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
+        $is_left = preg_match( '/(.*)(' . $margin_type . '-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
+
+        if ( $is_top && $is_right && $is_bottom && $is_left ) {
+            // Remove specific properties
             $css = str_replace( array( $match_top[2], $match_right[2], $match_bottom[2] ), '', $css );
             // Remplace them by only one with all values
-            $merged_paddings = 'padding: ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
-            $css = str_replace( $match_left[2], $merged_paddings, $css );
+            $merged_properties = $margin_type . ': ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
+            $css = str_replace( $match_left[2], $merged_properties, $css );
         }
 
         return $css;
