@@ -18,7 +18,7 @@ $browser_lang = substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 );
 $lang = ( $browser_lang == 'fr' ) ? $more_languages['fr']['lang'] : $more_languages['en']['lang'];
 
 // Si la traduction en la langue demandée est disponible
-if ( isset( $_GET['lang'] ) && array_key_exists( $_GET['lang'], $more_languages ) && $more_languages[$_GET['lang']]['active'] ) {
+if ( isset( $_GET['lang'] ) && array_key_exists( $_GET['lang'], $more_languages ) ) {
     $lang = $more_languages[$_GET['lang']]['lang'];
 }
 
