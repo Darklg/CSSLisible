@@ -8,11 +8,12 @@ You can help us in different ways:
 5. Talk to your friends about this tool and follow [@CSSLisible on Twitter](http://twitter.com/csslisible)!
 
 
-## PHP Syntax
+## Code guidelines
 
 * 4 spaces are used for indentation.
 * No trailing whitespaces.
 * Code and comments in english.
+* No "merge commits".
 
 ___
 
@@ -27,8 +28,9 @@ Vous pouvez nous aider de différentes manières :
 5. Parler de cet outil autour de vous et suivre [@CSSLisible sur Twitter](http://twitter.com/csslisible) !
 
 
-## Syntaxe PHP
+## Recommandations de Code
 
 * 4 espaces en guise d'indentation.
 * Pas d'espaces de fin de ligne.
 * Code et commentaires en anglais (si possible).
+* Pas de "merge commits".
