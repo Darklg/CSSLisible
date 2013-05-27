@@ -5,6 +5,8 @@ background-clip: border;/* Internal comment test */}
 
 a{border:1px solid red;-webkit-box-shadow: inset 0 0 0 1px #000;-moz-box-shadow: inset 0 0 0 1px #000;
 box-shadow: inset 0 0 0 1px #000;margin-left:-0.4px}
+.box{margin-top: 10px;margin-left: 20px;margin-right: 20px;margin-bottom: 30px;
+padding-bottom: 3px;padding-top: 1px;padding-left: 4px;padding-right: 2px;}
 /* Comment test
    ----------------------- */
 
