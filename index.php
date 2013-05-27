@@ -9,6 +9,13 @@ include DIR_SITE . '/inc/header.php';
         <title><?php echo TITRE_SITE . ' - ' . _(SLOGAN_SITE); ?></title>
         <meta name="viewport" content="width=790" />
         <link rel="stylesheet" href="css/main.css?t=201208181531" type="text/css" />
+        <?php foreach($more_languages as $llang => $language){
+            $urlLang = '?lang=' . $llang;
+            if($llang == 'fr'){
+                $urlLang = '?';
+            }
+            ?><link rel="alternate" hreflang="<?php echo $llang; ?>" href="<?php echo $urlLang; ?>" /><?php
+        } ?>
     </head>
     <body class="no-js">
     <div id="main-container">
