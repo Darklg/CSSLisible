@@ -414,7 +414,7 @@ class CSSLisible {
         // Simplification des codes couleurs hexadécimaux
         $css_to_compress = $this->identify_and_short_hex_color_values( $css_to_compress );
 
-        // Use CSS shorthands (margin & padding)
+        // Use CSS shorthands
         $css_to_compress = preg_replace_callback( '#{[^}]*}#', array( $this, 'use_shorthands' ), $css_to_compress );
         // Simplification des valeurs à 4 paramètres
         if ( $this->get_option( 'raccourcir_valeurs' ) ) {
