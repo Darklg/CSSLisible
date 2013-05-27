@@ -3,13 +3,11 @@
 $more_languages = array(
     'fr' =>array(
         'lang' => 'fr_FR',
-        'name' => 'Français',
-        'active' => 0
+        'name' => 'Français'
     ),
     'en' => array(
         'lang' => 'en_US.utf8',
-        'name' => 'English',
-        'active' => 1
+        'name' => 'English'
     ),
 );
 
