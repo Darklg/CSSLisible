@@ -17,3 +17,7 @@ if ( !defined( 'USE_TEST_BUTTON' ) )
     define( 'USE_TEST_BUTTON', true );
 if ( !defined( 'USE_COPY_BUTTON' ) )
     define( 'USE_COPY_BUTTON', true );
+
+/* Site */
+if ( !defined( 'URL_SITE' ) )
+    define( 'URL_SITE', '' );

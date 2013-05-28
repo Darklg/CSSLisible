@@ -8,9 +8,9 @@ include DIR_SITE . '/inc/header.php';
         <meta charset="utf-8"/>
         <title><?php echo TITRE_SITE . ' - ' . _(SLOGAN_SITE); ?></title>
         <meta name="viewport" content="width=790" />
-        <link rel="stylesheet" href="css/main.css?t=201208181531" type="text/css" />
+        <link rel="stylesheet" href="<?php echo URL_SITE; ?>css/main.css?t=201208181531" type="text/css" />
         <?php foreach($more_languages as $llang => $language){
-            $urlLang = '?lang=' . $llang;
+            $urlLang = URL_SITE . '?lang=' . $llang;
             ?><link rel="alternate" hreflang="<?php echo $llang; ?>" href="<?php echo $urlLang; ?>" /><?php
         } ?>
     </head>
@@ -73,8 +73,8 @@ include DIR_SITE . '/inc/header.php';
     }
     ?>
 
-    <script src="js/ZeroClipboard.min.js?1363440036"></script>
-    <script src="js/events.js?t=201208181531" type="text/javascript" charset="utf-8"></script>
+    <script src="<?php echo URL_SITE; ?>js/ZeroClipboard.min.js?1363440036"></script>
+    <script src="<?php echo URL_SITE; ?>js/events.js?t=201208181531" type="text/javascript" charset="utf-8"></script>
 
     </body>
 </html>
