@@ -79,6 +79,8 @@ Ceci permet de conserver la configuration personnalisée lors du pull d'une mise
 * MAX_FILESIZE : (int) Poids maximal accepté en octets d'un fichier CSS envoyé
 * USE_TEST_BUTTON : (bool) Afficher le bouton de test
 * USE_COPY_BUTTON : (bool) Afficher le bouton de copie
+* URL_SITE : (string) url de base du site ( terminée par / )
+* URL_REWRITING : (bool) Activer l'URL Rewriting
 
 ## Licence MIT
 

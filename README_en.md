@@ -79,6 +79,8 @@ This will ensure your settings are not overridden when pulling new code.
 * MAX_FILESIZE : (integer) Maximum filesize for files to upload (in bytes)
 * USE_TEST_BUTTON : (boolean) Display Test button
 * USE_COPY_BUTTON : (boolean) Display Copy button.
+* URL_SITE : (string) Base URL for the website (ended by /)
+* URL_REWRITING : (bool) Use URL Rewriting
 
 ## Licence MIT
 
