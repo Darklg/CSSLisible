@@ -21,3 +21,5 @@ if ( !defined( 'USE_COPY_BUTTON' ) )
 /* Site */
 if ( !defined( 'URL_SITE' ) )
     define( 'URL_SITE', '' );
+if ( !defined( 'URL_REWRITING' ) )
+    define( 'URL_REWRITING', false );

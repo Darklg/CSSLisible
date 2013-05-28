@@ -4,16 +4,7 @@ include DIR_SITE . '/inc/header.php';
 ?>
 <!doctype html>
 <html lang="<?php echo $lang; ?>">
-    <head>
-        <meta charset="utf-8"/>
-        <title><?php echo TITRE_SITE . ' - ' . _(SLOGAN_SITE); ?></title>
-        <meta name="viewport" content="width=790" />
-        <link rel="stylesheet" href="<?php echo URL_SITE; ?>css/main.css?t=201208181531" type="text/css" />
-        <?php foreach($more_languages as $llang => $language){
-            $urlLang = URL_SITE . '?lang=' . $llang;
-            ?><link rel="alternate" hreflang="<?php echo $llang; ?>" href="<?php echo $urlLang; ?>" /><?php
-        } ?>
-    </head>
+    <head><?php include DIR_SITE . '/inc/tpl/head.php'; ?></head>
     <body class="no-js">
     <div id="main-container">
         <div id="header">
