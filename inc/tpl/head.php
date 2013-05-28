@@ -9,3 +9,4 @@
     }
     ?><link rel="alternate" hreflang="<?php echo $llang; ?>" href="<?php echo $urlLang; ?>" /><?php
 } ?>
+<script>var url_site = '<?php echo URL_SITE; ?>';</script>

@@ -79,7 +79,7 @@ if ($('try_me') && $('clean_css')) {
         };
 
         //on appelle le fichier reponse.txt
-        xhr.open("GET", 'css/code-sale.css?t=' + microtime(), true);
+        xhr.open("GET", url_site + 'css/code-sale.css?t=' + microtime(), true);
         xhr.send(null);
 
         return false;
@@ -98,7 +98,7 @@ $('clean_css').onkeyup = function() {
 // Bouton de copie du code une fois nettoyé
 var clip = new ZeroClipboard(
 $('copy_button'), {
-    moviePath: 'js/ZeroClipboard.swf',
+    moviePath: url_site + 'js/ZeroClipboard.swf',
     hoverClass: 'zeroclipboard-is-hover',
     activeClass: 'zeroclipboard-is-active'
 });
