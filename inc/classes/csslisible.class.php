@@ -568,8 +568,7 @@ class CSSLisible {
         // Padding shorthand
         $css = $this->use_margins_shorthand( $css, 'padding' );
 
-        // Outline shorthand
-        $css = $this->use_outline_shorthand( $css );
+        $css = $this->use_shorthand( $css, 'outline' );
 
         return $css;
     }
@@ -592,20 +591,44 @@ class CSSLisible {
         return $css;
     }
 
-    private function use_outline_shorthand( $css ) {
-        $is_width = preg_match( '/(.*)(outline-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
-        $is_style = preg_match( '/(.*)(outline-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
-        $is_color = preg_match( '/(.*)(outline-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+    private function use_shorthand( $css, $prop ) {
+        // Define if shorthand is available & Get related informations
+        $is_available_shorthand = false;
+        switch ( $prop ) {
+        case 'outline':
+            $shorthand_infos = $this->get_outline_shorthand( $is_available_shorthand, $css );
+            break;
+        }
 
-        if ( $is_width && $is_style && $is_color ) {
+        if ( $is_available_shorthand ) {
+            $props_to_remove = $shorthand_infos[0];
+            $shorthand_value = $shorthand_infos[1];
+
+            // Extract propertie to be replaced
+            $prop_to_replace = array_pop( $props_to_remove );
             // Remove specific properties
-            $css = str_replace( array( $match_width[2], $match_style[2] ), '', $css );
-            // Remplace them by only one with all values
-            $merged_properties = 'outline: ' . $match_width[3] . ' ' . $match_style[3] . ' ' . $match_color[3] . ';';
-            $css = str_replace( $match_color[2], $merged_properties, $css );
+            $css = str_replace( $props_to_remove, '', $css );
+            // Replace them by only one with all values
+            $css = str_replace( $prop_to_replace, $prop . ': ' . $shorthand_value . ';', $css );
         }
 
         return $css;
+    }
+
+    private function get_outline_shorthand( &$is_available_shorthand, $css ) {
+        $is_width = preg_match( '/(.*)(outline-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
+        $is_style = preg_match( '/(.*)(outline-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
+        $is_color = preg_match( '/(.*)(outline-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+        $is_available_shorthand = ( $is_width && $is_style && $is_color );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_width[2], $match_style[2], $match_color[2] );
+            $shorthand_value = $match_width[3] . ' ' . $match_style[3] . ' ' . $match_color[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
     }
 
     // Simplification des valeurs à 4 paramètres
