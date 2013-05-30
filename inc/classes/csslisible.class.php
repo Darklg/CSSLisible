@@ -576,10 +576,10 @@ class CSSLisible {
         $is_available_shorthand = false;
         switch ( $prop ) {
         case 'margin':
-            $css = use_margins_shorthand( $css, 'margin' );
+            $css = $this->use_margins_shorthand( $css, 'margin' );
             break;
         case 'padding':
-            $css = use_margins_shorthand( $css, 'padding' );
+            $css = $this->use_margins_shorthand( $css, 'padding' );
             break;
         case 'outline':
             $shorthand_infos = $this->get_outline_shorthand( $is_available_shorthand, $css );
