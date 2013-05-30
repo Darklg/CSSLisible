@@ -565,6 +565,7 @@ class CSSLisible {
 
         $css = $this->use_shorthand( $css, 'margin' );
         $css = $this->use_shorthand( $css, 'padding' );
+        $css = $this->use_shorthand( $css, 'border' );
         $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'list-style' );
 
@@ -581,8 +582,11 @@ class CSSLisible {
         case 'padding':
             $css = $this->use_margins_shorthand( $css, 'padding' );
             break;
+        case 'border':
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border' );
+            break;
         case 'outline':
-            $shorthand_infos = $this->get_outline_shorthand( $is_available_shorthand, $css );
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'outline' );
             break;
         case 'list-style':
             $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
@@ -622,10 +626,10 @@ class CSSLisible {
         return $css;
     }
 
-    private function get_outline_shorthand( &$is_available_shorthand, $css ) {
-        $is_width = preg_match( '/(.*)(outline-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
-        $is_style = preg_match( '/(.*)(outline-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
-        $is_color = preg_match( '/(.*)(outline-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+    private function get_borders_shorthand( &$is_available_shorthand, $css, $prop ) {
+        $is_width = preg_match( '/(.*)(' . $prop . '-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
+        $is_style = preg_match( '/(.*)(' . $prop . '-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
+        $is_color = preg_match( '/(.*)(' . $prop . '-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
         $is_available_shorthand = ( $is_width && $is_style && $is_color );
 
         if ( $is_available_shorthand ) {
