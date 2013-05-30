@@ -608,18 +608,18 @@ class CSSLisible {
         return $css;
     }
 
-    private function use_margins_shorthand( $css, $margin_type ) {
+    private function use_margins_shorthand( $css, $prop ) {
         $value = '-?(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-        $is_top = preg_match( '/(.*)(' . $margin_type . '-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
-        $is_right = preg_match( '/(.*)(' . $margin_type . '-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
-        $is_bottom = preg_match( '/(.*)(' . $margin_type . '-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
-        $is_left = preg_match( '/(.*)(' . $margin_type . '-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
+        $is_top = preg_match( '/(.*)(' . $prop . '-top\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_top );
+        $is_right = preg_match( '/(.*)(' . $prop . '-right\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_right );
+        $is_bottom = preg_match( '/(.*)(' . $prop . '-bottom\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_bottom );
+        $is_left = preg_match( '/(.*)(' . $prop . '-left\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_left );
 
         if ( $is_top && $is_right && $is_bottom && $is_left ) {
             // Remove specific properties
             $css = str_replace( array( $match_top[2], $match_right[2], $match_bottom[2] ), '', $css );
             // Remplace them by only one with all values
-            $merged_properties = $margin_type . ': ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
+            $merged_properties = $prop . ': ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
             $css = str_replace( $match_left[2], $merged_properties, $css );
         }
 
