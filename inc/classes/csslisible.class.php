@@ -597,7 +597,7 @@ class CSSLisible {
             $props_to_remove = $shorthand_infos[0];
             $shorthand_value = $shorthand_infos[1];
 
-            // Extract propertie to be replaced
+            // Extract property to be replaced
             $prop_to_replace = array_pop( $props_to_remove );
             // Remove specific properties
             $css = str_replace( $props_to_remove, '', $css );
