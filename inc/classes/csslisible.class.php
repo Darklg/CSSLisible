@@ -622,22 +622,6 @@ class CSSLisible {
         return $css;
     }
 
-    private function get_list_style_shorthand( &$is_available_shorthand, $css ) {
-        $is_type = preg_match( '/(.*)(list-style-type\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_type );
-        $is_position = preg_match( '/(.*)(list-style-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
-        $is_image = preg_match( '/(.*)(list-style-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
-        $is_available_shorthand = ( $is_type && $is_position && $is_image );
-
-        if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
-            $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
-
-            return array( $props_to_remove, $shorthand_value );
-        }
-
-        return;
-    }
-
     private function get_outline_shorthand( &$is_available_shorthand, $css ) {
         $is_width = preg_match( '/(.*)(outline-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
         $is_style = preg_match( '/(.*)(outline-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
@@ -647,6 +631,22 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_width[2], $match_style[2], $match_color[2] );
             $shorthand_value = $match_width[3] . ' ' . $match_style[3] . ' ' . $match_color[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
+    private function get_list_style_shorthand( &$is_available_shorthand, $css ) {
+        $is_type = preg_match( '/(.*)(list-style-type\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_type );
+        $is_position = preg_match( '/(.*)(list-style-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
+        $is_image = preg_match( '/(.*)(list-style-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
+        $is_available_shorthand = ( $is_type && $is_position && $is_image );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
+            $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
