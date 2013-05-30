@@ -569,6 +569,7 @@ class CSSLisible {
         $css = $this->use_margins_shorthand( $css, 'padding' );
 
         $css = $this->use_shorthand( $css, 'outline' );
+        $css = $this->use_shorthand( $css, 'list-style' );
 
         return $css;
     }
@@ -598,6 +599,9 @@ class CSSLisible {
         case 'outline':
             $shorthand_infos = $this->get_outline_shorthand( $is_available_shorthand, $css );
             break;
+        case 'list-style':
+            $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
+            break;
         }
 
         if ( $is_available_shorthand ) {
@@ -613,6 +617,22 @@ class CSSLisible {
         }
 
         return $css;
+    }
+
+    private function get_list_style_shorthand( &$is_available_shorthand, $css ) {
+        $is_type = preg_match( '/(.*)(list-style-type\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_type );
+        $is_position = preg_match( '/(.*)(list-style-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
+        $is_image = preg_match( '/(.*)(list-style-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
+        $is_available_shorthand = ( $is_type && $is_position && $is_image );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
+            $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
     }
 
     private function get_outline_shorthand( &$is_available_shorthand, $css ) {
