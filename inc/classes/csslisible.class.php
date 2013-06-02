@@ -566,6 +566,10 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'margin' );
         $css = $this->use_shorthand( $css, 'padding' );
         $css = $this->use_shorthand( $css, 'border' );
+        $css = $this->use_shorthand( $css, 'border-top' );
+        $css = $this->use_shorthand( $css, 'border-right' );
+        $css = $this->use_shorthand( $css, 'border-bottom' );
+        $css = $this->use_shorthand( $css, 'border-left' );
         $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'list-style' );
 
@@ -584,6 +588,18 @@ class CSSLisible {
             break;
         case 'border':
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border' );
+            break;
+        case 'border-top':
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border-top' );
+            break;
+        case 'border-right':
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border-right' );
+            break;
+        case 'border-bottom':
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border-bottom' );
+            break;
+        case 'border-left':
+            $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'border-left' );
             break;
         case 'outline':
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, 'outline' );
