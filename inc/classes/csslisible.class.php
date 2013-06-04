@@ -574,6 +574,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'list-style' );
         $css = $this->use_shorthand( $css, 'background' );
         $css = $this->use_shorthand( $css, 'font' );
+        $css = $this->use_shorthand( $css, 'transition' );
 
         return $css;
     }
@@ -602,6 +603,9 @@ class CSSLisible {
             break;
         case 'font':
             $shorthand_infos = $this->get_font_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'transition':
+            $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css );
             break;
         }
 
@@ -700,6 +704,23 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_style[2], $match_variant[2], $match_weight[2], $match_size[2], $match_height[2], $match_family[2] );
             $shorthand_value = $match_style[3] . ' ' . $match_variant[3] . ' ' . $match_weight[3] . ' ' . $match_size[3] . ' ' . $match_height[3] . ' ' . $match_family[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
+    private function get_transition_shorthand( &$is_available_shorthand, $css ) {
+        $is_property = preg_match( '/(.*)(transition-property\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_property );
+        $is_duration = preg_match( '/(.*)(transition-duration\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_duration );
+        $is_timing_fct = preg_match( '/(.*)(transition-timing-function\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_timing_fct );
+        $is_delay = preg_match( '/(.*)(transition-delay\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_delay );
+        $is_available_shorthand = ( $is_property && $is_duration && $is_timing_fct && $is_delay );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_property[2], $match_duration[2], $match_timing_fct[2], $match_delay[2] );
+            $shorthand_value = $match_property[3] . ' ' . $match_duration[3] . ' ' . $match_timing_fct[3] . ' ' . $match_delay[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
