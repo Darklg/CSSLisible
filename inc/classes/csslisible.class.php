@@ -575,6 +575,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'background' );
         $css = $this->use_shorthand( $css, 'font' );
         $css = $this->use_shorthand( $css, 'transition' );
+        $css = $this->use_shorthand( $css, 'overflow' );
 
         return $css;
     }
@@ -606,6 +607,9 @@ class CSSLisible {
             break;
         case 'transition':
             $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'overflow':
+            $shorthand_infos = $this->get_overflow_shorthand( $is_available_shorthand, $css );
             break;
         }
 
@@ -728,6 +732,20 @@ class CSSLisible {
         return;
     }
 
+    private function get_overflow_shorthand( &$is_available_shorthand, $css ) {
+        $is_overflow_x = preg_match( '/(.*)(overflow-x\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_overflow_x );
+        $is_overflow_y = preg_match( '/(.*)(overflow-y\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_overflow_y );
+        $is_available_shorthand = ( $is_overflow_x && $is_overflow_y );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_overflow_x[2], $match_overflow_y[2] );
+            $shorthand_value = $match_overflow_x[3] . ' ' . $match_overflow_y[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
     // Simplification des valeurs à 4 paramètres
     private function shorten_values( $css ) {
         $property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
