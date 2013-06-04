@@ -573,6 +573,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'list-style' );
         $css = $this->use_shorthand( $css, 'background' );
+        $css = $this->use_shorthand( $css, 'font' );
 
         return $css;
     }
@@ -598,6 +599,9 @@ class CSSLisible {
             break;
         case 'background':
             $shorthand_infos = $this->get_background_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'font':
+            $shorthand_infos = $this->get_font_shorthand( $is_available_shorthand, $css );
             break;
         }
 
@@ -677,6 +681,25 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_color[2], $match_image[2], $match_repeat[2], $match_position[2], $match_attachment[2] );
             $shorthand_value = $match_color[3] . ' ' . $match_image[3] . ' ' . $match_repeat[3] . ' ' . $match_position[3] . ' ' . $match_attachment[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
+    private function get_font_shorthand( &$is_available_shorthand, $css ) {
+        $is_style = preg_match( '/(.*)(font-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
+        $is_variant = preg_match( '/(.*)(font-variant\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_variant );
+        $is_weight = preg_match( '/(.*)(font-weight\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_weight );
+        $is_size = preg_match( '/(.*)(font-size\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_size );
+        $is_height = preg_match( '/(.*)(line-height\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_height );
+        $is_family = preg_match( '/(.*)(font-family\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_family );
+        $is_available_shorthand = ( $is_style && $is_variant && $is_weight && $is_size && $is_height && $is_family );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_style[2], $match_variant[2], $match_weight[2], $match_size[2], $match_height[2], $match_family[2] );
+            $shorthand_value = $match_style[3] . ' ' . $match_variant[3] . ' ' . $match_weight[3] . ' ' . $match_size[3] . ' ' . $match_height[3] . ' ' . $match_family[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
