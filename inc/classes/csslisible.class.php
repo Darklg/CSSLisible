@@ -572,6 +572,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'border-left' );
         $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'list-style' );
+        $css = $this->use_shorthand( $css, 'background' );
 
         return $css;
     }
@@ -594,6 +595,9 @@ class CSSLisible {
             break;
         case 'list-style':
             $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'background':
+            $shorthand_infos = $this->get_background_shorthand( $is_available_shorthand, $css );
             break;
         }
 
@@ -655,6 +659,24 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
             $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
+    private function get_background_shorthand( &$is_available_shorthand, $css ) {
+        $is_color = preg_match( '/(.*)(background-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+        $is_image = preg_match( '/(.*)(background-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
+        $is_repeat = preg_match( '/(.*)(background-repeat\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_repeat );
+        $is_position = preg_match( '/(.*)(background-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
+        $is_attachment = preg_match( '/(.*)(background-attachment\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_attachment );
+        $is_available_shorthand = ( $is_color && $is_image && $is_repeat && $is_position && $is_attachment );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_color[2], $match_image[2], $match_repeat[2], $match_position[2], $match_attachment[2] );
+            $shorthand_value = $match_color[3] . ' ' . $match_image[3] . ' ' . $match_repeat[3] . ' ' . $match_position[3] . ' ' . $match_attachment[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
