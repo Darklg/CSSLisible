@@ -585,10 +585,6 @@ class CSSLisible {
         // Define if shorthand is available & Get related informations
         $is_available_shorthand = false;
         switch ( $prop ) {
-        case 'margin':
-        case 'padding':
-            $css = $this->use_margins_shorthand( $css, $prop );
-            break;
         case 'background':
             $shorthand_infos = $this->get_background_shorthand( $is_available_shorthand, $css );
             break;
@@ -608,6 +604,10 @@ class CSSLisible {
             break;
         case 'list-style':
             $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'margin':
+        case 'padding':
+            $css = $this->use_margins_shorthand( $css, $prop );
             break;
         case 'overflow':
             $shorthand_infos = $this->get_overflow_shorthand( $is_available_shorthand, $css );
@@ -650,6 +650,24 @@ class CSSLisible {
         return $css;
     }
 
+    private function get_background_shorthand( &$is_available_shorthand, $css ) {
+        $is_color = preg_match( '/(.*)(background-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
+        $is_image = preg_match( '/(.*)(background-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
+        $is_repeat = preg_match( '/(.*)(background-repeat\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_repeat );
+        $is_position = preg_match( '/(.*)(background-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
+        $is_attachment = preg_match( '/(.*)(background-attachment\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_attachment );
+        $is_available_shorthand = ( $is_color && $is_image && $is_repeat && $is_position && $is_attachment );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_color[2], $match_image[2], $match_repeat[2], $match_position[2], $match_attachment[2] );
+            $shorthand_value = $match_color[3] . ' ' . $match_image[3] . ' ' . $match_repeat[3] . ' ' . $match_position[3] . ' ' . $match_attachment[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
     private function get_borders_shorthand( &$is_available_shorthand, $css, $prop ) {
         $is_width = preg_match( '/(.*)(' . $prop . '-width\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_width );
         $is_style = preg_match( '/(.*)(' . $prop . '-style\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_style );
@@ -666,33 +684,14 @@ class CSSLisible {
         return;
     }
 
-    private function get_list_style_shorthand( &$is_available_shorthand, $css ) {
-        $is_type = preg_match( '/(.*)(list-style-type\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_type );
-        $is_position = preg_match( '/(.*)(list-style-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
-        $is_image = preg_match( '/(.*)(list-style-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
-        $is_available_shorthand = ( $is_type && $is_position && $is_image );
+    private function get_cue_shorthand( &$is_available_shorthand, $css ) {
+        $is_before = preg_match( '/(.*)(cue-before\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_before );
+        $is_after = preg_match( '/(.*)(cue-after\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_after );
+        $is_available_shorthand = ( $is_before && $is_after );
 
         if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
-            $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
-
-            return array( $props_to_remove, $shorthand_value );
-        }
-
-        return;
-    }
-
-    private function get_background_shorthand( &$is_available_shorthand, $css ) {
-        $is_color = preg_match( '/(.*)(background-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
-        $is_image = preg_match( '/(.*)(background-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
-        $is_repeat = preg_match( '/(.*)(background-repeat\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_repeat );
-        $is_position = preg_match( '/(.*)(background-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
-        $is_attachment = preg_match( '/(.*)(background-attachment\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_attachment );
-        $is_available_shorthand = ( $is_color && $is_image && $is_repeat && $is_position && $is_attachment );
-
-        if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_color[2], $match_image[2], $match_repeat[2], $match_position[2], $match_attachment[2] );
-            $shorthand_value = $match_color[3] . ' ' . $match_image[3] . ' ' . $match_repeat[3] . ' ' . $match_position[3] . ' ' . $match_attachment[3];
+            $props_to_remove = array( $match_before[2], $match_after[2] );
+            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
@@ -719,16 +718,15 @@ class CSSLisible {
         return;
     }
 
-    private function get_transition_shorthand( &$is_available_shorthand, $css ) {
-        $is_property = preg_match( '/(.*)(transition-property\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_property );
-        $is_duration = preg_match( '/(.*)(transition-duration\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_duration );
-        $is_timing_fct = preg_match( '/(.*)(transition-timing-function\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_timing_fct );
-        $is_delay = preg_match( '/(.*)(transition-delay\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_delay );
-        $is_available_shorthand = ( $is_property && $is_duration && $is_timing_fct && $is_delay );
+    private function get_list_style_shorthand( &$is_available_shorthand, $css ) {
+        $is_type = preg_match( '/(.*)(list-style-type\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_type );
+        $is_position = preg_match( '/(.*)(list-style-position\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_position );
+        $is_image = preg_match( '/(.*)(list-style-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
+        $is_available_shorthand = ( $is_type && $is_position && $is_image );
 
         if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_property[2], $match_duration[2], $match_timing_fct[2], $match_delay[2] );
-            $shorthand_value = $match_property[3] . ' ' . $match_duration[3] . ' ' . $match_timing_fct[3] . ' ' . $match_delay[3];
+            $props_to_remove = array( $match_type[2], $match_position[2], $match_image[2] );
+            $shorthand_value = $match_type[3] . ' ' . $match_position[3] . ' ' . $match_image[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
@@ -751,14 +749,16 @@ class CSSLisible {
         return;
     }
 
-    private function get_cue_shorthand( &$is_available_shorthand, $css ) {
-        $is_before = preg_match( '/(.*)(cue-before\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_before );
-        $is_after = preg_match( '/(.*)(cue-after\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_after );
-        $is_available_shorthand = ( $is_before && $is_after );
+    private function get_transition_shorthand( &$is_available_shorthand, $css ) {
+        $is_property = preg_match( '/(.*)(transition-property\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_property );
+        $is_duration = preg_match( '/(.*)(transition-duration\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_duration );
+        $is_timing_fct = preg_match( '/(.*)(transition-timing-function\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_timing_fct );
+        $is_delay = preg_match( '/(.*)(transition-delay\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_delay );
+        $is_available_shorthand = ( $is_property && $is_duration && $is_timing_fct && $is_delay );
 
         if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_before[2], $match_after[2] );
-            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
+            $props_to_remove = array( $match_property[2], $match_duration[2], $match_timing_fct[2], $match_delay[2] );
+            $shorthand_value = $match_property[3] . ' ' . $match_duration[3] . ' ' . $match_timing_fct[3] . ' ' . $match_delay[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
