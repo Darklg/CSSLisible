@@ -563,19 +563,19 @@ class CSSLisible {
     private function use_shorthands( $matches ) {
         $css = $matches[0];
 
-        $css = $this->use_shorthand( $css, 'margin' );
-        $css = $this->use_shorthand( $css, 'padding' );
+        $css = $this->use_shorthand( $css, 'background' );
         $css = $this->use_shorthand( $css, 'border' );
         $css = $this->use_shorthand( $css, 'border-top' );
         $css = $this->use_shorthand( $css, 'border-right' );
         $css = $this->use_shorthand( $css, 'border-bottom' );
         $css = $this->use_shorthand( $css, 'border-left' );
-        $css = $this->use_shorthand( $css, 'outline' );
-        $css = $this->use_shorthand( $css, 'list-style' );
-        $css = $this->use_shorthand( $css, 'background' );
         $css = $this->use_shorthand( $css, 'font' );
-        $css = $this->use_shorthand( $css, 'transition' );
+        $css = $this->use_shorthand( $css, 'list-style' );
+        $css = $this->use_shorthand( $css, 'margin' );
+        $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'overflow' );
+        $css = $this->use_shorthand( $css, 'padding' );
+        $css = $this->use_shorthand( $css, 'transition' );
 
         return $css;
     }
@@ -588,6 +588,9 @@ class CSSLisible {
         case 'padding':
             $css = $this->use_margins_shorthand( $css, $prop );
             break;
+        case 'background':
+            $shorthand_infos = $this->get_background_shorthand( $is_available_shorthand, $css );
+            break;
         case 'border':
         case 'border-top':
         case 'border-right':
@@ -596,20 +599,17 @@ class CSSLisible {
         case 'outline':
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, $prop );
             break;
-        case 'list-style':
-            $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
-            break;
-        case 'background':
-            $shorthand_infos = $this->get_background_shorthand( $is_available_shorthand, $css );
-            break;
         case 'font':
             $shorthand_infos = $this->get_font_shorthand( $is_available_shorthand, $css );
             break;
-        case 'transition':
-            $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css );
+        case 'list-style':
+            $shorthand_infos = $this->get_list_style_shorthand( $is_available_shorthand, $css );
             break;
         case 'overflow':
             $shorthand_infos = $this->get_overflow_shorthand( $is_available_shorthand, $css );
+            break;
+        case 'transition':
+            $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css );
             break;
         }
 
@@ -746,6 +746,7 @@ class CSSLisible {
 
         return;
     }
+
     // Simplification des valeurs à 4 paramètres
     private function shorten_values( $css ) {
         $property = '((margin|padding|border-width|outline-width|border-radius|-moz-border-radius|-webkit-border-radius)(\s)*:(\s)*)';
