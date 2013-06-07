@@ -576,6 +576,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'outline' );
         $css = $this->use_shorthand( $css, 'overflow' );
         $css = $this->use_shorthand( $css, 'padding' );
+        $css = $this->use_shorthand( $css, 'pause' );
         $css = $this->use_shorthand( $css, 'transition' );
 
         return $css;
@@ -597,7 +598,8 @@ class CSSLisible {
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, $prop );
             break;
         case 'cue':
-            $shorthand_infos = $this->get_cue_shorthand( $is_available_shorthand, $css, $prop );
+        case 'pause':
+            $shorthand_infos = $this->get_audio_shorthand( $is_available_shorthand, $css, $prop );
             break;
         case 'font':
             $shorthand_infos = $this->get_font_shorthand( $is_available_shorthand, $css );
@@ -632,6 +634,21 @@ class CSSLisible {
         return $css;
     }
 
+    private function get_audio_shorthand( &$is_available_shorthand, $css, $prop ) {
+        $is_before = preg_match( '/(.*)(' . $prop . '-before\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_before );
+        $is_after = preg_match( '/(.*)(' . $prop . '-after\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_after );
+        $is_available_shorthand = ( $is_before && $is_after );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_before[2], $match_after[2] );
+            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
     private function get_background_shorthand( &$is_available_shorthand, $css ) {
         $is_color = preg_match( '/(.*)(background-color\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_color );
         $is_image = preg_match( '/(.*)(background-image\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_image );
@@ -659,21 +676,6 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_width[2], $match_style[2], $match_color[2] );
             $shorthand_value = $match_width[3] . ' ' . $match_style[3] . ' ' . $match_color[3];
-
-            return array( $props_to_remove, $shorthand_value );
-        }
-
-        return;
-    }
-
-    private function get_cue_shorthand( &$is_available_shorthand, $css ) {
-        $is_before = preg_match( '/(.*)(cue-before\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_before );
-        $is_after = preg_match( '/(.*)(cue-after\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_after );
-        $is_available_shorthand = ( $is_before && $is_after );
-
-        if ( $is_available_shorthand ) {
-            $props_to_remove = array( $match_before[2], $match_after[2] );
-            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
