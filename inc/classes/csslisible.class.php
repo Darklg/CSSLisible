@@ -569,6 +569,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'border-right' );
         $css = $this->use_shorthand( $css, 'border-bottom' );
         $css = $this->use_shorthand( $css, 'border-left' );
+        $css = $this->use_shorthand( $css, 'cue' );
         $css = $this->use_shorthand( $css, 'font' );
         $css = $this->use_shorthand( $css, 'list-style' );
         $css = $this->use_shorthand( $css, 'margin' );
@@ -598,6 +599,9 @@ class CSSLisible {
         case 'border-left':
         case 'outline':
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, $prop );
+            break;
+        case 'cue':
+            $shorthand_infos = $this->get_cue_shorthand( $is_available_shorthand, $css, $prop );
             break;
         case 'font':
             $shorthand_infos = $this->get_font_shorthand( $is_available_shorthand, $css );
@@ -740,6 +744,21 @@ class CSSLisible {
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_overflow_x[2], $match_overflow_y[2] );
             $shorthand_value = $match_overflow_x[3] . ' ' . $match_overflow_y[3];
+
+            return array( $props_to_remove, $shorthand_value );
+        }
+
+        return;
+    }
+
+    private function get_cue_shorthand( &$is_available_shorthand, $css ) {
+        $is_before = preg_match( '/(.*)(cue-before\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_before );
+        $is_after = preg_match( '/(.*)(cue-after\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_after );
+        $is_available_shorthand = ( $is_before && $is_after );
+
+        if ( $is_available_shorthand ) {
+            $props_to_remove = array( $match_before[2], $match_after[2] );
+            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
