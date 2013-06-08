@@ -641,7 +641,7 @@ class CSSLisible {
 
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_before[2], $match_after[2] );
-            $shorthand_value = ($match_before[3] == $match_after[3]) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
+            $shorthand_value = ( $match_before[3] == $match_after[3] ) ? $match_before[3] : $match_before[3] . ' ' . $match_after[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
