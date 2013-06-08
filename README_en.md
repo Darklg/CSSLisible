@@ -82,6 +82,10 @@ This will ensure your settings are not overridden when pulling new code.
 * URL_SITE : (string) Base URL for the website (ended by /)
 * URL_REWRITING : (bool) Use URL Rewriting
 
+## How to contribute
+
+If you want to contribute to CSSLisible please read our [contributing guidelines](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
+
 ## Licence MIT
 
 Copyright (c) 2012 Kevin Rocher

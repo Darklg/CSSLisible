@@ -82,6 +82,10 @@ Ceci permet de conserver la configuration personnalisée lors du pull d'une mise
 * URL_SITE : (string) url de base du site ( terminée par / )
 * URL_REWRITING : (bool) Activer l'URL Rewriting
 
+## Comment contribuer
+
+Si vous voulez contribuer à CSSLisible merci de prendre connaissance de nos [recommandations](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
+
 ## Licence MIT
 
 Copyright (c) 2012 Kevin Rocher
