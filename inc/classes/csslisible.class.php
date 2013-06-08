@@ -739,11 +739,11 @@ class CSSLisible {
     private function get_overflow_shorthand( &$is_available_shorthand, $css ) {
         $is_overflow_x = preg_match( '/(.*)(overflow-x\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_overflow_x );
         $is_overflow_y = preg_match( '/(.*)(overflow-y\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_overflow_y );
-        $is_available_shorthand = ( $is_overflow_x && $is_overflow_y );
+        $is_available_shorthand = ( $is_overflow_x && $is_overflow_y && $match_overflow_x[3] == $match_overflow_y[3] );
 
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_overflow_x[2], $match_overflow_y[2] );
-            $shorthand_value = $match_overflow_x[3] . ' ' . $match_overflow_y[3];
+            $shorthand_value = $match_overflow_x[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
