@@ -79,7 +79,7 @@ if ($('try_me') && $('clean_css')) {
         };
 
         //on appelle le fichier reponse.txt
-        xhr.open("GET", url_site + 'css/code-sale.css?t=' + microtime(), true);
+        xhr.open("GET", url_site + 'css/dirty-code.css?t=' + microtime(), true);
         xhr.send(null);
 
         return false;

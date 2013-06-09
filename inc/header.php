@@ -17,10 +17,10 @@ if ( file_exists( $userValues ) ) {
 include dirname( __FILE__ ) . '/config.php';
 
 /* Translation functions */
-include dirname( __FILE__ ) . '/traduction.php';
+include dirname( __FILE__ ) . '/translation.php';
 
 /* Core */
-include dirname( __FILE__ ) . '/valeurs.php';
+include dirname( __FILE__ ) . '/values.php';
 include dirname( __FILE__ ) . '/classes/csslisible.class.php';
 
 $args['listing_proprietes'] = $listing_proprietes;
