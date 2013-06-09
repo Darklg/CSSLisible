@@ -569,6 +569,8 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'border-right' );
         $css = $this->use_shorthand( $css, 'border-bottom' );
         $css = $this->use_shorthand( $css, 'border-left' );
+        $css = $this->use_shorthand( $css, '-webkit-border-radius' );
+        $css = $this->use_shorthand( $css, '-moz-border-radius' );
         $css = $this->use_shorthand( $css, 'border-radius' );
         $css = $this->use_shorthand( $css, 'cue' );
         $css = $this->use_shorthand( $css, 'font' );
@@ -598,8 +600,10 @@ class CSSLisible {
         case 'outline':
             $shorthand_infos = $this->get_borders_shorthand( $is_available_shorthand, $css, $prop );
             break;
+        case '-webkit-border-radius':
+        case '-moz-border-radius':
         case 'border-radius':
-            $shorthand_infos = $this->get_border_radius_shorthand( $is_available_shorthand, $css );
+            $shorthand_infos = $this->get_border_radius_shorthand( $is_available_shorthand, $css, $prop );
             break;
         case 'cue':
         case 'pause':
@@ -687,12 +691,33 @@ class CSSLisible {
         return;
     }
 
-    private function get_border_radius_shorthand( &$is_available_shorthand, $css ) {
+    private function get_border_radius_shorthand( &$is_available_shorthand, $css, $prop ) {
+        switch ( $prop ) {
+        case '-webkit-border-radius':
+            $prop_top_left = '-webkit-border-top-left-radius';
+            $prop_top_right = '-webkit-border-top-right-radius';
+            $prop_bottom_right = '-webkit-border-bottom-right-radius';
+            $prop_bottom_left = '-webkit-border-bottom-left-radius';
+            break;
+        case '-moz-border-radius':
+            $prop_top_left = '-moz-border-radius-topleft';
+            $prop_top_right = '-moz-border-radius-topright';
+            $prop_bottom_right = '-moz-border-radius-bottomright';
+            $prop_bottom_left = '-moz-border-radius-bottomleft';
+            break;
+        default:
+            $prop_top_left = 'border-top-left-radius';
+            $prop_top_right = 'border-top-right-radius';
+            $prop_bottom_right = 'border-bottom-right-radius';
+            $prop_bottom_left = 'border-bottom-left-radius';
+            break;
+        }
         $value = '(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-        $is_top_left = preg_match( '/(.*)(border-top-left-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_left );
-        $is_top_right = preg_match( '/(.*)(border-top-right-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_right );
-        $is_bottom_right = preg_match( '/(.*)(border-bottom-right-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_right );
-        $is_bottom_left = preg_match( '/(.*)(border-bottom-left-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_left );
+
+        $is_top_left = preg_match( '/(.*)(' . $prop_top_left . '\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_left );
+        $is_top_right = preg_match( '/(.*)(' . $prop_top_right . '\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_right );
+        $is_bottom_right = preg_match( '/(.*)(' . $prop_bottom_right . '\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_right );
+        $is_bottom_left = preg_match( '/(.*)(' . $prop_bottom_left . '\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_left );
         $is_available_shorthand = ( $is_top_left && $is_top_right && $is_bottom_right && $is_bottom_left );
 
         if ( $is_available_shorthand ) {
