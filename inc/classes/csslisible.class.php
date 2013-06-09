@@ -571,6 +571,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'border-left' );
         $css = $this->use_shorthand( $css, '-webkit-border-radius' );
         $css = $this->use_shorthand( $css, '-moz-border-radius' );
+        $css = $this->use_shorthand( $css, '-khtml-border-radius' );
         $css = $this->use_shorthand( $css, 'border-radius' );
         $css = $this->use_shorthand( $css, 'cue' );
         $css = $this->use_shorthand( $css, 'font' );
@@ -602,6 +603,7 @@ class CSSLisible {
             break;
         case '-webkit-border-radius':
         case '-moz-border-radius':
+        case '-khtml-border-radius':
         case 'border-radius':
             $shorthand_infos = $this->get_border_radius_shorthand( $is_available_shorthand, $css, $prop );
             break;
@@ -704,6 +706,12 @@ class CSSLisible {
             $prop_top_right = '-moz-border-radius-topright';
             $prop_bottom_right = '-moz-border-radius-bottomright';
             $prop_bottom_left = '-moz-border-radius-bottomleft';
+            break;
+        case '-khtml-border-radius':
+            $prop_top_left = '-khtml-border-radius-topleft';
+            $prop_top_right = '-khtml-border-radius-topright';
+            $prop_bottom_right = '-khtml-border-radius-bottomright';
+            $prop_bottom_left = '-khtml-border-radius-bottomleft';
             break;
         default:
             $prop_top_left = 'border-top-left-radius';
