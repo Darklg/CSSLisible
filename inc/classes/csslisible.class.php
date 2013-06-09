@@ -689,15 +689,20 @@ class CSSLisible {
 
     private function get_border_radius_shorthand( &$is_available_shorthand, $css ) {
         $value = '(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
-        $is_top_left = preg_match( '/(.*)(border-top-left-radius\s*:\s*' . $value . '\s*;)(.*)/i', $css, $match_top_left );
-        $is_top_right = preg_match( '/(.*)(border-top-right-radius\s*:\s*' . $value . '\s*;)(.*)/i', $css, $match_top_right );
-        $is_bottom_right = preg_match( '/(.*)(border-bottom-right-radius\s*:\s*' . $value . '\s*;)(.*)/i', $css, $match_bottom_right );
-        $is_bottom_left = preg_match( '/(.*)(border-bottom-left-radius\s*:\s*' . $value . '\s*;)(.*)/i', $css, $match_bottom_left );
+        $is_top_left = preg_match( '/(.*)(border-top-left-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_left );
+        $is_top_right = preg_match( '/(.*)(border-top-right-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_top_right );
+        $is_bottom_right = preg_match( '/(.*)(border-bottom-right-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_right );
+        $is_bottom_left = preg_match( '/(.*)(border-bottom-left-radius\s*:\s*' . $value . '(\s(' . $value . '))?\s*;)(.*)/i', $css, $match_bottom_left );
         $is_available_shorthand = ( $is_top_left && $is_top_right && $is_bottom_right && $is_bottom_left );
 
         if ( $is_available_shorthand ) {
             $props_to_remove = array( $match_top_left[2], $match_top_right[2], $match_bottom_right[2], $match_bottom_left[2] );
             $shorthand_value = $match_top_left[3] . ' ' . $match_top_right[3] . ' ' . $match_bottom_right[3] . ' ' . $match_bottom_left[3];
+
+            if ( strlen( $match_top_left[8] ) && strlen( $match_top_right[8] ) && strlen( $match_bottom_right[8] ) && strlen( $match_bottom_left[8] ) ) {
+                // Add vertical radii
+                $shorthand_value .= ' / ' . $match_top_left[8] . ' ' . $match_top_right[8] . ' ' . $match_bottom_right[8] . ' ' . $match_bottom_left[8];
+            }
 
             return array( $props_to_remove, $shorthand_value );
         }
