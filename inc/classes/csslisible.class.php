@@ -581,6 +581,10 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'overflow' );
         $css = $this->use_shorthand( $css, 'padding' );
         $css = $this->use_shorthand( $css, 'pause' );
+        $css = $this->use_shorthand( $css, '-webkit-transition' );
+        $css = $this->use_shorthand( $css, '-moz-transition' );
+        $css = $this->use_shorthand( $css, '-ms-transition' );
+        $css = $this->use_shorthand( $css, '-o-transition' );
         $css = $this->use_shorthand( $css, 'transition' );
 
         return $css;
@@ -624,8 +628,12 @@ class CSSLisible {
         case 'overflow':
             $shorthand_infos = $this->get_overflow_shorthand( $is_available_shorthand, $css );
             break;
+        case '-webkit-transition':
+        case '-moz-transition':
+        case '-ms-transition':
+        case '-o-transition':
         case 'transition':
-            $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css );
+            $shorthand_infos = $this->get_transition_shorthand( $is_available_shorthand, $css, $prop );
             break;
         }
 
@@ -811,11 +819,11 @@ class CSSLisible {
         return;
     }
 
-    private function get_transition_shorthand( &$is_available_shorthand, $css ) {
-        $is_property = preg_match( '/(.*)(transition-property\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_property );
-        $is_duration = preg_match( '/(.*)(transition-duration\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_duration );
-        $is_timing_fct = preg_match( '/(.*)(transition-timing-function\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_timing_fct );
-        $is_delay = preg_match( '/(.*)(transition-delay\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_delay );
+    private function get_transition_shorthand( &$is_available_shorthand, $css, $prop ) {
+        $is_property = preg_match( '/(.*)(' . $prop . '-property\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_property );
+        $is_duration = preg_match( '/(.*)(' . $prop . '-duration\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_duration );
+        $is_timing_fct = preg_match( '/(.*)(' . $prop . '-timing-function\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_timing_fct );
+        $is_delay = preg_match( '/(.*)(' . $prop . '-delay\s*:\s*([^;]*)\s*;)(.*)/i', $css, $match_delay );
         $is_available_shorthand = ( $is_property && $is_duration && $is_timing_fct && $is_delay );
 
         if ( $is_available_shorthand ) {
