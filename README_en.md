@@ -84,7 +84,7 @@ This will ensure your settings are not overridden when pulling new code.
 
 ## How to contribute
 
-If you want to contribute to CSSLisible please read our [contributing guidelines](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
+If you want to contribute to CSSLisible please read [our contributing guidelines](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
 
 ## Licence MIT
 

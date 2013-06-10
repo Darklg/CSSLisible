@@ -84,7 +84,7 @@ Ceci permet de conserver la configuration personnalisée lors du pull d'une mise
 
 ## Comment contribuer
 
-Si vous voulez contribuer à CSSLisible merci de prendre connaissance de nos [recommandations](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
+Si vous voulez contribuer à CSSLisible merci de prendre connaissance de [nos recommandations](https://github.com/Darklg/CSSLisible/blob/master/CONTRIBUTING.md).
 
 ## Licence MIT
 
