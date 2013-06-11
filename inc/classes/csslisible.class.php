@@ -827,8 +827,26 @@ class CSSLisible {
         $is_available_shorthand = ( $is_property && $is_duration && $is_timing_fct && $is_delay );
 
         if ( $is_available_shorthand ) {
+            $nb_transitions = substr_count( $match_property[2], ',' ) + 1;
+            if ( $nb_transitions == 1 ) {
+                $shorthand_value = $match_property[3] . ' ' . $match_duration[3] . ' ' . $match_timing_fct[3] . ' ' . $match_delay[3];
+            }
+            // Manage multiple transitions
+            else {
+                $properties = explode( ',', preg_replace( '/\s/', '', $match_property[3] ) );
+                $durations = explode( ',', preg_replace( '/\s/', '', $match_duration[3] ) );
+                $timing_fcts = explode( ',', preg_replace( '/\s/', '', $match_timing_fct[3] ) );
+                $delays = explode( ',', preg_replace( '/\s/', '', $match_delay[3] ) );
+
+                $i = 0;
+                $shorthand_value = '';
+                while ( $i < $nb_transitions ) {
+                    $shorthand_value .= ( $i == 0 ) ? '' : ',';
+                    $shorthand_value .= $properties[$i] . ' ' . $durations[$i] . ' ' . $timing_fcts[$i] . ' ' . $delays[$i];
+                    $i++;
+                }
+            }
             $props_to_remove = array( $match_property[2], $match_duration[2], $match_timing_fct[2], $match_delay[2] );
-            $shorthand_value = $match_property[3] . ' ' . $match_duration[3] . ' ' . $match_timing_fct[3] . ' ' . $match_delay[3];
 
             return array( $props_to_remove, $shorthand_value );
         }
