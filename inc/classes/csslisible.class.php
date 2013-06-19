@@ -186,7 +186,7 @@ class CSSLisible {
             break;
 
         case 'file' :
-            $this->get_buffer_from_file();
+            $this->get_buffer_from_files();
             break;
 
         default:
@@ -239,26 +239,44 @@ class CSSLisible {
         return $result;
     }
 
-    private function get_buffer_from_file() {
-        if ( isset( $_FILES['clean_css_file'] ) && !empty( $_FILES['clean_css_file'] ) ) {
-            $file = $_FILES['clean_css_file'];
-            if ( empty( $this->errors ) && $file['error'] != 0 ) {
-                $this->errors[] = _( 'Impossible d’uploader ce fichier' );
-            }
-            if ( empty( $this->errors ) && $file['type'] != 'text/css' ) {
-                $this->errors[] = _( 'Il ne s’agit pas d’un fichier CSS.' );
-            }
-            if ( empty( $this->errors ) && $file['size'] > MAX_FILESIZE ) {
-                $this->errors[] = sprintf( _( 'Le fichier CSS est trop lourd. (Maximum : %d ko)' ), round( MAX_FILESIZE/1024 ) );
-            }
-            if ( empty( $this->errors ) ) {
-                $this->buffer = file_get_contents( $file['tmp_name'] );
+    private function get_buffer_from_files() {
+
+        if ( isset( $_FILES['clean_css_file']['name'][0] ) ) {
+
+            // Obtaining clean array of files
+            $g_files = $_FILES['clean_css_file'];
+            $files = array();
+            $nb_files = count($_FILES['clean_css_file']['name']);
+            for($i=0;$i<$nb_files;$i++){
+                $files[] = array(
+                    'name' => $g_files['name'][$i],
+                    'type' => $g_files['type'][$i],
+                    'tmp_name' => $g_files['tmp_name'][$i],
+                    'error' => $g_files['error'][$i],
+                    'size' => $g_files['size'][$i],
+                );
             }
 
-            // On fait le ménage
-            if ( isset( $file['tmp_name'] ) ) {
-                @unlink( $file['tmp_name'] );
+            foreach($files as $file){
+                if ( empty( $this->errors ) && $file['error'] != 0 ) {
+                    $this->errors[] = _( 'Impossible d’uploader le fichier' );
+                }
+                if ( empty( $this->errors ) && $file['type'] != 'text/css' ) {
+                    $this->errors[] = _( 'Il ne s’agit pas d’un fichier CSS.' );
+                }
+                if ( empty( $this->errors ) && $file['size'] > MAX_FILESIZE ) {
+                    $this->errors[] = sprintf( _( 'Le fichier CSS est trop lourd. (Maximum : %d ko)' ), round( MAX_FILESIZE/1024 ) );
+                }
+                if ( empty( $this->errors ) ) {
+                    $buffer_tmp .= file_get_contents( $file['tmp_name'] );
+                }
+
+                // Deleting temporary files
+                if ( isset( $file['tmp_name'] ) ) {
+                    @unlink( $file['tmp_name'] );
+                }
             }
+            $this->buffer = $buffer_tmp;
         }
     }
 
