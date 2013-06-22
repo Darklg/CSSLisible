@@ -89,16 +89,6 @@ $listing_proprietes = array(
     /* Others
        ----------------------- */
 
-    '-webkit-box-align',
-    '-moz-box-align',
-    '-ms-box-align',
-    'box-align',
-
-    '-webkit-box-pack',
-    '-moz-box-pack',
-    '-ms-box-pack',
-    'box-pack',
-
     '-webkit-box-sizing',
     '-moz-box-sizing',
     '-o-box-sizing',
