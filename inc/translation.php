@@ -12,7 +12,7 @@ $more_languages = array(
 );
 
 // Retrieve browser language and use it if available
-$browser_lang = substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 );
+$browser_lang = isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : 'fr';
 $lang = ( $browser_lang == 'fr' ) ? $more_languages['fr']['lang'] : $more_languages['en']['lang'];
 
 // If translation is available for the requested language
