@@ -37,6 +37,7 @@ class CSSLisible {
         )
     );
     private $errors = array();
+    private $comments_contiguous = array();
     private $comments_isoles = array();
     private $translation_table = array(
         'type_separator' => 'type_separateur',
@@ -954,6 +955,15 @@ class CSSLisible {
 
     private function mise_ecart_commentaires( $css_to_sort ) {
 
+        // Remplacement des commentaires internes accolés à une propriété
+        preg_match_all('/\;([ ]?)\/\*(.*)\*\//U', $css_to_sort, $comments_contiguous);
+        if(isset($comments_contiguous[0][0])){
+            foreach($comments_contiguous[0] as $i => $comment){
+                $this->comments_contiguous[$i] = $comment;
+                $css_to_sort = str_replace($comment, '##_comment_contiguous_'.$i.'##;', $css_to_sort);
+            }
+        }
+
         // Suppression des commentaires internes à un sélecteur.
         $css_to_sort = preg_replace( '#{([\s]*)\/\*(.*)\*\/#isU', '{', $css_to_sort );
         $css_to_sort = preg_replace( '#\/\*(.*)\*\/([\s]*)}#', '}', $css_to_sort );
@@ -976,6 +986,10 @@ class CSSLisible {
     }
 
     private function suppression_mise_ecart_commentaires( $css_to_sort ) {
+
+        foreach($this->comments_contiguous as $i => $comment){
+            $css_to_sort = str_replace( '##_comment_contiguous_'.$i.'##;', $comment,$css_to_sort);
+        }
 
         foreach ( $this->comments_isoles as $chaine_remplacement => $comment ) {
             $comment_dist = $comment.str_pad( '', $this->get_option( 'distance_selecteurs' ) + 1, "\n" );
