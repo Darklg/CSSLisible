@@ -64,26 +64,18 @@ $listing_proprietes = array(
 
     '-webkit-column-count',
     '-moz-column-count',
-    '-ms-column-count',
-    '-o-column-count',
     'column-count',
 
     '-webkit-column-gap',
     '-moz-column-gap',
-    '-ms-column-gap',
-    '-o-column-gap',
     'column-gap',
 
     '-webkit-column-width',
     '-moz-column-width',
-    '-ms-column-width',
-    '-o-column-width',
     'column-width',
 
     '-webkit-column-rule',
     '-moz-column-rule',
-    '-ms-column-rule',
-    '-o-column-rule',
     'column-rule',
 
     /* Others
@@ -342,5 +334,18 @@ $listing_proprietes = array(
     '-webkit-user-drag',
     '-moz-user-drag',
     'user-drag',
+
+/* --------------------------------------------------------------------
+    Useless or inexistant properties
+   ----------------------------------------------------------------- */
+
+   '-ms-column-count',
+   '-o-column-count',
+   '-ms-column-gap',
+   '-o-column-gap',
+   '-ms-column-width',
+   '-o-column-width',
+   '-ms-column-rule',
+   '-o-column-rule',
 
 );
