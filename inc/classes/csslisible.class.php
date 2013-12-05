@@ -1176,6 +1176,8 @@ class CSSLisible {
 
     private function small_clean( $css ) {
 
+        $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
+
         // Séparation après @charset
         preg_match( '/\@charset(.*)\;\\n/i', $css, $match );
         if ( isset( $match[0] ) ) {
@@ -1191,6 +1193,9 @@ class CSSLisible {
         $css = preg_replace( '/\)\ \,([a-z]{1})/', '), $1', $css );
         // Trim empty lines
         $css = preg_replace("/\n([ ]+)\n/","\n\n",$css);
+
+        // Simplify some decimal values
+        $css = str_replace($sep.'0.0;', $sep.'0;', $css);
 
         return $css;
     }
