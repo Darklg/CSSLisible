@@ -34,7 +34,16 @@ class CSSLisible {
         'quotes' => array(
             'regex' => '/("(.+)")/isU',
             'list' => array()
-        )
+        ),
+        'content' => array(
+            'regex' => '#content:([^;]+);#U',
+            'list' => array()
+        ),
+        'content_' => array(
+            'regex' => '#content :([^;]+);#U',
+            'list' => array()
+        ),
+
     );
     private $errors = array();
     private $comments_contiguous = array();
