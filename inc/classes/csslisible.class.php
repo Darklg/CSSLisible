@@ -947,7 +947,7 @@ class CSSLisible {
             foreach ( $matches[1] as $match ) {
                 $replace = '_||_' . $type_tofix . '_' . count( $this->strings_tofix[$type_tofix]['list'] ) . '_||_';
                 $css_to_sort = str_replace( $match, $replace, $css_to_sort );
-                $this->strings_tofix[$type_tofix]['list'][$replace] = $match;
+                $this->strings_tofix[$type_tofix]['list'][$replace] = trim($match);
             }
         }
         return $css_to_sort;
