@@ -36,11 +36,11 @@ class CSSLisible {
             'list' => array()
         ),
         'content' => array(
-            'regex' => '#content:([^;]+);#U',
+            'regex' => '#content:([^;{}]+);#U',
             'list' => array()
         ),
         'content_' => array(
-            'regex' => '#content :([^;]+);#U',
+            'regex' => '#content :([^;{}]+);#U',
             'list' => array()
         ),
 
