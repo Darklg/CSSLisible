@@ -43,6 +43,10 @@ class CSSLisible {
             'regex' => '#content :([^;{}]+);#U',
             'list' => array()
         ),
+        'not' => array(
+            'regex' => '#:not\((.+)\)#U',
+            'list' => array()
+        ),
 
     );
     private $errors = array();
