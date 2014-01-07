@@ -1199,7 +1199,7 @@ class CSSLisible {
         $css = preg_replace("/\n([ ]+)\n/","\n\n",$css);
 
         // Simplify some decimal values
-        $css = str_replace($sep.'0.0;', $sep.'0;', $css);
+        $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
 
         return $css;
     }
