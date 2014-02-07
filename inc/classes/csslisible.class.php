@@ -44,10 +44,17 @@ class CSSLisible {
             'list' => array()
         ),
         'not' => array(
-            'regex' => '#:not\((.+)\)#U',
+            'regex' => '#(:not\((.+)\))#U',
             'list' => array()
         ),
-
+        'calc' => array(
+            'regex' => '#(calc\((.+)\))#U',
+            'list' => array()
+        ),
+        'var' => array(
+            'regex' => '#(var\((.+)\))#U',
+            'list' => array()
+        ),
     );
     private $errors = array();
     private $comments_contiguous = array();
