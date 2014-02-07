@@ -1189,8 +1189,8 @@ class CSSLisible {
             $css = str_replace( $match[0], trim( $match[0] ).$interlignage, $css );
         }
 
-        // Espace après ) si non suivi d'un espace ou d'un ;
-        $css = preg_replace( '/\)([^ ;]{1})/', ') $1', $css );
+        // Espace après ) si non suivi d'un espace, d'un : ou d'un ;
+        $css = preg_replace( '/\)([^ ;:]{1})/', ') $1', $css );
         // Espace avant ( si précédé d'un "and"
         $css = str_replace( 'and(', 'and (', $css );
         // Mauvais espacement après parenthèse ") ,in"
