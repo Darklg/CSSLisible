@@ -14,6 +14,7 @@ padding-bottom: 3px;padding-top: 1px;padding-left: 4px;padding-right: 2px;}
 @media all and (max-width:600px) {
 	body{background-color:red;
 	    border-left:0px}
+        /* ;) */
 	.lorem{    -webkit-box-shadow:   inset 0 0 0 3px #ccc ,  inset
 	     0 0 0 5px #000;
         -moz-box-shadow:      inset 0 0 0 3px #ccc ,    inset 0 0 0 5px #000;

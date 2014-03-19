@@ -996,7 +996,7 @@ class CSSLisible {
 
         if ( isset( $commentaires[0] ) ) {
             foreach ( $commentaires[0] as $comment ) {
-                $chaine_remplacement = '_||_comment_' . count( $this->comments_isoles ) . '_||_';
+                $chaine_remplacement = '_||_comment_' . count( $this->comments_isoles ) . '_||_;';
                 $this->comments_isoles[$chaine_remplacement] = $comment;
                 $css_to_sort = str_replace( $comment, $chaine_remplacement, $css_to_sort );
             }
@@ -1012,7 +1012,7 @@ class CSSLisible {
         }
 
         foreach ( $this->comments_isoles as $chaine_remplacement => $comment ) {
-            $comment_dist = $comment.str_pad( '', $this->get_option( 'distance_selecteurs' ) + 1, "\n" );
+            $comment_dist = $comment.str_pad( '', $this->get_option( 'distance_selecteurs' ), "\n" );
             $css_to_sort = str_replace( $chaine_remplacement, $comment_dist, $css_to_sort );
         }
 
