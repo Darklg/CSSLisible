@@ -32,7 +32,7 @@ class CSSLisible {
             'list' => array()
         ),
         'quotes' => array(
-            'regex' => '/("(.+)")/isU',
+            'regex' => '/("(.?)")/isU',
             'list' => array()
         ),
         'content' => array(
