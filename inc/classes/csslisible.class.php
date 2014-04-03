@@ -28,7 +28,7 @@ class CSSLisible {
             'list' => array()
         ),
         'ms_filter' => array(
-            'regex' => '/progid(.*);/i',
+            'regex' => '/progid(.*);/iU',
             'list' => array()
         ),
         'quotes' => array(
