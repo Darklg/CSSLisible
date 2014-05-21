@@ -1189,11 +1189,14 @@ class CSSLisible {
 
         $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
 
-        // Séparation après @charset
-        preg_match( '/\@charset(.*)\;\\n/i', $css, $match );
-        if ( isset( $match[0] ) ) {
-            $interlignage = str_pad( '', $this->get_option( 'distance_selecteurs' ) + 1, "\n" );
-            $css = str_replace( $match[0], trim( $match[0] ).$interlignage, $css );
+        // Séparation après @charset ou @import
+        preg_match_all('/\@(charset|import)(.*)\;\\n/ui', $css, $matches);
+        if (isset($matches[0])) {
+            foreach ($matches[0] as $match) {
+                $interlignage = str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
+                $css = str_replace($match, trim($match) . $interlignage, $css);
+            }
+        }
         }
 
         // Espace après ) si non suivi d'un espace, d'un : ou d'un ;
