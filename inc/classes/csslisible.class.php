@@ -1168,6 +1168,9 @@ class CSSLisible {
                 }
             }
 
+            // On dédoublonne les lignes
+            $new_lines = array_unique($new_lines);
+
             $new_props[] = implode( ( !$selecteur_par_ligne ? "\n":'' ), $new_lines );
         }
 
