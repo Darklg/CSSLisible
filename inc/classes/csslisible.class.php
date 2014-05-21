@@ -1197,6 +1197,14 @@ class CSSLisible {
                 $css = str_replace($match, trim($match) . $interlignage, $css);
             }
         }
+
+        // Pas de sauts de ligne entre deux instructions @import
+        preg_match_all('/\import([^;]+)\;(\n+)@/ui', $css, $matches);
+        if (isset($matches[0])) {
+            foreach ($matches[0] as $match) {
+                $new_match = preg_replace('/(\n+)/ui', "\n", $match);
+                $css = str_replace($match, $new_match, $css);
+            }
         }
 
         // Espace après ) si non suivi d'un espace, d'un : ou d'un ;
