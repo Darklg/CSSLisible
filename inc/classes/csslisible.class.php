@@ -1191,6 +1191,7 @@ class CSSLisible {
     private function small_clean( $css ) {
 
         $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
+        $indentation = $this->listing_indentations[$this->get_option( 'type_indentation' )][0];
 
         // Séparation après @charset ou @import
         preg_match_all('/\@(charset|import)(.*)\;\\n/ui', $css, $matches);
@@ -1221,6 +1222,10 @@ class CSSLisible {
 
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
+
+
+        // Some quirky Sass fixes
+        $css = preg_replace("/{\n(@[^;]+;)([\s\S][^}]*)}/","{\n".$indentation."$1$2}", $css);
 
         return $css;
     }
