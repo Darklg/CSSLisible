@@ -1225,7 +1225,7 @@ class CSSLisible {
 
 
         // Some quirky Sass fixes
-        $css = preg_replace("/{\n(@[^;]+;)([\s\S][^}]*)}/","{\n".$indentation."$1$2}", $css);
+        $css = preg_replace("/(\@(include|extend)[^;]+;)/", $indentation."$0", $css);
 
         return $css;
     }
