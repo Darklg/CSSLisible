@@ -1006,13 +1006,14 @@ class CSSLisible {
     }
 
     private function suppression_mise_ecart_commentaires( $css_to_sort ) {
+        $interlignage = str_pad('', $this->get_option('distance_selecteurs'), "\n");
 
         foreach($this->comments_contiguous as $i => $comment){
             $css_to_sort = str_replace( '##_comment_contiguous_'.$i.'##;', $comment,$css_to_sort);
         }
 
         foreach ( $this->comments_isoles as $chaine_remplacement => $comment ) {
-            $comment_dist = $comment.str_pad( '', $this->get_option( 'distance_selecteurs' ), "\n" );
+            $comment_dist = $comment . $interlignage;
             $css_to_sort = str_replace( $chaine_remplacement, $comment_dist, $css_to_sort );
         }
 
@@ -1176,7 +1177,7 @@ class CSSLisible {
 
         $new_props = trim(
             implode(
-                ( $selecteur_par_ligne ? "}\n":"\n". '}' . str_pad( '', $this->get_option( 'distance_selecteurs' ) + 1, "\n" ) ),
+                ( $selecteur_par_ligne ? "}\n":"\n". '}' . $this->get_interlignage() ),
                 $new_props
             )
         );
@@ -1192,12 +1193,12 @@ class CSSLisible {
 
         $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
         $indentation = $this->listing_indentations[$this->get_option( 'type_indentation' )][0];
+        $interlignage = $this->get_interlignage();
 
         // Séparation après @charset ou @import
         preg_match_all('/\@(charset|import)(.*)\;\\n/ui', $css, $matches);
         if (isset($matches[0])) {
             foreach ($matches[0] as $match) {
-                $interlignage = str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
                 $css = str_replace($match, trim($match) . $interlignage, $css);
             }
         }
@@ -1241,7 +1242,7 @@ class CSSLisible {
                 $indentation . sprintf( _( 'avec %s' ), TITRE_SITE ) . " - http://github.com/Darklg/CSSLisible" . "\n".
                 "*/" . "\n";
 
-            $cleaned_css = $header  . str_pad( '', $this->get_option( 'distance_selecteurs' ) + 1, "\n" ) . $cleaned_css;
+            $cleaned_css = $header . $this->get_interlignage() . $cleaned_css;
         }
 
         return $cleaned_css;
@@ -1261,6 +1262,10 @@ class CSSLisible {
 
         }
         exit;
+    }
+
+    private function get_interlignage(){
+        return str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
     }
 
     // Génération de classe pour le bouton de "Copy to clipboard" :
