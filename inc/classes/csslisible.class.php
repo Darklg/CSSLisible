@@ -1224,6 +1224,19 @@ class CSSLisible {
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
 
+        // Keep only one @charset
+        preg_match_all('/\@charset(.*)\;\\n+/ui', $css, $matches);
+        if(isset($matches[0][0]))
+        {
+            // Keep first charset
+            $first_charset = trim($matches[0][0]);
+            // Delete all charsets
+            foreach($matches[0] as $match){
+                $css = str_replace($match, '', $css);
+            }
+            // Apply first charset
+            $css = $first_charset . $this->get_interlignage() . $css;
+        }
 
         // Some quirky Sass fixes
         $css = preg_replace("/(\@(include|extend)[^;]+;)/", $indentation."$0", $css);

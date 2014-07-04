@@ -2,6 +2,7 @@
 -moz-border-radius : 3px;border-radius :3px;-webkit-background-clip: border;
 background-clip: border;/* This comment should stay contiguous to background-clip */}
 .maclass:before{content:'•'}
+@charset "UTF-8";
 
 a{border:1px solid red;-webkit-box-shadow: inset 0 0 0 1px #000;-moz-box-shadow: inset 0 0 0 1px #000;
 /* This comment should be removed */
