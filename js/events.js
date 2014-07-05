@@ -103,7 +103,7 @@ $('copy_button'), {
     activeClass: 'zeroclipboard-is-active'
 });
 clip.on('complete', function(client, args) {
-    $('copy_button').innerHTML = 'Code copié !';
+    $('copy_button').innerHTML = $('copy_button').getAttribute('data-success-msg');
 });
 
 /* ----------------------------------------------------------
