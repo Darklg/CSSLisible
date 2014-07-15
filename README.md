@@ -23,14 +23,18 @@ Ci-dessous, les paramètres à utiliser sous le format :
 
 ### Paramètres optionnels
 
-* 'distance_selecteurs' : (0,/1/,2) : Nombre de lignes séparant deux sélecteurs.
-* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie.
 * 'type_separateur' : (0,1,/2/,3) : Format du séparateur entre propriété et valeur.
-* 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple (Booleen).
-* 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple (Booleen).
-* 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement).
+* 'type_indentation' : (0,1,2,/3/,4,5,6) : Type d'indentation choisie.
+* 'distance_selecteurs' : (0,/1/,2) : Nombre de lignes séparant deux sélecteurs.
 * 'colors_format' : (/0/,1,2,3) : Formatage avancé des couleurs.
+* 'hex_colors_format' : (/0/,1,2) : Formatage des couleurs (#fff vers #FFF, et réciproquement).
+* 'selecteurs_multiples_separes' : (0,/1/) : Ajout d'un retour chariot après chaque partie d'un sélecteur multiple (Booleen).
+* 'valeurs_multiples_separees' : (0,/1/) : Ajout d'un retour chariot après chaque virgule d'une valeur multiple (Booleen).
+* 'supprimer_selecteurs_vides': (/0/,1) : Supprime les selecteurs vides (Boolean).
+* 'selecteur_par_ligne': (/0/,1) : Ajoute un saut de ligne après les virgules dans un selecteur (Boolean).
 * 'raccourcir_valeurs' : (/0/,1) : Utilisation de raccourcis CSS sur les valeurs à 4 paramètres chiffrés (Booleen).
+* 'tout_compresse': (/0/,1) : Compresse le code en une ligne, sans commentaires (Boolean).
+* 'add_header': (/0/,1) : Ajouter un header en commentaire. (Boolean).
 
 ### Valeurs des paramètres
 

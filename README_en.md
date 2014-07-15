@@ -23,14 +23,18 @@ Below are parameters that can be used:
 
 ### Optional Parameters
 
-* 'distance_selecteurs': (0,/1/,2) : Number of lines between two rule sets
-* 'type_indentation': (0,1,2,/3/,4,5,6) : Type of indentation
 * 'type_separateur': (0,1,/2/,3): Format for the separator between property and value
+* 'type_indentation': (0,1,2,/3/,4,5,6) : Type of indentation
+* 'distance_selecteurs': (0,/1/,2) : Number of lines between two rule sets
+* 'colors_format': (/0/,1,2,3) : Advanced format for colors
+* 'hex_colors_format': (/0/,1,2) : Format for colors (#fff to #FFF, and vice versa)
 * 'selecteurs_multiples_separes': (0,/1/) : Adds a line break after each comma within a group of selectors (Boolean)
 * 'valeurs_multiples_separees': (0,/1/) : Adds a line break after each comma within a group of values (Boolean)
-* 'hex_colors_format': (/0/,1,2) : Format for colors (#fff to #FFF, and vice versa)
-* 'colors_format': (/0/,1,2,3) : Advanced format for colors
+* 'supprimer_selecteurs_vides': (/0/,1) : Remove empty selectors (Boolean).
+* 'selecteur_par_ligne': (/0/,1) : Add a line break after commas in selectors (Boolean).
 * 'raccourcir_valeurs': (/0/,1) : Shortens values with 4 numerical parameters (Boolean).
+* 'tout_compresse': (/0/,1) : Compress the code in one line, without comments (Boolean).
+* 'add_header': (/0/,1) : Adds a comment header (Boolean).
 
 ### Values for parameters
 
