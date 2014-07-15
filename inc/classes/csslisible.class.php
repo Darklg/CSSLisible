@@ -1214,8 +1214,8 @@ class CSSLisible {
 
         // Espace après ) si non suivi d'un espace, d'un : ou d'un ;
         $css = preg_replace( '/\)([^ ;:]{1})/', ') $1', $css );
-        // Spaces before and after > or +
-        $css = preg_replace( '/([^ ]{1})(\+|>)([^ ]{1})/', '$1 $2 $3', $css );
+        // Spaces before and after > or + only in selectors
+        $css = preg_replace( '/([^ ]{1})(\+|>)([^ ]{1})([^{}\)]*)\{/', '$1 $2 $3$4{', $css );
 
         // Espace avant ( si précédé d'un "and"
         $css = str_replace( 'and(', 'and (', $css );
