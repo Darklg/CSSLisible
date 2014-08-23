@@ -1068,7 +1068,7 @@ class CSSLisible {
             }
 
             // On réindente le contenu de chaque media query
-            $css_to_reindent = str_replace( $match_media_query, $this->reindent_string( $tmp_match_media_query ), $css_to_reindent );
+            $css_to_reindent = preg_replace( '/' . preg_quote($match_media_query) . '/', $this->reindent_string( $tmp_match_media_query ), $css_to_reindent, 1 );
 
             // On remet les proprietes, en les reindentant
             foreach ( $proprietes as $match => $replace ) {
