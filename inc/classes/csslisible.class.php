@@ -55,6 +55,10 @@ class CSSLisible {
             'regex' => '#(var\((.+)\))#U',
             'list' => array()
         ),
+        'expression' => array(
+            'regex' => '#(expression\((.+)\))#U',
+            'list' => array()
+        ),
     );
     private $errors = array();
     private $comments_contiguous = array();
