@@ -73,20 +73,30 @@ class CSSLisible {
         'shorten_values' => 'raccourcir_valeurs',
         'compress_code' => 'tout_compresse',
     );
+    private $corrections = array(
+        array(
+            'before' => 'paddding:',
+            'after' => 'padding:'
+        ) ,
+        array(
+            'before' => 'contnet:',
+            'after' => 'content:'
+        ) ,
+    );
 
-    function __construct( $args = array() ) {
+    function __construct($args = array()) {
 
         // Retrocompatibility : old parameters
-        if ( !isset( $args['listing_proprietes'] ) ) {
+        if (!isset($args['listing_proprietes'])) {
             $args = array( 'listing_proprietes' => $args );
         }
         // Obtaining options from user config
-        if ( isset( $args['csslisible_options'] ) ) {
-            $this->options = array_merge( $this->options, $args['csslisible_options'] );
+        if (isset($args['csslisible_options'])) {
+            $this->options = array_merge($this->options, $args['csslisible_options']);
         }
 
-        $this->set_default_values( $_POST );
-        $this->posted_values = $this->translating_values( $this->posted_values );
+        $this->set_default_values($_POST);
+        $this->posted_values = $this->translating_values($this->posted_values);
 
         $this->listing_proprietes = $args['listing_proprietes'];
 
@@ -937,6 +947,10 @@ class CSSLisible {
     private function clean_css( $css_to_clean ) {
 
         $css_to_clean = $this->compress_css( $css_to_clean );
+
+        foreach ($this->corrections as $corr) {
+            $css_to_clean = str_replace($corr['before'], $corr['after'], $css_to_clean);
+        }
 
         // Formatage des codes couleur hexadécimaux
         $css_to_clean = preg_replace_callback( '#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array( $this, 'format_hex_color_values' ), $css_to_clean );
