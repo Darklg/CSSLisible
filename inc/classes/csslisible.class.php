@@ -82,6 +82,10 @@ class CSSLisible {
             'before' => 'contnet:',
             'after' => 'content:'
         ) ,
+        array(
+            'before' => 'color:##',
+            'after' => 'color:#'
+        ) ,
     );
 
     function __construct($args = array()) {
