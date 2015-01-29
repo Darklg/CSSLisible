@@ -1075,7 +1075,7 @@ class CSSLisible {
     private function reindent_media_queries( $css_to_reindent ) {
 
         // On récupère les media queries
-        preg_match_all( '#@(media|page)(.*){((.*)})([\s]+)}#isU', $css_to_reindent, $matches );
+        preg_match_all( '#@(media|page|supports)(.*){((.*)})([\s]+)}#isU', $css_to_reindent, $matches );
 
         foreach ( $matches[3] as $match_media_query ) {
 
