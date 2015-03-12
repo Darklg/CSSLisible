@@ -90,6 +90,10 @@ class CSSLisible {
             'before' => 'bototm:',
             'after' => 'bottom:'
         ) ,
+        array(
+            'before' => '%px;',
+            'after' => '%;'
+        ) ,
     );
 
     function __construct($args = array()) {
