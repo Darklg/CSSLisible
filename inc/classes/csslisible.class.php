@@ -94,6 +94,10 @@ class CSSLisible {
             'before' => '%px;',
             'after' => '%;'
         ) ,
+        array(
+            'before' => 'backgorund',
+            'after' => 'background'
+        ) ,
     );
 
     function __construct($args = array()) {
