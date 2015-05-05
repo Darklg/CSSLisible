@@ -10,7 +10,7 @@
     <div>
         <button id="clean_button" class="go_clean_css" type="submit"><?php echo _('Nettoyer ce code'); ?> &rarr;</button>
         <?php if (USE_COPY_BUTTON) { ?>
-        <button id="copy_button" class="go_clean_css <?php echo $CSSLisible->get_copy_btn_class(); ?>" data-success-msg="<?php echo _('Code copié'); ?>"; data-clipboard-target="clean_css"><?php echo _('Copier ce code'); ?></button>
+        <button id="copy_button" class="go_clean_css <?php echo $CSSLisible->get_copy_btn_class(); ?>" data-success-msg="<?php echo _('Code copié'); ?>" data-clipboard-target="clean_css"><?php echo _('Copier ce code'); ?></button>
         <?php } ?>
     </div>
 </div>
