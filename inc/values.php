@@ -57,6 +57,7 @@ $listing_proprietes = array(
     'align-items',
     'align-self',
     'order',
+    '-webkit-justify-content',
     'justify-content',
 
     /* Columns
