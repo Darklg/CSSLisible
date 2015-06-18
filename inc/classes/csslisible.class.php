@@ -36,11 +36,8 @@ class CSSLisible {
             'list' => array()
         ),
         'content' => array(
-            'regex' => '#content:([^;{}]+);#U',
-            'list' => array()
-        ),
-        'content_' => array(
-            'regex' => '#content :([^;{}]+);#U',
+            'regex' => "#([\s;{])content(\s*):(\s*)([^;{}]+);#U",
+            'target' => 4,
             'list' => array()
         ),
         'not' => array(
@@ -999,8 +996,12 @@ class CSSLisible {
 
     private function mise_ecart_proprietes( $css_to_sort ) {
         foreach ( $this->strings_tofix as $type_tofix => $infos_tofix ) {
+            $target = 1;
+            if(isset($infos_tofix['target'])){
+                $target = $infos_tofix['target'];
+            }
             preg_match_all( $infos_tofix['regex'], $css_to_sort, $matches );
-            foreach ( $matches[1] as $match ) {
+            foreach ( $matches[$target] as $match ) {
                 $replace = '_||_' . $type_tofix . '_' . count( $this->strings_tofix[$type_tofix]['list'] ) . '_||_';
                 $css_to_sort = str_replace( $match, $replace, $css_to_sort );
                 $this->strings_tofix[$type_tofix]['list'][$replace] = trim($match);
