@@ -24,8 +24,7 @@ include dirname( __FILE__ ) . '/values.php';
 include dirname( __FILE__ ) . '/classes/csslisible.class.php';
 
 $args['listing_proprietes'] = $listing_proprietes;
-
-$CSSLisible = new CSSLisible( $args );
+$CSSLisible = new CSSLisible( $args, $_POST );
 
 if ( isset( $_POST['api'] ) || isset( $_GET['api'] ) ) {
     header( 'Content-type: text/css; charset=utf-8' );

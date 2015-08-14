@@ -97,7 +97,7 @@ class CSSLisible {
         ) ,
     );
 
-    function __construct($args = array()) {
+    function __construct($args = array(), $values = array()) {
 
         // Retrocompatibility : old parameters
         if (!isset($args['listing_proprietes'])) {
@@ -108,7 +108,11 @@ class CSSLisible {
             $this->options = array_merge($this->options, $args['csslisible_options']);
         }
 
-        $this->set_default_values($_POST);
+        if(empty($values)){
+            $values = $_POST;
+        }
+
+        $this->set_default_values($values);
         $this->posted_values = $this->translating_values($this->posted_values);
 
         $this->listing_proprietes = $args['listing_proprietes'];
