@@ -14,6 +14,7 @@ You can help us in different ways:
 * No trailing whitespaces.
 * Code and comments in english.
 * No "merge commits".
+* No errors triggered by our tests in PHPUnit.
 
 ___
 
@@ -34,3 +35,4 @@ Vous pouvez nous aider de différentes manières :
 * Pas d'espaces de fin de ligne.
 * Code et commentaires en anglais (si possible).
 * Pas de "merge commits".
+* Pas d'erreur déclenchée lors de nos tests sous PHPUnit.

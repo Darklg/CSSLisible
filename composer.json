@@ -1,6 +1,7 @@
 {
     "require": {
         "sebastian/phpcpd": "*",
-        "phpmd/phpmd": "1.4.*"
+        "phpmd/phpmd": "1.4.*",
+        "phpunit/phpunit": "4.8.*"
     }
 }
