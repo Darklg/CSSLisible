@@ -57,6 +57,7 @@ class CSSLisible {
             'list' => array()
         ),
     );
+    private $use_cookies = true;
     private $errors = array();
     private $comments_contiguous = array();
     private $comments_isoles = array();
@@ -108,6 +109,10 @@ class CSSLisible {
             $this->options = array_merge($this->options, $args['csslisible_options']);
         }
 
+        if(isset($args['nocookie']) && $args['nocookie'] == 1){
+            $this->use_cookies = false;
+        }
+
         if(empty($values)){
             $values = $_POST;
         }
@@ -148,7 +153,9 @@ class CSSLisible {
             }
 
         } else {
-            $this->get_options_from_cookies();
+            if($this->use_cookies){
+                $this->get_options_from_cookies();
+            }
         }
     }
 
@@ -204,7 +211,9 @@ class CSSLisible {
     }
 
     private function save_options() {
-        setcookie( COOKIE_NAME, serialize( array( 'options' => $this->options ) ), time() + 365*24*3600 );
+        if($this->use_cookies){
+            setcookie( COOKIE_NAME, serialize( array( 'options' => $this->options ) ), time() + 365*24*3600 );
+        }
     }
 
     public function display_errors() {
