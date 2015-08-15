@@ -618,7 +618,6 @@ class CSSLisible {
             }
         }
 
-        $indent = $this->listing_indentations[$this->get_option( 'type_indentation' )][0];
         preg_match_all( '/'.$this->listing_separateurs[$this->get_option( 'type_separateur' )].'((.+)\,(.*));/i', $css, $matches );
 
         if ( !empty( $matches[1] ) ) {
@@ -626,7 +625,7 @@ class CSSLisible {
                 $new_match = '';
                 $new_match_parts = explode( ',', $match );
                 foreach ( $new_match_parts as &$part ) {
-                    $part = "\n".$indent.$indent.trim( $part );
+                    $part = "\n".$this->get_indentation().$this->get_indentation().trim( $part );
                 }
 
                 $css = str_replace( $match, implode( ',', $new_match_parts ), $css );
@@ -1082,9 +1081,9 @@ class CSSLisible {
 
     private function reindent_string( $string, $trim=false ) {
 
-        $str_lines = explode( "\n", $string );
-        foreach ( $str_lines as &$line ) {
-            $line = $this->listing_indentations[$this->get_option( 'type_indentation' )][0] . $line;
+        $str_lines = explode("\n", $string);
+        foreach ($str_lines as & $line) {
+            $line = $this->get_indentation() . $line;
         }
 
         $return_str = implode( "\n", $str_lines );
@@ -1194,13 +1193,13 @@ class CSSLisible {
             // On trie les proprietes récupérées
             foreach ( $this->listing_proprietes as $propriete ) {
                 if ( isset( $properties_tmp[$propriete] ) ) {
-                    $new_lines[] = $this->listing_indentations[$this->get_option( 'type_indentation' )][0] . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $properties_tmp[$propriete] . ';';
+                    $new_lines[] = $this->get_indentation() . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $properties_tmp[$propriete] . ';';
                     unset( $properties_tmp[$propriete] );
                 }
                 // On regarde aussi dans les doublons
                 if ( isset( $properties_dbl[$propriete] ) ) {
                     foreach ( $properties_dbl[$propriete] as $values ) {
-                        $new_lines[] = $this->listing_indentations[$this->get_option( 'type_indentation' )][0] . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
+                        $new_lines[] = $this->get_indentation() . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
                     }
                     unset( $properties_dbl[$propriete] );
                 }
@@ -1208,11 +1207,11 @@ class CSSLisible {
 
             // On ajoute les proprietes qui n'ont pas été affichée pour l'instant
             foreach ( $properties_tmp as $propriete => $valeur ) {
-                $new_lines[] = $this->listing_indentations[$this->get_option( 'type_indentation' )][0] . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $valeur . ';';
+                $new_lines[] = $this->get_indentation() . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $valeur . ';';
                 // On regarde aussi dans les doublons
                 if ( isset( $properties_dbl[$propriete] ) ) {
                     foreach ( $properties_dbl[$propriete] as $values ) {
-                        $new_lines[] = $this->listing_indentations[$this->get_option( 'type_indentation' )][0] . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
+                        $new_lines[] = $this->get_indentation() . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
                     }
                     unset( $properties_dbl[$propriete] );
                 }
@@ -1241,7 +1240,6 @@ class CSSLisible {
     private function small_clean( $css ) {
 
         $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
-        $indentation = $this->listing_indentations[$this->get_option( 'type_indentation' )][0];
         $interlignage = $this->get_interlignage();
 
         // Séparation après @charset ou @import
@@ -1291,7 +1289,7 @@ class CSSLisible {
         }
 
         // Some quirky Sass fixes
-        $css = preg_replace("/(\@(include|extend)[^;]+;)/", $indentation."$0", $css);
+        $css = preg_replace("/(\@(include|extend)[^;]+;)/", $this->get_indentation()."$0", $css);
 
         return $css;
     }
@@ -1300,11 +1298,10 @@ class CSSLisible {
     private function add_header( $cleaned_css ) {
         if ( strlen( $cleaned_css ) ) {
             $str_date = date( 'Y-m-d H:i (U)' );
-            $indentation = $this->listing_indentations[$this->get_option( 'type_indentation' )][0];
 
             $header = "\n" . "/*" . "\n" .
-                $indentation . _( 'Formaté :' ) . " " . $str_date . "\n".
-                $indentation . sprintf( _( 'avec %s' ), TITRE_SITE ) . " - http://github.com/Darklg/CSSLisible" . "\n".
+                $this->get_indentation() . _( 'Formaté :' ) . " " . $str_date . "\n".
+                $this->get_indentation() . sprintf( _( 'avec %s' ), TITRE_SITE ) . " - http://github.com/Darklg/CSSLisible" . "\n".
                 "*/" . "\n";
 
             $cleaned_css = $header . $this->get_interlignage() . $cleaned_css;
@@ -1331,6 +1328,14 @@ class CSSLisible {
 
     private function get_interlignage(){
         return str_pad('', $this->get_option('distance_selecteurs') + 1, "\n");
+    }
+
+    private function get_indentation(){
+        $this->current_indentation = $this->listing_indentations[$this->get_option('type_indentation') ][0];
+        if ($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse')) {
+            $this->current_indentation = '';
+        }
+        return $this->current_indentation;
     }
 
     // Génération de classe pour le bouton de "Copy to clipboard" :
