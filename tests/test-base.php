@@ -16,7 +16,7 @@ class CSSLisibleBaseTest extends PHPUnit_Framework_TestCase {
 
         // Test if an empty content returns an empty result
         $CSSLisible = new CSSLisible($this->args);
-        $this->assertEquals($CSSLisible->buffer, '');
+        $this->assertEquals('', $CSSLisible->buffer);
     }
 
     public function testDemoCode() {
@@ -27,6 +27,6 @@ class CSSLisibleBaseTest extends PHPUnit_Framework_TestCase {
         );
 
         $CSSLisible = new CSSLisible($this->args, $values);
-        $this->assertEquals($CSSLisible->buffer, $this->clean_code);
+        $this->assertEquals($this->clean_code, $CSSLisible->buffer);
     }
 }
