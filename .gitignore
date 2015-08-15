@@ -3,3 +3,4 @@ user-values.php
 .DS_Store
 composer.lock
 vendor
+tests/coverage
