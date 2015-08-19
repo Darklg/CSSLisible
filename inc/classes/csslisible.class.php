@@ -1098,7 +1098,7 @@ class CSSLisible {
     private function reindent_media_queries( $css_to_reindent ) {
 
         // On récupère les media queries
-        preg_match_all( '#{(([\s-_A-Z0-9a-z\.\#\&\:\,\s]+){(.*)})([\s]*)}#isU', $css_to_reindent, $matches );
+        preg_match_all('#{(([^\{\}]+){(.*)})([\s]*)}#isU', $css_to_reindent, $matches);
         foreach ( $matches[1] as $match_media_query ) {
 
             $tmp_match_media_query = $match_media_query;
@@ -1116,7 +1116,7 @@ class CSSLisible {
             }
 
             // On réindente le contenu de chaque media query
-            $css_to_reindent = preg_replace( '/' . preg_quote($match_media_query) . '/', $this->reindent_string( $tmp_match_media_query ), $css_to_reindent, 1 );
+            $css_to_reindent = preg_replace( '/' . preg_quote($match_media_query, '/') . '/', $this->reindent_string( $tmp_match_media_query ), $css_to_reindent, 1 );
 
             // On remet les proprietes, en les reindentant
             foreach ( $proprietes as $match => $replace ) {
