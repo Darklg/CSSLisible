@@ -44,7 +44,6 @@ class CSSLisibleSettingsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($clean_code, $CSSLisible->buffer);
     }
 
-
     public function testSelectorPerLine() {
 
         $dirty_code = ".test{   color:  \n  red\n;}\n\n.test2{color:blue;}";
@@ -73,5 +72,41 @@ class CSSLisibleSettingsTest extends PHPUnit_Framework_TestCase {
 
         $CSSLisible = new CSSLisible($this->args, $values);
         $this->assertEquals($clean_code, $CSSLisible->buffer);
+    }
+
+    public function testChangeColorFormat() {
+
+        $colors = array(
+            array(
+                'before' => '#fff',
+                'after' => 'white',
+                'type' => 1
+            ),
+            array(
+                'before' => 'red',
+                'after' => '#f00',
+                'type' => 2
+            ),
+            array(
+                'before' => '#000',
+                'after' => 'rgb(0,0,0)',
+                'type' => 3
+            )
+        );
+
+        foreach ($colors as $val) {
+
+            $dirty_code = ".test{color:" . $val['before'] . ";}";
+            $clean_code = ".test {\n    color: " . $val['after'] . ";\n}";
+
+            // Test demo code
+            $values = array(
+                'clean_css' => $dirty_code,
+                'colors_format' => $val['type'],
+            );
+
+            $CSSLisible = new CSSLisible($this->args, $values);
+            $this->assertEquals($clean_code, $CSSLisible->buffer);
+        }
     }
 }
