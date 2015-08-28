@@ -2,6 +2,8 @@
 
 [English](README_en.md) | Français
 
+[![Build Status](https://travis-ci.org/Darklg/CSSLisible.svg?branch=master)](https://travis-ci.org/Darklg/CSSLisible)
+
 Simple outil de reformatage et réorganisation pour CSS
 
 ## Contributeurs
