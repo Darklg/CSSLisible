@@ -115,11 +115,6 @@ $listing_proprietes = array(
     'border-style',
     'border-width',
 
-    '-webkit-border-radius',
-    '-moz-border-radius',
-    '-khtml-border-radius',
-    'border-radius',
-
     'border-top',
     'border-top-color',
     'border-top-style',
@@ -139,6 +134,11 @@ $listing_proprietes = array(
     'border-left-color',
     'border-left-style',
     'border-left-width',
+
+    '-webkit-border-radius',
+    '-moz-border-radius',
+    '-khtml-border-radius',
+    'border-radius',
 
     '-webkit-border-top-left-radius',
     '-webkit-border-top-right-radius',
