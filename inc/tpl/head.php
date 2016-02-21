@@ -3,6 +3,9 @@
 <meta name="viewport" content="width=790" />
 <link rel="stylesheet" href="<?php echo URL_SITE; ?>css/main.css?t=201208181531" type="text/css" />
 <?php foreach($more_languages as $llang => $language){
+    if($llang == $id_lang){
+        continue;
+    }
     $urlLang = URL_SITE . '?lang=' . $llang;
     if(URL_REWRITING){
         $urlLang = URL_SITE . $llang . '/';
