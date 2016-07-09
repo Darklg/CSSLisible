@@ -212,6 +212,7 @@ $listing_proprietes = array(
     'outline-color',
     'outline-style',
     'outline-width',
+    'outline-offset',
 
 /* --------------------------------------------------------------------
     Decoration
