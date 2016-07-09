@@ -27,6 +27,10 @@ class CSSLisible {
             'regex' => '#url\((.*)\)#U',
             'list' => array()
         ),
+        'linear_gradient' => array(
+            'regex' => '#linear-gradient\((.*)\)#U',
+            'list' => array()
+        ),
         'ms_filter' => array(
             'regex' => '/progid(.*);/iU',
             'list' => array()
