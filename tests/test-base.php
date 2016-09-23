@@ -1,10 +1,10 @@
 <?php
 class CSSLisibleBaseTest extends PHPUnit_Framework_TestCase {
 
-    function __construct() {
+    public function __construct() {
         global $listing_proprietes;
-        $this->dirty_code = file_get_contents(CSSLISIBLE_TEST_VAL__DIRTY_CODE_FILE);
-        $this->clean_code = file_get_contents(CSSLISIBLE_TEST_VAL__CLEAN_CODE_FILE);
+        $this->dirty_code = trim(file_get_contents(CSSLISIBLE_TEST_VAL__DIRTY_CODE_FILE));
+        $this->clean_code = trim(file_get_contents(CSSLISIBLE_TEST_VAL__CLEAN_CODE_FILE));
 
         $this->args = array(
             'listing_proprietes' => $listing_proprietes,
@@ -27,6 +27,6 @@ class CSSLisibleBaseTest extends PHPUnit_Framework_TestCase {
         );
 
         $CSSLisible = new CSSLisible($this->args, $values);
-        $this->assertEquals($this->clean_code, $CSSLisible->buffer);
+        $this->assertEquals($this->clean_code, trim($CSSLisible->buffer));
     }
 }

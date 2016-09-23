@@ -23,12 +23,8 @@ class CSSLisible {
         'return_file' => false,
     );
     private $strings_tofix = array(
-        'translate_etc' => array(
-            'regex' => '#(translate\((.*)\))#isU',
-            'list' => array()
-        ),
-        'calc' => array(
-            'regex' => '#(calc\((.+)\))#U',
+        'props' => array(
+            'regex' => '#((translate|rgba|rgb|calc)\((.+)\))#U',
             'list' => array()
         ),
         'url_data_etc' => array(

@@ -43,3 +43,11 @@ a {
         box-shadow: inset 0 0 0 3px #ccc,inset 0 0 0 5px #000;
     }
 }
+
+/* Gradient */
+
+.gradients {
+    background-image: -webkit-linear-gradient(left,rgba(0,0,0,0.90) 0%,rgba(0,0,0,0) 100%);
+    background-image: -o-linear-gradient(left, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0) 100%);
+    background-image: linear-gradient(to right,rgba(0,0,0,0.90) 0%,rgba(0,0,0,0) 100%);
+}
