@@ -27,6 +27,7 @@ if ($('selecteur_par_ligne') && $('tout_compresse')) {
         'block_colors_format',
         'block_hex_colors_format',
         'block_supprimer_selecteurs_vides',
+        'block_keep_empty_mediaqueries',
         'block_add_header'];
 
     if ($('selecteur_par_ligne').checked) {

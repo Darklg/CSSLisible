@@ -14,6 +14,7 @@ class CSSLisible {
         'colors_format' => 0,
         'hex_colors_format' => 0,
         'selecteurs_multiples_separes' => true,
+        'keep_empty_mediaqueries' => false,
         'valeurs_multiples_separees' => false,
         'supprimer_selecteurs_vides' => false,
         'selecteur_par_ligne' => false,
@@ -69,6 +70,7 @@ class CSSLisible {
         'type_separator' => 'type_separateur',
         'lines_between_rules' => 'distance_selecteurs',
         'remove_empty_rules' => 'supprimer_selecteurs_vides',
+        'keep_empty_mediaqueries' => 'keep_empty_mediaqueries',
         'separate_multiple_selectors' => 'selecteurs_multiples_separes',
         'separate_multiple_values' => 'valeurs_multiples_separees',
         'selector_per_line' => 'selecteur_par_ligne',
@@ -369,6 +371,7 @@ class CSSLisible {
             'selecteurs_multiples_separes',
             'valeurs_multiples_separees',
             'supprimer_selecteurs_vides',
+            'keep_empty_mediaqueries',
             'selecteur_par_ligne',
             'raccourcir_valeurs',
             'tout_compresse',
@@ -414,6 +417,9 @@ class CSSLisible {
             $option_ok = is_bool( $option_value );
             break;
         case 'supprimer_selecteurs_vides':
+            $option_ok = is_bool( $option_value );
+            break;
+        case 'keep_empty_mediaqueries':
             $option_ok = is_bool( $option_value );
             break;
         case 'selecteur_par_ligne':
@@ -992,6 +998,11 @@ class CSSLisible {
         // Supprime les sélecteurs vides
         if ( $this->get_option( 'supprimer_selecteurs_vides' ) || $this->get_option( 'tout_compresse' ) ) {
             $css_to_clean = preg_replace( '#([^}]+){}#isU', '', $css_to_clean );
+        }
+
+        // Supprime les sélecteurs vides
+        if ( !$this->get_option( 'keep_empty_mediaqueries' ) || $this->get_option( 'tout_compresse' ) ) {
+            $css_to_clean = preg_replace( '#\@media\(([^\)]+)\)\s?{\s?}#isU', '', $css_to_clean );
         }
 
         // == Mise en page améliorée ==

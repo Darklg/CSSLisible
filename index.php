@@ -30,6 +30,7 @@ include DIR_SITE . '/inc/header.php';
                     <fieldset>
                         <legend id="titre-presentation"><?php echo _('Présentation'); ?></legend>
                         <?php include DIR_SITE . '/inc/tpl/formulaire/selecteurs_multiples_separes.php'; ?>
+                        <?php include DIR_SITE . '/inc/tpl/formulaire/keep_empty_mediaqueries.php'; ?>
                         <?php include DIR_SITE . '/inc/tpl/formulaire/valeurs_multiples_separees.php'; ?>
                         <?php include DIR_SITE . '/inc/tpl/formulaire/supprimer_selecteurs_vides.php'; ?>
                         <?php include DIR_SITE . '/inc/tpl/formulaire/raccourcir_valeurs.php'; ?>

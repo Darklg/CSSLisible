@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CSSLisible\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 23:25+0100\n"
+"POT-Creation-Date: 2016-11-17 12:50+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Darklg <darklg.blog@gmail.com>\n"
 "Language-Team: \n"
@@ -11,248 +11,251 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.6.5\n"
-"X-Poedit-SearchPath-0: ../../../..\n"
+"X-Poedit-Basepath: ../../../..\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
 
-#: ../../../../inc/classes/csslisible.class.php:133
+#: inc/classes/csslisible.class.php:180
 msgid "1 espace"
 msgstr "1 space"
 
-#: ../../../../inc/classes/csslisible.class.php:134
+#: inc/classes/csslisible.class.php:181
 msgid "2 espaces"
 msgstr "2 spaces"
 
-#: ../../../../inc/classes/csslisible.class.php:135
+#: inc/classes/csslisible.class.php:182
 msgid "3 espaces"
 msgstr "3 spaces"
 
-#: ../../../../inc/classes/csslisible.class.php:136
+#: inc/classes/csslisible.class.php:183
 msgid "4 espaces"
 msgstr "4 spaces"
 
-#: ../../../../inc/classes/csslisible.class.php:137
+#: inc/classes/csslisible.class.php:184
 msgid "1 tab"
 msgstr "1 tab"
 
-#: ../../../../inc/classes/csslisible.class.php:138
+#: inc/classes/csslisible.class.php:185
 msgid "2 tabs"
 msgstr "2 tabs"
 
-#: ../../../../inc/classes/csslisible.class.php:139
-#: ../../../../inc/classes/csslisible.class.php:148
+#: inc/classes/csslisible.class.php:186 inc/classes/csslisible.class.php:195
 msgid "Aucune"
 msgstr "None"
 
-#: ../../../../inc/classes/csslisible.class.php:149
+#: inc/classes/csslisible.class.php:196
 msgid "Une"
 msgstr "One"
 
-#: ../../../../inc/classes/csslisible.class.php:150
+#: inc/classes/csslisible.class.php:197
 msgid "Deux"
 msgstr "Two"
 
-#: ../../../../inc/classes/csslisible.class.php:153
-#: ../../../../inc/classes/csslisible.class.php:159
+#: inc/classes/csslisible.class.php:200 inc/classes/csslisible.class.php:206
 msgid "Inchangé"
 msgstr "Unchanged"
 
-#: ../../../../inc/classes/csslisible.class.php:154
+#: inc/classes/csslisible.class.php:201
 msgid "Noms"
 msgstr "Names"
 
-#: ../../../../inc/classes/csslisible.class.php:155
+#: inc/classes/csslisible.class.php:202
 msgid "Hex"
 msgstr "Hex"
 
-#: ../../../../inc/classes/csslisible.class.php:156
+#: inc/classes/csslisible.class.php:203
 msgid "RGB"
 msgstr "RGB"
 
-#: ../../../../inc/classes/csslisible.class.php:160
+#: inc/classes/csslisible.class.php:207
 msgid "Minuscules"
 msgstr "Lowercase"
 
-#: ../../../../inc/classes/csslisible.class.php:161
+#: inc/classes/csslisible.class.php:208
 msgid "Majuscules"
 msgstr "Uppercase"
 
-#: ../../../../inc/classes/csslisible.class.php:223
+#: inc/classes/csslisible.class.php:272
 msgid "Aucune URL n’a été fournie."
 msgstr "No URL was provided."
 
-#: ../../../../inc/classes/csslisible.class.php:227
+#: inc/classes/csslisible.class.php:276
 msgid "La valeur fournie n’est pas une URL."
 msgstr "The provided value is not a URL."
 
-#: ../../../../inc/classes/csslisible.class.php:233
+#: inc/classes/csslisible.class.php:282
 msgid "L’URL doit être celle d’un fichier CSS."
 msgstr "The URL should be the URL of a CSS file."
 
-#: ../../../../inc/classes/csslisible.class.php:257
+#: inc/classes/csslisible.class.php:306
 msgid "Impossible de télécharger ce fichier."
 msgstr "Can not download this file."
 
-#: ../../../../inc/classes/csslisible.class.php:283
+#: inc/classes/csslisible.class.php:332
 msgid "Impossible d’uploader le fichier"
 msgstr "Can not upload this file."
 
-#: ../../../../inc/classes/csslisible.class.php:286
+#: inc/classes/csslisible.class.php:335
 msgid "Il ne s’agit pas d’un fichier CSS."
 msgstr "This is not a CSS file."
 
-#: ../../../../inc/classes/csslisible.class.php:289
+#: inc/classes/csslisible.class.php:338
 #, php-format
 msgid "Le fichier CSS est trop lourd. (Maximum : %d ko)"
 msgstr "The CSS file is to heavy (Max: %d kb)"
 
-#: ../../../../inc/classes/csslisible.class.php:1254
+#: inc/classes/csslisible.class.php:1309
 msgid "Formaté :"
 msgstr "Formatted:"
 
-#: ../../../../inc/classes/csslisible.class.php:1255
+#: inc/classes/csslisible.class.php:1310
 #, php-format
 msgid "avec %s"
 msgstr "with %s"
 
-#: ../../../../inc/tpl/errors.php:4
+#: inc/tpl/errors.php:4
 #, php-format
 msgid "Erreur%s"
 msgstr "Error%s"
 
-#: ../../../../inc/tpl/formulaire/add_header.php:3
+#: inc/tpl/formulaire/add_header.php:3
 msgid "Ajout d’un timestamp"
 msgstr "Add a timestamp"
 
-#: ../../../../inc/tpl/formulaire/colors_format.php:9
+#: inc/tpl/formulaire/colors_format.php:9
 msgid "Format des codes couleurs"
 msgstr "Color codes' format"
 
-#: ../../../../inc/tpl/formulaire/distance_selecteurs.php:9
+#: inc/tpl/formulaire/distance_selecteurs.php:9
 msgid "Ligne(s) entre les sélecteurs"
 msgstr "Line(s) between selectors"
 
-#: ../../../../inc/tpl/formulaire/hex_colors_format.php:9
+#: inc/tpl/formulaire/hex_colors_format.php:9
 msgid "Format des codes hexadécimaux"
 msgstr "Hexadecimal codes' format"
 
-#: ../../../../inc/tpl/formulaire/raccourcir_valeurs.php:3
+#: inc/tpl/formulaire/keep_empty_mediaqueries.php:3
+msgid "Garder les media queries vides"
+msgstr "Keep empty media queries"
+
+#: inc/tpl/formulaire/raccourcir_valeurs.php:3
 msgid "Raccourcir les valeurs"
 msgstr "Shorten values"
 
-#: ../../../../inc/tpl/formulaire/return_file.php:3
+#: inc/tpl/formulaire/return_file.php:3
 msgid "Récupérer un fichier CSS"
 msgstr "Get a CSS file"
 
-#: ../../../../inc/tpl/formulaire/selecteur_par_ligne.php:3
+#: inc/tpl/formulaire/selecteur_par_ligne.php:3
 msgid "Un sélecteur par ligne"
 msgstr "One selector by line"
 
-#: ../../../../inc/tpl/formulaire/selecteurs_multiples_separes.php:3
+#: inc/tpl/formulaire/selecteurs_multiples_separes.php:3
 msgid "Sélecteurs multiples séparés"
 msgstr "Multiple selectors separated"
 
-#: ../../../../inc/tpl/formulaire/supprimer_selecteurs_vides.php:3
+#: inc/tpl/formulaire/supprimer_selecteurs_vides.php:3
 msgid "Supprimer les sélecteurs vides"
 msgstr "Delete empty selectors"
 
-#: ../../../../inc/tpl/formulaire/tout_compresse.php:3
+#: inc/tpl/formulaire/tout_compresse.php:3
 msgid "Tout compressé !"
 msgstr "All compressed!"
 
-#: ../../../../inc/tpl/formulaire/type_indentation.php:9
+#: inc/tpl/formulaire/type_indentation.php:9
 msgid "Type d’indentation"
 msgstr "Type of indentation"
 
-#: ../../../../inc/tpl/formulaire/type_separateur.php:9
+#: inc/tpl/formulaire/type_separateur.php:9
 msgid "Type de séparateur"
 msgstr "Type of separator"
 
-#: ../../../../inc/tpl/formulaire/valeurs_multiples_separees.php:3
+#: inc/tpl/formulaire/valeurs_multiples_separees.php:3
 msgid "Valeurs multiples séparées"
 msgstr "Separate multiple values"
 
-#: ../../../../inc/tpl/submit.php:3 ../../../../inc/tpl/submit.php:5
+#: inc/tpl/submit.php:3 inc/tpl/submit.php:5
 msgid "Afficher les options"
 msgstr "Show options"
 
-#: ../../../../inc/tpl/submit.php:4
+#: inc/tpl/submit.php:4
 msgid "Masquer les options"
 msgstr "Hide options"
 
-#: ../../../../inc/tpl/submit.php:7
+#: inc/tpl/submit.php:7
 msgid "Code de test"
 msgstr "Test code"
 
-#: ../../../../inc/tpl/submit.php:11
+#: inc/tpl/submit.php:11
 msgid "Nettoyer ce code"
 msgstr "Clean this code"
 
-#: ../../../../inc/tpl/submit.php:13
+#: inc/tpl/submit.php:13
 msgid "Code copié"
 msgstr "Copied code"
 
-#: ../../../../inc/tpl/submit.php:13
+#: inc/tpl/submit.php:13
 msgid "Copier ce code"
 msgstr "Copy this code"
 
-#: ../../../../inc/tpl/tabs.php:6
+#: inc/tpl/tabs.php:6
 msgid "Formulaire"
 msgstr "Form"
 
-#: ../../../../inc/tpl/tabs.php:12
+#: inc/tpl/tabs.php:12
 msgid "Fichier"
 msgstr "File"
 
-#: ../../../../inc/tpl/tabs.php:24
+#: inc/tpl/tabs.php:24
 msgid "CSS à nettoyer :"
 msgstr "CSS Code to clean:"
 
-#: ../../../../inc/tpl/tabs.php:28
+#: inc/tpl/tabs.php:28
 msgid "Fichier CSS à nettoyer :"
 msgstr "CSS File to clean:"
 
-#: ../../../../inc/tpl/tabs.php:32
+#: inc/tpl/tabs.php:32
 msgid "URL du CSS à nettoyer :"
 msgstr "CSS URL to clean:"
 
-#: ../../../../inc/tpl/text.php:2
+#: inc/tpl/text.php:2
 msgid "CSSLisible va réindenter vos blocks de code,"
 msgstr "CSSLisible will re-indent your code blocks,"
 
-#: ../../../../inc/tpl/text.php:3
+#: inc/tpl/text.php:3
 msgid "ordonner vos propriétés"
 msgstr "order your properties"
 
-#: ../../../../inc/tpl/text.php:4
+#: inc/tpl/text.php:4
 msgid "afin de fournir un code CSS Lisible et plus maintenable. "
 msgstr "to provide a more maintainable and readable CSS code."
 
-#: ../../../../inc/tpl/text.php:5
+#: inc/tpl/text.php:5
 msgid "Attention, les commentaires internes aux sélecteurs sont retirés !"
 msgstr "Please note, comments in selectors are removed!"
 
-#: ../../../../index.php:23
+#: index.php:23
 msgid "Formatage"
 msgstr "Formatting"
 
-#: ../../../../index.php:31
+#: index.php:31
 msgid "Présentation"
 msgstr "Presentation"
 
-#: ../../../../index.php:38
+#: index.php:39
 msgid "Options avancées"
 msgstr "Advanced options"
 
-#: ../../../../index.php:51
+#: index.php:52
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../../../index.php:52
+#: index.php:53
 msgid "Source disponible sur"
 msgstr "Source available on"
 
-#: ../../../../index.php:54
+#: index.php:55
 msgid "Contributeurs : "
 msgstr "Contributors: "
 
