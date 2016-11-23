@@ -77,12 +77,12 @@ class CSSLisibleSettingsTest extends PHPUnit_Framework_TestCase {
     public function testDontKeepEmptyMediaQueries() {
 
         $dirty_code = ".test,.az{color:red;}@media(max-width:10px){}";
-        $clean_code = ".test,\n.az {\n    color: red;\n}";
+        $clean_code = ".test, .az {\n    color: red;\n}";
 
         // Test demo code
         $values = array(
             'clean_css' => $dirty_code,
-            'keep_empty_mediaqueries' => false,
+            'keep_empty_mediaqueries' => false
         );
 
         $CSSLisible = new CSSLisible($this->args, $values);
@@ -92,12 +92,12 @@ class CSSLisibleSettingsTest extends PHPUnit_Framework_TestCase {
     public function testKeepEmptyMediaQueries() {
 
         $dirty_code = ".test,.az{color:red;}@media(max-width:10px){}";
-        $clean_code = ".test,\n.az {\n    color: red;\n}\n\n@media(max-width:10px) {\n}";
+        $clean_code = ".test, .az {\n    color: red;\n}\n\n@media(max-width:10px) {\n}";
 
         // Test demo code
         $values = array(
             'clean_css' => $dirty_code,
-            'keep_empty_mediaqueries' => true,
+            'keep_empty_mediaqueries' => true
         );
 
         $CSSLisible = new CSSLisible($this->args, $values);
