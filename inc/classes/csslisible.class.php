@@ -1295,7 +1295,10 @@ class CSSLisible {
         }
 
         // Some quirky Sass fixes
+        /* Add indentation for @include/@extend */
         $css = preg_replace("/(\@(include|extend)[^;]+;)/", $this->get_indentation()."$0", $css);
+        /* Remove indentation for root @include */
+        $css = preg_replace("/".$this->get_indentation()."@include([^{]*){/", "@include$1{", $css);
 
         return $css;
     }
