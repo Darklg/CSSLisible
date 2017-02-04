@@ -1056,7 +1056,7 @@ class CSSLisible {
         $css_to_sort = preg_replace( '#\/\*(.*)\*\/([\s]*)}#', '}', $css_to_sort );
         $count_rm_internals = 1;
         while ( $count_rm_internals > 0 ) {
-            $css_to_sort = preg_replace( '#;([\s]*)\/\*(.*)\*\/#', ';', $css_to_sort, -1, $count_rm_internals );
+            $css_to_sort = preg_replace( '#{(.*);([\s]*)\/\*(.*)\*\/#', '{$1;', $css_to_sort, -1, $count_rm_internals );
         }
 
         preg_match_all( '#\/\*(.*)\*\/#isU', $css_to_sort, $commentaires );
