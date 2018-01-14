@@ -1298,8 +1298,15 @@ class CSSLisible {
         /* Add indentation for @include/@extend */
         $css = preg_replace("/(\@(include|extend)[^;]+;)/", $this->get_indentation()."$0", $css);
         /* Remove indentation for root @include */
-        $css = preg_replace("/".$this->get_indentation()."@include([^{]*){/", "@include$1{", $css);
-
+        $css = preg_replace("/}([^{]*)".$this->get_indentation()."@include([^}]*){/isU", "}$1@include$2{", $css);
+        /* Remove linebreaks into @include rules */
+        preg_match_all('/@include([^\)]*)\)/', $css, $matches);
+        if (isset($matches[0][0])) {
+            foreach ($matches[0] as $match) {
+                $new_match = str_replace("\n", ' ', $match);
+                $css = str_replace($match, $new_match, $css);
+            }
+        }
         return $css;
     }
 

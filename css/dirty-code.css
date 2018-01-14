@@ -35,3 +35,13 @@ background-image: linear-gradient(to right,
         ,0,0.90) 0%, rgba(
         0,0,0,0) 100%);
 }
+
+/* Sass fixes */
+@include
+ csscKeyframes(test) {
+    0% {
+    width: 100%;}
+  100% {
+  width: 0%;
+    }
+} .test { @include animation('test', 2s);}
