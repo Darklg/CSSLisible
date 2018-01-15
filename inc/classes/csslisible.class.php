@@ -61,6 +61,11 @@ class CSSLisible {
             'regex' => '#(expression\((.+)\))#U',
             'list' => array()
         ),
+        'include' => array(
+            'regex' => '#(@include([a-z0-9A-Z ]+)(\([^;]+\)))#U',
+            'target' => 3,
+            'list' => array()
+        ),
     );
     private $use_cookies = true;
     private $errors = array();
@@ -1306,7 +1311,7 @@ class CSSLisible {
         preg_match_all('/@include([^\)]*)\)/', $css, $matches);
         if (isset($matches[0][0])) {
             foreach ($matches[0] as $match) {
-                $new_match = str_replace("\n", ' ', $match);
+                $new_match = preg_replace('!\s+!', ' ', $match);
                 $css = str_replace($match, $new_match, $css);
             }
         }
