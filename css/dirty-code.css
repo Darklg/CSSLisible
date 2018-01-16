@@ -44,4 +44,11 @@ background-image: linear-gradient(to right,
   100% {
   width: 0%;
     }
-} .test { @include animation('test', 2s);}
+} %project--field {
+    &::-webkit-input-placeholder {
+        @include project-placeholder;
+    }
+    &::placeholder {
+ @include project-placeholder;
+    }
+}.test { @include animation('test', 2s);}

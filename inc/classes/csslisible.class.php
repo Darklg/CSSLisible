@@ -1308,7 +1308,7 @@ class CSSLisible {
         /* - Next */
         $css = preg_replace("/}([^{]*)".$this->get_indentation()."@include([^}]*){/isU", "}$1@include$2{", $css);
         /* Remove linebreaks into @include rules */
-        preg_match_all('/@include([^\)]*)\)/', $css, $matches);
+        preg_match_all('/@include([^\;)]*)\)/', $css, $matches);
         if (isset($matches[0][0])) {
             foreach ($matches[0] as $match) {
                 $new_match = preg_replace('!\s+!', ' ', $match);

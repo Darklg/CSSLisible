@@ -66,6 +66,16 @@ a {
     }
 }
 
+%project--field {
+    &::-webkit-input-placeholder {
+        @include project-placeholder;
+    }
+
+    &::placeholder {
+        @include project-placeholder;
+    }
+}
+
 .test {
     @include animation('test', 2s);
 }
