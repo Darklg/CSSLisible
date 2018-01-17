@@ -70,6 +70,7 @@ class CSSLisible {
     private $use_cookies = true;
     private $errors = array();
     private $comments_contiguous = array();
+    private $comments_contiguous_doubleslashes = array();
     private $comments_isoles = array();
     private $translation_table = array(
         'type_separator' => 'type_separateur',
@@ -1047,30 +1048,43 @@ class CSSLisible {
 
     private function mise_ecart_commentaires( $css_to_sort ) {
 
+        // Remplacement des commentaires internes accolés à une propriété compass
+        preg_match_all('/\;(([ ]*)\/\/(.*))/', $css_to_sort, $comments_contiguous_doubleslashes);
+        if (isset($comments_contiguous_doubleslashes[0][0])) {
+            foreach ($comments_contiguous_doubleslashes[0] as $i => $comment) {
+                $original_comment = str_replace('//', '// ', $comment);
+                $original_comment = preg_replace('/;([ ]*)\//', '; /', $original_comment);
+                $original_comment = preg_replace('/\/\/([ ]*)/', '// ', $original_comment);
+                $this->comments_contiguous_doubleslashes[$i] = $original_comment;
+                $css_to_sort = str_replace($comment, '##_comment_contiguous_doubleslashes_' . $i . '##;', $css_to_sort);
+            }
+        }
+
         // Remplacement des commentaires internes accolés à une propriété
         preg_match_all('/\;([ ]?)\/\*(.*)\*\//U', $css_to_sort, $comments_contiguous);
         if(isset($comments_contiguous[0][0])){
             foreach($comments_contiguous[0] as $i => $comment){
                 $this->comments_contiguous[$i] = $comment;
-                $css_to_sort = str_replace($comment, '##_comment_contiguous_'.$i.'##;', $css_to_sort);
+                $css_to_sort = str_replace($comment, '##_comment_contiguous_' . $i . '##;', $css_to_sort);
             }
         }
 
+
         // Suppression des commentaires internes à un sélecteur.
-        $css_to_sort = preg_replace( '#{([\s]*)\/\*(.*)\*\/#isU', '{', $css_to_sort );
-        $css_to_sort = preg_replace( '#\/\*(.*)\*\/([\s]*)}#', '}', $css_to_sort );
+        $css_to_sort = preg_replace('#{([\s]*)\/\*(.*)\*\/#isU', '{', $css_to_sort);
+        $css_to_sort = preg_replace('#\/\*(.*)\*\/([\s]*)}#', '}', $css_to_sort);
         $count_rm_internals = 1;
-        while ( $count_rm_internals > 0 ) {
-            $css_to_sort = preg_replace( '#{(.*);([\s]*)\/\*(.*)\*\/#', '{$1;', $css_to_sort, -1, $count_rm_internals );
+        while ($count_rm_internals > 0) {
+            $css_to_sort = preg_replace('#{(.*);([\s]*)\/\*(.*)\*\/#', '{$1;', $css_to_sort, -1, $count_rm_internals);
         }
 
-        preg_match_all( '#\/\*(.*)\*\/#isU', $css_to_sort, $commentaires );
+        preg_match_all('#\/\*(.*)\*\/#isU', $css_to_sort, $commentaires);
 
-        if ( isset( $commentaires[0] ) ) {
-            foreach ( $commentaires[0] as $comment ) {
-                $chaine_remplacement = '_||_comment_' . count( $this->comments_isoles ) . '_||_;';
+        if (isset($commentaires[0])) {
+            foreach ($commentaires[0] as $comment) {
+                $chaine_remplacement = '_||_comment_' . count($this->comments_isoles) . '_||_;';
                 $this->comments_isoles[$chaine_remplacement] = $comment;
-                $css_to_sort = str_replace( $comment, $chaine_remplacement, $css_to_sort );
+                $css_to_sort = str_replace($comment, $chaine_remplacement, $css_to_sort);
             }
         }
 
@@ -1080,8 +1094,12 @@ class CSSLisible {
     private function suppression_mise_ecart_commentaires( $css_to_sort ) {
         $interlignage = str_pad('', $this->get_option('distance_selecteurs'), "\n");
 
+        foreach($this->comments_contiguous_doubleslashes as $i => $comment){
+            $css_to_sort = str_replace( '##_comment_contiguous_doubleslashes_'.$i.'##;', $comment, $css_to_sort);
+        }
+
         foreach($this->comments_contiguous as $i => $comment){
-            $css_to_sort = str_replace( '##_comment_contiguous_'.$i.'##;', $comment,$css_to_sort);
+            $css_to_sort = str_replace( '##_comment_contiguous_'.$i.'##;', $comment, $css_to_sort);
         }
 
         foreach ( $this->comments_isoles as $chaine_remplacement => $comment ) {

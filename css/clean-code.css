@@ -79,3 +79,10 @@ a {
 .test {
     @include animation('test', 2s);
 }
+
+.test2 {
+    display: flex; // 1. this comment is not removed
+    align-items: center; // 2. this comment is not removed
+    justify-content: center; // 3. this comment is not removed
+    height: auto;
+}

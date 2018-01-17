@@ -52,3 +52,10 @@ background-image: linear-gradient(to right,
  @include project-placeholder;
     }
 }.test { @include animation('test', 2s);}
+
+.test2 {
+justify-content: center;   // 3. this comment is not removed
+        display: flex; // 1. this comment is not removed
+    align-items: center; //  2. this comment is not removed
+        height: auto;
+}
