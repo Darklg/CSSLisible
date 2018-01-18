@@ -1008,7 +1008,7 @@ class CSSLisible {
 
         // Supprime les sélecteurs vides
         if ( !$this->get_option( 'keep_empty_mediaqueries' ) || $this->get_option( 'tout_compresse' ) ) {
-            $css_to_clean = preg_replace( '#\@media\(([^\)]+)\)\s?{\s?}#isU', '', $css_to_clean );
+            $css_to_clean = preg_replace( '/\@media([^{]*)\s?{\s?}/isU', '', $css_to_clean );
         }
 
         // == Mise en page améliorée ==
