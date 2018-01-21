@@ -1180,90 +1180,112 @@ class CSSLisible {
     }
 
     // Tri des propriétés
-    public function sort_css( $css_to_sort ) {
+    public function sort_css($css_to_sort) {
 
-        $selecteur_par_ligne = ( $this->get_option( 'selecteur_par_ligne' ) && !$this->get_option( 'tout_compresse' ) );
+        $selecteur_par_ligne = ($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse'));
 
-        $this->buffer_props = explode( '}', $css_to_sort );
+        $this->buffer_props = explode('}', $css_to_sort);
         $new_props = array();
+
         // On divise par propriétés
-        foreach ( $this->buffer_props as $prop ) {
-            $lines = explode( "\n", $prop );
-            $new_lines = array();
-            $properties_tmp = array();
-            $properties_dbl = array();
-            // On divise par ligne
-
-            foreach ( $lines as $line ) {
-                $line_t = trim( $line );
-                $values = explode( ':', $line_t );
-                // C'est un selecteur, on l'ajoute à la suite.
-                if ( !isset( $values[1] ) || strpos( $line_t, '{' ) !== FALSE ) {
-                    if ( !empty( $line_t ) ) {
-                        $line_t_s = explode( ',', $line_t );
-                        $selecteur_glue = ',' . ( !$selecteur_par_ligne && $this->get_option( 'selecteurs_multiples_separes' ) ? "\n" : ' ' );
-                        $new_lines[] = implode( $selecteur_glue, $line_t_s );
-                    }
-                } else {
-                    // On supprime les ; de fin de ligne
-                    if ( substr( $values[1], -1 ) == ';' )
-                        $values[1] = substr( $values[1], 0, -1 );
-                    // On met de côté la propriété
-                    if ( !isset( $properties_tmp[$values[0]] ) ) {
-                        $properties_tmp[$values[0]] = $values[1];
-                    } else {
-                        if ( !isset( $properties_dbl[$values[0]] ) )
-                            $properties_dbl[$values[0]] = array();
-                        $properties_dbl[$values[0]][] = $values;
-                    }
-                }
-            }
-
-            // On trie les proprietes récupérées
-            foreach ( $this->listing_proprietes as $propriete ) {
-                if ( isset( $properties_tmp[$propriete] ) ) {
-                    $new_lines[] = $this->get_indentation() . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $properties_tmp[$propriete] . ';';
-                    unset( $properties_tmp[$propriete] );
-                }
-                // On regarde aussi dans les doublons
-                if ( isset( $properties_dbl[$propriete] ) ) {
-                    foreach ( $properties_dbl[$propriete] as $values ) {
-                        $new_lines[] = $this->get_indentation() . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
-                    }
-                    unset( $properties_dbl[$propriete] );
-                }
-            }
-
-            // On ajoute les proprietes qui n'ont pas été affichée pour l'instant
-            foreach ( $properties_tmp as $propriete => $valeur ) {
-                $new_lines[] = $this->get_indentation() . $propriete . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $valeur . ';';
-                // On regarde aussi dans les doublons
-                if ( isset( $properties_dbl[$propriete] ) ) {
-                    foreach ( $properties_dbl[$propriete] as $values ) {
-                        $new_lines[] = $this->get_indentation() . $values[0] . $this->listing_separateurs[$this->get_option( 'type_separateur' )] . $values[1] . ';';
-                    }
-                    unset( $properties_dbl[$propriete] );
-                }
-            }
-
-            // On dédoublonne les lignes
-            $new_lines = array_unique($new_lines);
-
-            $new_props[] = implode( ( !$selecteur_par_ligne ? "\n":'' ), $new_lines );
+        foreach ($this->buffer_props as $prop) {
+            $lines = explode("\n", $prop);
+            $new_lines = $this->sort_css_properties($lines);
+            $new_props[] = implode((!$selecteur_par_ligne ? "\n" : ''), $new_lines);
         }
 
         $new_props = trim(
             implode(
-                ( $selecteur_par_ligne ? "}\n":"\n". '}' . $this->get_interlignage() ),
+                ($selecteur_par_ligne ? "}\n" : "\n" . '}' . $this->get_interlignage()),
                 $new_props
             )
         );
 
-        if ( $this->get_option( 'valeurs_multiples_separees' ) ) {
-            $new_props = $this->format_multiple_values( $new_props );
+        if ($this->get_option('valeurs_multiples_separees')) {
+            $new_props = $this->format_multiple_values($new_props);
         }
 
         return $new_props;
+    }
+
+    public function sort_css_properties($lines) {
+
+        $selecteur_par_ligne = ($this->get_option('selecteur_par_ligne') && !$this->get_option('tout_compresse'));
+
+        $new_lines = array();
+        $properties_tmp = array();
+        $properties_dbl = array();
+        $opening_bracket_seen = false;
+        $sep = $this->listing_separateurs[$this->get_option('type_separateur')];
+
+        // On divise par ligne
+        foreach ($lines as $line) {
+            $line_t = trim($line);
+            $values = explode(':', $line_t);
+            $line_has_bracket = strpos($line_t, '{') !== FALSE;
+            if ($line_has_bracket) {
+                $opening_bracket_seen = true;
+            }
+
+            // It is a variable before the opening bracket
+            if (substr($line_t, 0, 1) == '$' && !$opening_bracket_seen) {
+                $new_lines[] = str_replace(':', $sep, $line_t);
+            }
+            // C'est un selecteur, on l'ajoute à la suite.
+            else if (!isset($values[1]) || $line_has_bracket) {
+                if (!empty($line_t)) {
+                    $line_t_s = explode(',', $line_t);
+                    $selecteur_glue = ',' . (!$selecteur_par_ligne && $this->get_option('selecteurs_multiples_separes') ? "\n" : ' ');
+                    $new_lines[] = implode($selecteur_glue, $line_t_s);
+                }
+            } else {
+                // On supprime les ; de fin de ligne
+                if (substr($values[1], -1) == ';') {
+                    $values[1] = substr($values[1], 0, -1);
+                }
+
+                // On met de côté la propriété
+                if (!isset($properties_tmp[$values[0]])) {
+                    $properties_tmp[$values[0]] = $values[1];
+                } else {
+                    if (!isset($properties_dbl[$values[0]])) {
+                        $properties_dbl[$values[0]] = array();
+                    }
+
+                    $properties_dbl[$values[0]][] = $values;
+                }
+            }
+        }
+
+        // On trie les proprietes récupérées
+        foreach ($this->listing_proprietes as $propriete) {
+            if (isset($properties_tmp[$propriete])) {
+                $new_lines[] = $this->get_indentation() . $propriete . $sep . $properties_tmp[$propriete] . ';';
+                unset($properties_tmp[$propriete]);
+            }
+            // On regarde aussi dans les doublons
+            if (isset($properties_dbl[$propriete])) {
+                foreach ($properties_dbl[$propriete] as $values) {
+                    $new_lines[] = $this->get_indentation() . $values[0] . $sep . $values[1] . ';';
+                }
+                unset($properties_dbl[$propriete]);
+            }
+        }
+
+        // On ajoute les proprietes qui n'ont pas été affichée pour l'instant
+        foreach ($properties_tmp as $propriete => $valeur) {
+            $new_lines[] = $this->get_indentation() . $propriete . $sep . $valeur . ';';
+            // On regarde aussi dans les doublons
+            if (isset($properties_dbl[$propriete])) {
+                foreach ($properties_dbl[$propriete] as $values) {
+                    $new_lines[] = $this->get_indentation() . $values[0] . $sep . $values[1] . ';';
+                }
+                unset($properties_dbl[$propriete]);
+            }
+        }
+
+        // On dédoublonne les lignes
+        return array_unique($new_lines);
     }
 
     private function small_clean( $css ) {

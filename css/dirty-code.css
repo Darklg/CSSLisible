@@ -1,5 +1,5 @@
-@charset "UTF-8";   /* This comment should not be removed */ .maclass{-webkit-border-radius: 3px;-moz-background-clip: border;
--moz-border-radius : 3px;border-radius :3px;-webkit-background-clip: border;
+@charset "UTF-8";   /* This comment should not be removed */ $custom-br: 3px; .maclass{-webkit-border-radius: $custom-br;-moz-background-clip: border;
+-moz-border-radius : $custom-br;border-radius :$custom-br;-webkit-background-clip: border;
 background-clip: border;/* This comment should stay contiguous to background-clip */}
 .maclass:before{content:'•'
 /* This comment should be removed */}
