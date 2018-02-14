@@ -47,6 +47,20 @@ a {
     }
 }
 
+.test {
+    .az > * {
+        border-radius: 99em;
+    }
+
+    .az > * {
+        border-radius: 99em;
+    }
+
+    .az > * {
+        border-radius: 99em;
+    }
+}
+
 /* Gradient */
 
 .gradients {
