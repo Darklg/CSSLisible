@@ -1006,7 +1006,7 @@ class CSSLisible {
             $css_to_clean = preg_replace( '#([^}]+){}#isU', '', $css_to_clean );
         }
 
-        // Supprime les sélecteurs vides
+        // Supprime les media queries
         if ( !$this->get_option( 'keep_empty_mediaqueries' ) || $this->get_option( 'tout_compresse' ) ) {
             $css_to_clean = preg_replace( '/\@media([^{]*)\s?{\s?}/isU', '', $css_to_clean );
         }
@@ -1320,6 +1320,9 @@ class CSSLisible {
         $css = preg_replace( '/([^ ]{1})(\+|>)([^{}\)]*)\{/', '$1 $2$3{', $css );
 
 
+        // Delete empty Sass ampersand selectors
+        $css = preg_replace("/([{}]{1})([\s\t]*)\&([\s\t]*)\{([\s\t]*)\}([\s\t]*)/","$1$2",$css);
+
         // Espace avant ( si précédé d'un "and"
         $css = str_replace( 'and(', 'and (', $css );
         // Mauvais espacement après parenthèse ") ,in"
@@ -1329,6 +1332,7 @@ class CSSLisible {
 
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
+
 
         // Keep only one @charset
         preg_match_all('/\@charset(.*)\;\\n+/ui', $css, $matches);
