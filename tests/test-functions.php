@@ -24,4 +24,20 @@ class CSSLisibleFunctionsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($clean_code, $CSSLisible->buffer);
     }
 
+
+    public function testColorsFormatHexToRGB() {
+
+        $dirty_code = ".test {color: #000; } .test {color: #FF0000; } .test {color: #F0F; }";
+        $clean_code = ".test {\n    color: rgb(0,0,0);\n}\n\n.test {\n    color: rgb(255,0,0);\n}\n\n.test {\n    color: rgb(255,0,255);\n}";
+
+        // Test demo code
+        $values = array(
+            'colors_format' => 3,
+            'clean_css' => $dirty_code,
+        );
+
+        $CSSLisible = new CSSLisible($this->args, $values);
+        $this->assertEquals($clean_code, $CSSLisible->buffer);
+    }
+
 }
