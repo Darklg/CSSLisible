@@ -25,7 +25,7 @@ class CSSLisible {
     );
     private $strings_tofix = array(
         'props' => array(
-            'regex' => '#((translate|rgba|rgb|calc)\((.+)\))#U',
+            'regex' => '#((translate|rgba|calc)\((.+)\))#U',
             'list' => array()
         ),
         'url_data_etc' => array(
@@ -67,6 +67,10 @@ class CSSLisible {
             'list' => array()
         ),
     );
+
+    private $keyword_named_colors = array('aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'marron', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen');
+    private $hex_named_colors = array('#f0f8ff', '#faebd7', '#00ffff', '#7fffd4', '#f0ffff', '#f5f5dc', '#ffe4c4', '#000000', '#ffebcd', '#0000ff', '#8a2be2', '#a52a2a', '#deb887', '#5f9ea0', '#7fff00', '#d2691e', '#ff7f50', '#6495ed', '#fff8dc', '#dc143c', '#00ffff', '#00008b', '#008b8b', '#b8860b', '#a9a9a9', '#006400', '#a9a9a9', '#bdb76b', '#8b008b', '#556b2f', '#ff8c00', '#9932cc', '#8b0000', '#e9967a', '#8fbc8f', '#483d8b', '#2f4f4f', '#2f4f4f', '#00ced1', '#9400d3', '#ff1493', '#00bfff', '#696969', '#696969', '#1e90ff', '#b22222', '#fffaf0', '#228b22', '#ff00ff', '#dcdcdc', '#f8f8ff', '#ffd700', '#daa520', '#808080', '#008000', '#adff2f', '#808080', '#f0fff0', '#ff69b4', '#cd5c5c', '#4b0082', '#fffff0', '#f0e68c', '#e6e6fa', '#fff0f5', '#7cfc00', '#fffacd', '#add8e6', '#f08080', '#e0ffff', '#fafad2', '#d3d3d3', '#90ee90', '#d3d3d3', '#ffb6c1', '#ffa07a', '#20b2aa', '#87cefa', '#778899', '#778899', '#b0c4de', '#ffffe0', '#00ff00', '#32cd32', '#faf0e6', '#ff00ff', '#800000', '#66cdaa', '#0000cd', '#ba55d3', '#9370db', '#3cb371', '#7b68ee', '#00fa9a', '#48d1cc', '#c71585', '#191970', '#f5fffa', '#ffe4e1', '#ffe4b5', '#ffdead', '#000080', '#fdf5e6', '#808000', '#6b8e23', '#ffa500', '#ff4500', '#da70d6', '#eee8aa', '#98fb98', '#afeeee', '#db7093', '#ffefd5', '#ffdab9', '#cd853f', '#ffc0cb', '#dda0dd', '#b0e0e6', '#800080', '#ff0000', '#bc8f8f', '#4169e1', '#8b4513', '#fa8072', '#f4a460', '#2e8b57', '#fff5ee', '#a0522d', '#c0c0c0', '#87ceeb', '#6a5acd', '#708090', '#708090', '#fffafa', '#00ff7f', '#4682b4', '#d2b48c', '#008080', '#d8bfd8', '#ff6347', '#40e0d0', '#ee82ee', '#f5deb3', '#ffffff', '#f5f5f5', '#ffff00', '#9acd32');
+
     private $use_cookies = true;
     private $errors = array();
     private $comments_contiguous = array();
@@ -453,7 +457,7 @@ class CSSLisible {
     }
 
     public function identify_and_short_hex_color_values( $css_to_compress ) {
-        return preg_replace_callback( '#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;)#', array( $this, 'short_hex_color_values' ), $css_to_compress );
+        return preg_replace_callback( '#(:[^;]*\#)([a-fA-F\d])\2([a-fA-F\d])\3([a-fA-F\d])\4([^;]*;|\})#', array( $this, 'short_hex_color_values' ), $css_to_compress );
     }
 
     public function short_hex_color_values( $matches ) {
@@ -508,10 +512,8 @@ class CSSLisible {
         $css_to_compress = preg_replace( '#(:[^;]*)hsla\((\d{1,3}[\s]*,[\s]*\d{1,3}%[\s]*,[\s]*\d{1,3}%)[\s]*,[\s]*1(\.0)*\)([^;]*;)#i', '$1hsl($2)$4', $css_to_compress );
         // Conversion des codes couleurs
         if ( $this->get_option( 'colors_format' ) != 0 ) {
-            $css_to_compress = preg_replace_callback( '#:[^;]+;#', array( $this, 'convert_colors' ), $css_to_compress );
+            $css_to_compress = preg_replace_callback( '#:[^;}]+[};]{1}#', array( $this, 'convert_colors' ), $css_to_compress );
         }
-        // Simplification des codes couleurs hexadécimaux
-        $css_to_compress = $this->identify_and_short_hex_color_values( $css_to_compress );
 
         // Use CSS shorthands
         $css_to_compress = preg_replace_callback( '#{[^}]*}#', array( $this, 'use_shorthands' ), $css_to_compress );
@@ -531,42 +533,47 @@ class CSSLisible {
     }
 
     // Changement de format des codes couleurs
-    private function convert_colors( $css_to_compress ) {
+    private function convert_colors($css_to_compress) {
         $css_to_compress = $css_to_compress[0];
-        $keyword_named_colors = array( 'aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'marron', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen' );
-        $hex_named_colors = array( '#f0f8ff', '#faebd7', '#00ffff', '#7fffd4', '#f0ffff', '#f5f5dc', '#ffe4c4', '#000000', '#ffebcd', '#0000ff', '#8a2be2', '#a52a2a', '#deb887', '#5f9ea0', '#7fff00', '#d2691e', '#ff7f50', '#6495ed', '#fff8dc', '#dc143c', '#00ffff', '#00008b', '#008b8b', '#b8860b', '#a9a9a9', '#006400', '#a9a9a9', '#bdb76b', '#8b008b', '#556b2f', '#ff8c00', '#9932cc', '#8b0000', '#e9967a', '#8fbc8f', '#483d8b', '#2f4f4f', '#2f4f4f', '#00ced1', '#9400d3', '#ff1493', '#00bfff', '#696969', '#696969', '#1e90ff', '#b22222', '#fffaf0', '#228b22', '#ff00ff', '#dcdcdc', '#f8f8ff', '#ffd700', '#daa520', '#808080', '#008000', '#adff2f', '#808080', '#f0fff0', '#ff69b4', '#cd5c5c', '#4b0082', '#fffff0', '#f0e68c', '#e6e6fa', '#fff0f5', '#7cfc00', '#fffacd', '#add8e6', '#f08080', '#e0ffff', '#fafad2', '#d3d3d3', '#90ee90', '#d3d3d3', '#ffb6c1', '#ffa07a', '#20b2aa', '#87cefa', '#778899', '#778899', '#b0c4de', '#ffffe0', '#00ff00', '#32cd32', '#faf0e6', '#ff00ff', '#800000', '#66cdaa', '#0000cd', '#ba55d3', '#9370db', '#3cb371', '#7b68ee', '#00fa9a', '#48d1cc', '#c71585', '#191970', '#f5fffa', '#ffe4e1', '#ffe4b5', '#ffdead', '#000080', '#fdf5e6', '#808000', '#6b8e23', '#ffa500', '#ff4500', '#da70d6', '#eee8aa', '#98fb98', '#afeeee', '#db7093', '#ffefd5', '#ffdab9', '#cd853f', '#ffc0cb', '#dda0dd', '#b0e0e6', '#800080', '#ff0000', '#bc8f8f', '#4169e1', '#8b4513', '#fa8072', '#f4a460', '#2e8b57', '#fff5ee', '#a0522d', '#c0c0c0', '#87ceeb', '#6a5acd', '#708090', '#708090', '#fffafa', '#00ff7f', '#4682b4', '#d2b48c', '#008080', '#d8bfd8', '#ff6347', '#40e0d0', '#ee82ee', '#f5deb3', '#ffffff', '#f5f5f5', '#ffff00', '#9acd32' );
-
-        switch ( $this->get_option( 'colors_format' ) ) {
+        switch ($this->get_option('colors_format')) {
         case 1: // -> Named colors
             // RGB to Hex
-            $css_to_compress = preg_replace_callback( '#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#i', array( $this, 'rgb2hex' ), $css_to_compress );
+            $css_to_compress = $this->rgb2hex_content($css_to_compress);
             // Hex to Named colors
-            $css_to_compress = str_replace( $hex_named_colors, $keyword_named_colors, $css_to_compress );
+            $css_to_compress = $this->hex2namedcolors($css_to_compress);
             break;
         case 2: // -> Hex
             // Named colors to Hex
-            $keynamed_colors_patterns = array_map( array( $this, 'get_keynamed_colors_patterns' ), $keyword_named_colors );
-            $hex_colors_patterns = array_map( array( $this, 'get_coded_colors_patterns' ), $hex_named_colors );
-            $css_to_compress = preg_replace( $keynamed_colors_patterns, $hex_colors_patterns, $css_to_compress );
+            $css_to_compress = $this->namedcolors2hex($css_to_compress);
             // RGB to Hex
-            $css_to_compress = preg_replace_callback( '#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;)#i', array( $this, 'rgb2hex' ), $css_to_compress );
+            $css_to_compress = $this->rgb2hex_content($css_to_compress);
             break;
         case 3: // -> RGB
             // Named colors to Hex
-            $keynamed_colors_patterns = array_map( array( $this, 'get_keynamed_colors_patterns' ), $keyword_named_colors );
-            $hex_colors_patterns = array_map( array( $this, 'get_coded_colors_patterns' ), $hex_named_colors );
-            $css_to_compress = preg_replace( $keynamed_colors_patterns, $hex_colors_patterns, $css_to_compress );
+            $css_to_compress = $this->namedcolors2hex($css_to_compress);
             // Hex to RGB
-            $css_to_compress = preg_replace_callback( '#(:[^;]*)\#((([a-fA-F\d]){3}){1,2})([^;]*;)#', array( $this, 'hex2rgb' ), $css_to_compress );
+            $css_to_compress = $this->hex2rgb_content($css_to_compress);
             break;
         }
+        return $css_to_compress;
+    }
 
+    private function hex2namedcolors($css_to_compress){
+        $css_to_compress = strtolower($css_to_compress);
+        $css_to_compress = str_replace($this->hex_named_colors, $this->keyword_named_colors, $css_to_compress);
+        return $css_to_compress;
+    }
+
+    private function namedcolors2hex($css_to_compress) {
+        $keynamed_colors_patterns = array_map(array($this, 'get_keynamed_colors_patterns'), $this->keyword_named_colors);
+        $hex_colors_patterns = array_map(array($this, 'get_coded_colors_patterns'), $this->hex_named_colors);
+        $css_to_compress = preg_replace($keynamed_colors_patterns, $hex_colors_patterns, $css_to_compress);
         return $css_to_compress;
     }
 
     // Retourne une regexp identifiant une couleur nommée en valeur d'une propriété CSS
     private function get_keynamed_colors_patterns( $color_keyname ) {
-        return '#(:|.*\s)(' . $color_keyname . ')(\s.*|;)#i';
+        return '#(:|.*\s)(' . $color_keyname . ')(\s.*|;|\})#i';
     }
 
     // Retourne une chaine de remplacement pour conversion de couleurs nommées en RGB ou hexa via regexp
@@ -575,14 +582,23 @@ class CSSLisible {
     }
 
     // Conversion d'un code couleur hexadécimal en RGB
+    private function hex2rgb_content( $css_to_compress ) {
+        $css_to_compress = preg_replace_callback( '#(:[^;]*)\#((([a-fA-F\d]){3}){1,2})([^;]*;|\})#', array( $this, 'hex2rgb' ), $css_to_compress );
+        return $css_to_compress;
+    }
+
     private function hex2rgb( $matches ) {
         $hex_color = str_split( $matches[2], 2 );
         $hex_color = hexdec( $hex_color[0] ) . ',' . hexdec( $hex_color[1] ) . ',' . hexdec( $hex_color[2] );
-
         return $matches[1] . 'rgb(' . $hex_color . ')' . $matches[5];
     }
 
     // Conversion d'un code couleur RGB en hexadécimal
+    private function rgb2hex_content( $css_to_compress ) {
+        $css_to_compress = preg_replace_callback( '#(:[^;]*)rgb\((((\d){1,3}[\s]*,[\s]*){2}(\d){1,3})\)([^;]*;|\})#i', array( $this, 'rgb2hex' ), $css_to_compress );
+        return $css_to_compress;
+    }
+
     private function rgb2hex( $matches ) {
         $rgb_color = explode( ',', str_replace( ' ', '', $matches[2] ) );
         $rgb_color = $this->rgb_part2hex( $rgb_color[0] ) . $this->rgb_part2hex( $rgb_color[1] ) . $this->rgb_part2hex( $rgb_color[2] );
@@ -998,7 +1014,7 @@ class CSSLisible {
         }
 
         // Formatage des codes couleur hexadécimaux
-        $css_to_clean = preg_replace_callback( '#(:[^;]*\#)((([a-fA-F\d]){3}){1,2})([^;]*;)#', array( $this, 'format_hex_color_values' ), $css_to_clean );
+        $css_to_clean = preg_replace_callback( '#(:[^;}]*\#)((([a-fA-F\d]){3}){1,2})([^;}]*[;|\}]{1})#', array( $this, 'format_hex_color_values' ), $css_to_clean );
 
         // Supprime les sélecteurs vides
         if ( $this->get_option( 'supprimer_selecteurs_vides' ) || $this->get_option( 'tout_compresse' ) ) {
@@ -1332,6 +1348,9 @@ class CSSLisible {
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
 
+
+        // Simplification des codes couleurs hexadécimaux
+        $css = $this->identify_and_short_hex_color_values( $css );
 
         // Keep only one @charset
         preg_match_all('/\@charset(.*)\;\\n+/ui', $css, $matches);
