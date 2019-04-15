@@ -1345,7 +1345,7 @@ class CSSLisible {
         // Trim empty lines
         $css = preg_replace("/\n([ ]+)\n/","\n\n",$css);
         // Fix margin between Sass vars and comments
-        $css = str_replace(";\n_||_comment",";".$this->get_interlignage()."_||_comment",$css);
+        $css = preg_replace("/([^_]);\n_\|\|_comment/","$1;".$this->get_interlignage()."_||_comment",$css);
 
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
