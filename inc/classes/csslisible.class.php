@@ -93,7 +93,10 @@ class CSSLisible {
             'after' => 'padding:'
         ) ,
         array(
-            'before' => 'contnet:',
+            'before' => array(
+                'contnet:',
+                'cotnent:'
+            ),
             'after' => 'content:'
         ) ,
         array(
@@ -115,6 +118,18 @@ class CSSLisible {
         array(
             'before' => 'pxpx;',
             'after' => 'px;'
+        ) ,
+        array(
+            'before' => '-webkit-transition:transform',
+            'after' => '-webkit-transition:-webkit-transform'
+        ) ,
+        array(
+            'before' => 'empx;',
+            'after' => 'em;'
+        ) ,
+        array(
+            'before' => ' {',
+            'after' => ' {'
         ) ,
     );
 
