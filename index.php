@@ -51,7 +51,7 @@ include DIR_SITE . '/inc/header.php';
         <?php $readme_suffix = (isset($_GET['lang']) && $_GET['lang'] == 'en') ? '_en' : ''; ?>
         <a target="_blank" href="https://github.com/Darklg/CSSLisible/blob/master/README<?php echo $readme_suffix; ?>.md"><?php echo _('Documentation'); ?></a> -
         <?php echo _('Source disponible sur'); ?>
-        <a target="_blank" href="http://github.com/darklg/CSSLisible">Github</a> -
+        <a target="_blank" href="http://github.com/darklg/CSSLisible">GitHub</a> -
         <?php echo _('Contributeurs : '); ?>
         <a target="_blank" href="http://github.com/Darklg">Darklg</a>,
         <a target="_blank" href="http://github.com/NumEricR">NumEricR</a>
