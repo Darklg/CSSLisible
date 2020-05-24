@@ -45,6 +45,8 @@ background-image: linear-gradient(to right,
         0,0,0,0) 100%);
 }
 
+/* CSS Vars */  .my-css-var-order {
+border-radius:var(--border-radius-proj);;--border-radius-proj:3px}
 
 @media($desktop_excluded) and ($mobile_excluded) {
 }

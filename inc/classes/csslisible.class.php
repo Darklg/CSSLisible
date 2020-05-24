@@ -1287,6 +1287,14 @@ class CSSLisible {
             }
         }
 
+        /* Add CSS Vars on top */
+        foreach ($properties_tmp as $propriete => $valeur) {
+            if (substr($propriete, 0, 2) == '--') {
+                $new_lines[] = $this->get_indentation() . $propriete . $sep . $valeur . ';';
+                unset($properties_tmp[$propriete]);
+            }
+        }
+
         // On trie les proprietes récupérées
         foreach ($this->listing_proprietes as $propriete) {
             if (isset($properties_tmp[$propriete])) {

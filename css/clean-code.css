@@ -69,6 +69,13 @@ a {
     background-image: linear-gradient(to right,rgba(0,0,0,0.90) 0%,rgba(0,0,0,0) 100%);
 }
 
+/* CSS Vars */
+
+.my-css-var-order {
+    --border-radius-proj: 3px;
+    border-radius: var(--border-radius-proj);
+}
+
 /* Sass fixes */
 
 @include csscKeyframes(test) {
