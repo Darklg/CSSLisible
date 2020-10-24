@@ -257,7 +257,7 @@ class CSSLisible {
     // On vérifie la présence de réglages dans les cookies
     private function get_options_from_cookies() {
         if ( isset( $_COOKIE[COOKIE_NAME] ) ) {
-            $options_cookie_brutes = get_magic_quotes_gpc() ? stripslashes( $_COOKIE[COOKIE_NAME] ) : $_COOKIE[COOKIE_NAME];
+            $options_cookie_brutes = $_COOKIE[COOKIE_NAME];
             $options_cookie = unserialize( $options_cookie_brutes );
 
             // On parcourt les options
@@ -285,7 +285,7 @@ class CSSLisible {
             break;
 
         default:
-            $this->buffer = get_magic_quotes_gpc() ? stripslashes( $this->posted_values['clean_css'] ) : $this->posted_values['clean_css'];
+            $this->buffer = $this->posted_values['clean_css'];
             break;
         }
     }
