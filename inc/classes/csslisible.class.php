@@ -32,6 +32,10 @@ class CSSLisible {
             'regex' => '#url\((.*)\)#U',
             'list' => array()
         ),
+        'sass_str_int' => array(
+            'regex' => '/(#{(.+)})/U',
+            'list' => array()
+        ),
         'linear_gradient' => array(
             'regex' => '#linear-gradient\((.*)\)#U',
             'list' => array()
