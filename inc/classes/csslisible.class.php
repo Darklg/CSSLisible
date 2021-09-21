@@ -1352,8 +1352,8 @@ class CSSLisible {
             }
         }
 
-        // Espace après ) si non suivi d'un espace, d'un : ou d'un ;
-        $css = preg_replace( '/\)([^ ;:]{1})/', ') $1', $css );
+        // Espace après ) si non suivi d'un espace, d'un :, d'un ) ou d'un ;
+        $css = preg_replace( '/\)([^ ;:\)]{1})/', ') $1', $css );
 
         // Spaces before and after > or + only in selectors
         $css = preg_replace( '/([^ ]{1})(\+|>)([^ ]{1})([^{}\)]*)\{/', '$1 $2 $3$4{', $css );
@@ -1365,8 +1365,10 @@ class CSSLisible {
         // Delete empty Sass ampersand selectors
         $css = preg_replace("/([{}]{1})([\s\t]*)\&([\s\t]*)\{([\s\t]*)\}([\s\t]*)/","$1$2",$css);
 
-        // Espace avant ( si précédé d'un "and"
+        // Espace avant ( si précédé d'un "and" ou d'un "or"
         $css = str_replace( 'and(', 'and (', $css );
+        $css = str_replace( 'or(', 'or (', $css );
+
         // Mauvais espacement après parenthèse ") ,in"
         $css = preg_replace( '/\)\ \,([a-z]{1})/', '), $1', $css );
         // Trim empty lines
@@ -1377,6 +1379,8 @@ class CSSLisible {
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
 
+        // Fix supports render
+        $css = str_replace("@supports(", "@supports (", $css);
 
         // Simplification des codes couleurs hexadécimaux
         $css = $this->identify_and_short_hex_color_values( $css );
