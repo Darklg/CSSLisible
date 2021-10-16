@@ -341,7 +341,7 @@ class CSSLisible {
     private function get_buffer_from_files() {
 
         if ( isset( $_FILES['clean_css_file']['name'][0] ) ) {
-
+            $buffer_tmp = '';
             // Obtaining clean array of files
             $g_files = $_FILES['clean_css_file'];
             $files = array();
