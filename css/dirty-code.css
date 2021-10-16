@@ -77,3 +77,6 @@ justify-content: center;   // 3. this comment is not removed
 
 /* Checking @supports */
 @supports (-webkit-backdrop-filter: blur(1px))or(backdrop-filter:blur(1px) ) {div { border: 1px red solid;}}
+
+/* Is @media working ? */
+@media(max-width:768px) {body {border-radius:    0px}}

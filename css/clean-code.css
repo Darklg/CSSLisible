@@ -116,3 +116,11 @@ a {
         border: 1px red solid;
     }
 }
+
+/* Is @media working ? */
+
+@media (max-width:768px) {
+    body {
+        border-radius: 0;
+    }
+}

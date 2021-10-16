@@ -1379,8 +1379,9 @@ class CSSLisible {
         // Simplify some decimal values
         $css = str_replace(array($sep.'0.0;',$sep.'0.00;'), $sep.'0;', $css);
 
-        // Fix supports render
+        // Fix AT renders
         $css = str_replace("@supports(", "@supports (", $css);
+        $css = str_replace("@media(", "@media (", $css);
 
         // Simplification des codes couleurs hexadécimaux
         $css = $this->identify_and_short_hex_color_values( $css );
