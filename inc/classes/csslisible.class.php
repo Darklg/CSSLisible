@@ -24,6 +24,10 @@ class CSSLisible {
         'return_file' => false,
     );
     private $strings_tofix = array(
+        'sass_use' => array(
+            'regex' => '#(\@use[a-z\:\" ]+;)#U',
+            'list' => array()
+        ),
         'props' => array(
             'regex' => '#((translate|rgba|calc)\((.+)\))#U',
             'list' => array()
@@ -1335,7 +1339,7 @@ class CSSLisible {
         $sep = $this->listing_separateurs[$this->get_option( 'type_separateur' )];
         $interlignage = $this->get_interlignage();
 
-        // Séparation après @charset ou @import
+        // Separation after @charset or @import
         preg_match_all('/\@(charset|import)(.*)\;\\n/ui', $css, $matches);
         if (isset($matches[0])) {
             foreach ($matches[0] as $match) {
@@ -1343,8 +1347,16 @@ class CSSLisible {
             }
         }
 
-        // Pas de sauts de ligne entre deux instructions @import
-        preg_match_all('/\import([^;]+)\;(\n+)@/ui', $css, $matches);
+        // Separation after @use
+        preg_match_all('/\@(use)([^;]*);(\s*)/ui', $css, $matches);
+        if (isset($matches[0])) {
+            foreach ($matches[0] as $match) {
+                $css = str_replace($match, trim($match) . $interlignage, $css);
+            }
+        }
+
+        // No line breaks between two @import instructions
+        preg_match_all('/\@(import|use)([^;]+)\;(\n+)@/ui', $css, $matches);
         if (isset($matches[0])) {
             foreach ($matches[0] as $match) {
                 $new_match = preg_replace('/(\n+)/ui', "\n", $match);

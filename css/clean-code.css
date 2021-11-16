@@ -16,6 +16,8 @@ $custom-br: 3px;
     content: '•';
 }
 
+@use "sass:math";
+
 a {
     margin-left: -0.4px;
     border: 1px solid red;
