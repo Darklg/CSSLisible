@@ -43,8 +43,22 @@ $listing_proprietes = array(
     Box Model
    ----------------------------------------------------------------- */
 
+    /* Grid
+    -------------------------- */
+
+    'grid',
+    'grid-template-rows',
+    'grid-template-columns',
+    'grid-template-areas',
+    'grid-auto-rows',
+    'grid-auto-columns',
+    'grid-auto-flow',
+    'grid-gap',
+    'grid-row-gap',
+    'grid-column-gap',
+
     /* Flex box
-       ----------------------- */
+    ----------------------- */
 
     'flex',
     'flex-basis',
@@ -61,7 +75,7 @@ $listing_proprietes = array(
     'justify-content',
 
     /* Columns
-       ----------------------- */
+    ----------------------- */
 
     '-webkit-column-count',
     '-moz-column-count',
@@ -80,7 +94,7 @@ $listing_proprietes = array(
     'column-rule',
 
     /* Others
-       ----------------------- */
+    ----------------------- */
 
     '-webkit-box-sizing',
     '-moz-box-sizing',
@@ -250,8 +264,8 @@ $listing_proprietes = array(
     'box-shadow',
 
     /* ----------------------------------------------------------
-       Animations
-       ------------------------------------------------------- */
+      Animations
+    ------------------------------------------------------- */
 
     '-webkit-animation',
     '-moz-animation',
