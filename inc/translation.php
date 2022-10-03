@@ -1,14 +1,14 @@
 <?php
 
 $more_languages = array(
-    'fr' =>array(
+    'fr' => array(
         'lang' => 'fr_FR',
         'name' => 'Français'
     ),
     'en' => array(
         'lang' => 'en_US.utf8',
         'name' => 'English'
-    ),
+    )
 );
 
 // Retrieve browser language and use it if available
