@@ -6,6 +6,9 @@ class CSSLisible {
 
     public $buffer = '';
     public $listing_proprietes = array();
+    public $posted_values = array();
+    public $buffer_props = array();
+    public $current_indentation = array();
 
     public $options = array(
         'type_separateur' => 2,
