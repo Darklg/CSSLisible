@@ -718,6 +718,7 @@ class CSSLisible {
         $css = $this->use_shorthand( $css, 'list-style' );
         $css = $this->use_shorthand( $css, 'margin' );
         $css = $this->use_shorthand( $css, 'outline' );
+        $css = $this->use_shorthand( $css, 'gap' );
         $css = $this->use_shorthand( $css, 'overflow' );
         $css = $this->use_shorthand( $css, 'padding' );
         $css = $this->use_shorthand( $css, 'pause' );
@@ -764,6 +765,11 @@ class CSSLisible {
         case 'margin':
         case 'padding':
             $css = $this->get_margins_shorthand( $css, $prop );
+            break;
+        case 'gap':
+        case 'row-gap':
+        case 'column-gap':
+            $css = $this->get_gap_shorthand( $css, $prop );
             break;
         case 'overflow':
             $shorthand_infos = $this->get_overflow_shorthand( $is_available_shorthand, $css );
@@ -939,6 +945,22 @@ class CSSLisible {
             // Remplace them by only one with all values
             $merged_properties = $prop . ': ' . $match_top[3] . ' ' . $match_right[3] . ' ' . $match_bottom[3] . ' ' . $match_left[3] . ';';
             $css = str_replace( $match_left[2], $merged_properties, $css );
+        }
+
+        return $css;
+    }
+
+    private function get_gap_shorthand( $css, $prop ) {
+        $value = '-?(0|([0-9]+|([0-9]*\.[0-9]+))(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))';
+        $is_row = preg_match( '/(.*)(row-gap\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_row );
+        $is_column = preg_match( '/(.*)(column-gap\s*:\s*(' . $value . ')\s*;)(.*)/i', $css, $match_column );
+
+        if ( $is_row && $is_column) {
+            // Remove specific properties
+            $css = str_replace( array( $match_column[2]), '', $css );
+            // Remplace them by only one with all values
+            $merged_properties = $prop . ': ' . $match_row[3] . ' ' . $match_column[3] . ';';
+            $css = str_replace( $match_row[2], $merged_properties, $css );
         }
 
         return $css;
