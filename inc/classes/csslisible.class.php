@@ -493,8 +493,6 @@ class CSSLisible {
 
     private function compress_css( $css_to_compress, $lvl=0 ) {
 
-        $css_to_compress = strip_tags( $css_to_compress );
-
         if ( $this->get_option( 'tout_compresse' ) ) {
             // 0.1em => .1em
             $css_to_compress = preg_replace( '#((\s|:)-?)0\.(([0-9]*)(px|em|ex|%|pt|pc|in|cm|mm|rem|vw|vh|vm))#', '$1.$3', $css_to_compress );

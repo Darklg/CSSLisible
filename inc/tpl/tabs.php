@@ -22,7 +22,7 @@
 <div id="tab-dest-list" class="cssnt-tabs-target">
     <div class="form-block" id="form-block-form">
         <label for="clean_css"><?php echo _('CSS à nettoyer :'); ?></label><br />
-        <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo $CSSLisible->buffer; ?></textarea>
+        <textarea name="clean_css" id="clean_css" rows="12" cols="80"><?php echo htmlentities($CSSLisible->buffer); ?></textarea>
     </div>
     <div class="form-block" id="form-block-file">
         <label for="clean_css_file"><?php echo _('Fichier CSS à nettoyer :'); ?></label><br />
