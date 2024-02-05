@@ -64,6 +64,14 @@ class CSSLisible {
             'regex' => '#(:not\((.+)\))#U',
             'list' => array()
         ),
+        'has' => array(
+            'regex' => '#(:has\((.+)\))#U',
+            'list' => array()
+        ),
+        'is' => array(
+            'regex' => '#(:is\((.+)\))#U',
+            'list' => array()
+        ),
         'var' => array(
             'regex' => '#(var\((.+)\))#U',
             'list' => array()
