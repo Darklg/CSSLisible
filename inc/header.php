@@ -23,10 +23,20 @@ include dirname( __FILE__ ) . '/translation.php';
 include dirname( __FILE__ ) . '/values.php';
 include dirname( __FILE__ ) . '/classes/csslisible.class.php';
 
-$args['listing_proprietes'] = $listing_proprietes;
-$CSSLisible = new CSSLisible( $args, $_POST );
+$_posted_values = array();
+if(!empty($_POST)){
+    $_posted_values = $_POST;
+}
 
-if ( isset( $_POST['api'] ) || isset( $_GET['api'] ) ) {
+if (empty($_posted_values) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = file_get_contents('php://input');
+    $_posted_values = json_decode($input, true);
+}
+
+$args['listing_proprietes'] = $listing_proprietes;
+$CSSLisible = new CSSLisible( $args, $_posted_values );
+
+if ( isset( $_posted_values['api'] ) || isset( $_GET['api'] ) ) {
     header( 'Content-type: text/css; charset=utf-8' );
     exit( $CSSLisible->buffer );
 }
