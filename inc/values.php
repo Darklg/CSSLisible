@@ -188,12 +188,16 @@ $listing_proprietes = array(
 
     'text-align',
     'text-decoration',
+    'text-decoration-line',
+    'text-decoration-color',
+    'text-decoration-style',
     'text-decoration-thickness',
     'text-indent',
     'text-overflow',
     'text-shadow',
     'text-transform',
     'text-underline-offset',
+    'text-underline-position',
 
     '-webkit-text-stroke',
     '-webkit-text-stroke-width',
