@@ -1429,6 +1429,19 @@ class CSSLisible {
         // Simplification des codes couleurs hexadécimaux
         $css = $this->identify_and_short_hex_color_values( $css );
 
+        // Extract all @use
+        preg_match_all('/\@use([^;]+)\;\\n+/ui', $css, $matches);
+        // Append all @use at the beginning
+        if (isset($matches[0][0])) {
+            foreach ($matches[0] as $match) {
+                $match = trim($match);
+                $new_match = str_replace("'", '"', $match);
+                $new_match = str_replace(": ", ':', $new_match);
+                $css = str_replace($match, '', $css);
+                $css = $new_match . $this->get_interlignage() . $css;
+            }
+        }
+
         // Keep only one @charset
         preg_match_all('/\@charset(.*)\;\\n+/ui', $css, $matches);
         if(isset($matches[0][0]))

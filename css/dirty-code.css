@@ -5,7 +5,7 @@ background-clip: border;/* This comment should stay contiguous to background-cli
 /* This comment should be removed */}
 @charset "UTF-8";
 
-@use "sass:math";a{border:1px solid red;-webkit-box-shadow: inset 0 0 0 1px #000;-moz-box-shadow: inset 0 0 0 1px #000;
+@use 'sass: math';a{border:1px solid red;-webkit-box-shadow: inset 0 0 0 1px #000;-moz-box-shadow: inset 0 0 0 1px #000;
 /* This comment should be removed */
 box-shadow: inset 0 0 0 1px #000;margin-left:-0.4px}
 .box{/* This comment should be removed */margin-top: 10px;margin-left: 20px;

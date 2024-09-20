@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@use "sass:math";
+
 /* This comment should not be removed */
 
 $custom-br: 3px;
@@ -15,8 +17,6 @@ $custom-br: 3px;
 .maclass:before {
     content: '•';
 }
-
-@use "sass:math";
 
 a {
     margin-left: -0.4px;
