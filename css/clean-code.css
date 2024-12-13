@@ -127,3 +127,9 @@ a {
         border-radius: 0;
     }
 }
+
+/* Testing some sass properties */
+
+a:hover {
+    color: color.adjust($color-hl, $lightness: -20%);
+}

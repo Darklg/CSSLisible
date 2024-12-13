@@ -35,6 +35,10 @@ class CSSLisible {
             'regex' => '#((translate|rgba|calc)\((.+)\))#U',
             'list' => array()
         ),
+        'color_include' => array(
+            'regex' => '#(color\.adjust\([^\)]*\))#U',
+            'list' => array()
+        ),
         'url_data_etc' => array(
             'regex' => '#url\((.*)\)#U',
             'list' => array()

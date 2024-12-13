@@ -82,3 +82,6 @@ justify-content: center;   // 3. this comment is not removed
 
 /* Is @media working ? */
 @media(max-width:768px) {body {border-radius:    0px}}
+
+/* Testing some sass properties */
+a:hover{color: color.adjust($color-hl, $lightness: -20%)}
