@@ -84,7 +84,7 @@ class CSSLisible {
             'regex' => '#(@include([a-z0-9A-Z ]+)(\([^;]+\)))#U',
             'target' => 3,
             'list' => array()
-        ),
+        )
     );
 
     private $keyword_named_colors = array('aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black', 'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue', 'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson', 'cyan', 'darkblue', 'darkcyan', 'darkgoldenrod', 'darkgray', 'darkgreen', 'darkgrey', 'darkkhaki', 'darkmagenta', 'darkolivegreen', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkslategray', 'darkslategrey', 'darkturquoise', 'darkviolet', 'deeppink', 'deepskyblue', 'dimgray', 'dimgrey', 'dodgerblue', 'firebrick', 'floralwhite', 'forestgreen', 'fuchsia', 'gainsboro', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'greenyellow', 'grey', 'honeydew', 'hotpink', 'indianred', 'indigo', 'ivory', 'khaki', 'lavender', 'lavenderblush', 'lawngreen', 'lemonchiffon', 'lightblue', 'lightcoral', 'lightcyan', 'lightgoldenrodyellow', 'lightgray', 'lightgreen', 'lightgrey', 'lightpink', 'lightsalmon', 'lightseagreen', 'lightskyblue', 'lightslategray', 'lightslategrey', 'lightsteelblue', 'lightyellow', 'lime', 'limegreen', 'linen', 'magenta', 'marron', 'mediumaquamarine', 'mediumblue', 'mediumorchid', 'mediumpurple', 'mediumseagreen', 'mediumslateblue', 'mediumspringgreen', 'mediumturquoise', 'mediumvioletred', 'midnightblue', 'mintcream', 'mistyrose', 'moccasin', 'navajowhite', 'navy', 'oldlace', 'olive', 'olivedrab', 'orange', 'orangered', 'orchid', 'palegoldenrod', 'palegreen', 'paleturquoise', 'palevioletred', 'papayawhip', 'peachpuff', 'peru', 'pink', 'plum', 'powderblue', 'purple', 'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon', 'sandybrown', 'seagreen', 'seashell', 'sienna', 'silver', 'skyblue', 'slateblue', 'slategray', 'slategrey', 'snow', 'springgreen', 'steelblue', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen');
@@ -1378,11 +1378,16 @@ class CSSLisible {
             }
         }
 
-        // Separation after @use
-        preg_match_all('/\@(use)([^;]*);(\s*)/ui', $css, $matches);
-        if (isset($matches[0])) {
+        // Extract all @use
+        preg_match_all('/\@use([^;]+)\;\\n+/ui', $css, $matches);
+        // Append all @use at the beginning
+        if (isset($matches[0][0])) {
             foreach ($matches[0] as $match) {
-                $css = str_replace($match, trim($match) . $interlignage, $css);
+                $match = trim($match);
+                $new_match = str_replace("'", '"', $match);
+                $new_match = str_replace(": ", ':', $new_match);
+                $css = str_replace($match, '', $css);
+                $css = $new_match . $this->get_interlignage() . $css;
             }
         }
 
@@ -1414,6 +1419,10 @@ class CSSLisible {
 
         // Mauvais espacement après parenthèse ") ,in"
         $css = preg_replace( '/\)\ \,([a-z]{1})/', '), $1', $css );
+
+        // Lignes vides
+        $css = str_replace(";\n".$this->get_indentation()."\n", ";\n", $css);
+
         // Trim empty lines
         $css = preg_replace("/\n([ ]+)\n/","\n\n",$css);
         // Fix margin between Sass vars and comments
@@ -1429,19 +1438,6 @@ class CSSLisible {
         // Simplification des codes couleurs hexadécimaux
         $css = $this->identify_and_short_hex_color_values( $css );
 
-        // Extract all @use
-        preg_match_all('/\@use([^;]+)\;\\n+/ui', $css, $matches);
-        // Append all @use at the beginning
-        if (isset($matches[0][0])) {
-            foreach ($matches[0] as $match) {
-                $match = trim($match);
-                $new_match = str_replace("'", '"', $match);
-                $new_match = str_replace(": ", ':', $new_match);
-                $css = str_replace($match, '', $css);
-                $css = $new_match . $this->get_interlignage() . $css;
-            }
-        }
-
         // Keep only one @charset
         preg_match_all('/\@charset(.*)\;\\n+/ui', $css, $matches);
         if(isset($matches[0][0]))
@@ -1454,6 +1450,14 @@ class CSSLisible {
             }
             // Apply first charset
             $css = $first_charset . $this->get_interlignage() . $css;
+        }
+
+        // Separation after @use
+        preg_match_all('/\@(use)([^;]*);(\s*)/ui', $css, $matches);
+        if (isset($matches[0])) {
+            foreach ($matches[0] as $match) {
+                $css = str_replace($match, trim($match) . $interlignage, $css);
+            }
         }
 
         // Some quirky Sass fixes
