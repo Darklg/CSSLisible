@@ -175,6 +175,14 @@ class CSSLisible {
             $values = $_POST;
         }
 
+        if(php_sapi_name() === 'cli'){
+            $values = getopt('', array('filename::','tab_opened::'));
+            $values['clean_css'] = '1';
+            if(!isset($values['tab_opened'])){
+                $values['tab_opened'] = 'file';
+            }
+        }
+
         $this->set_default_values($values);
         $this->posted_values = $this->translating_values($this->posted_values);
 
@@ -358,6 +366,12 @@ class CSSLisible {
     }
 
     private function get_buffer_from_files() {
+
+        if (php_sapi_name() === 'cli') {
+            if (isset($this->posted_values['filename']) && is_readable($this->posted_values['filename']) && pathinfo($this->posted_values['filename'], PATHINFO_EXTENSION) === 'css') {
+                $this->buffer = file_get_contents($this->posted_values['filename']);
+            }
+        }
 
         if ( isset( $_FILES['clean_css_file']['name'][0] ) ) {
             $buffer_tmp = '';
