@@ -196,6 +196,7 @@ class CSSLisible {
                 if ( !$this->get_option( 'tout_compresse' ) ) {
                     $this->buffer = $this->mise_ecart_commentaires( $this->buffer );
                 }
+                $this->buffer = $this->fix_nested_selectors ( $this->buffer );
                 $this->buffer = $this->mise_ecart_proprietes( $this->buffer );
                 $this->buffer = $this->clean_css( $this->buffer );
                 $this->buffer = $this->sort_css( $this->buffer );
@@ -1116,6 +1117,28 @@ class CSSLisible {
 
         return $css_to_clean;
     }
+
+    private function fix_nested_selectors($css_code) {
+
+        // Fix nested selectors with properties at the beginning
+        preg_match_all('#{(([^{}]*):([^{}]*);)([^{}]*){#', $css_code, $matches);
+        foreach ($matches[1] as $i => $match) {
+            $original_context = $matches[0][$i];
+            $new_context = str_replace($match, '&{' . $match . '}', $original_context);
+            $css_code = str_replace($original_context, $new_context, $css_code);
+        }
+
+        // Fix nested selectors with properties at the end
+        preg_match_all('#}(([^{}]*):([^{}]*);[\s]+)}#', $css_code, $matches);
+        foreach ($matches[1] as $i => $match) {
+            $original_context = $matches[0][$i];
+            $new_context = str_replace($match, '&{' . $match . '}', $original_context);
+            $css_code = str_replace($original_context, $new_context, $css_code);
+        }
+
+        return $css_code;
+    }
+
 
     private function mise_ecart_proprietes( $css_to_sort ) {
         foreach ( $this->strings_tofix as $type_tofix => $infos_tofix ) {

@@ -85,3 +85,9 @@ justify-content: center;   // 3. this comment is not removed
 
 /* Testing some sass properties */
 a:hover{color: color.adjust($color-hl, $lightness: -20%)}
+
+/* Testing nested selectors without ampersands */#test {
+  color: black;
+  .titi { color: white; }
+  color: red;
+}
