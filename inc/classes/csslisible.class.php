@@ -1327,6 +1327,7 @@ class CSSLisible {
         $properties_dbl = array();
         $opening_bracket_seen = false;
         $sep = $this->listing_separateurs[$this->get_option('type_separateur')];
+        $var_start = array('$', '@');
 
         // On divise par ligne
         foreach ($lines as $line) {
@@ -1338,7 +1339,7 @@ class CSSLisible {
             }
 
             // It is a variable before the opening bracket
-            if (substr($line_t, 0, 1) == '$' && !$opening_bracket_seen) {
+            if (in_array(substr($line_t, 0, 1),$var_start) && !$opening_bracket_seen) {
                 $new_lines[] = str_replace(':', $sep, $line_t);
             }
             // C'est un selecteur, on l'ajoute à la suite.
