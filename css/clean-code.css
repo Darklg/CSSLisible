@@ -149,3 +149,9 @@ a:hover {
         color: red;
     }
 }
+
+/* Testing :root vars */
+
+:root {
+    --swiper-pagination-bullet-inactive-color: #{$color-inactive};
+}

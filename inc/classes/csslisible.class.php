@@ -31,6 +31,10 @@ class CSSLisible {
             'regex' => '#(\@use[a-z\:\" ]+;)#U',
             'list' => array()
         ),
+        'sass_var' => array(
+            'regex' => '/(\#\{\$[a-zA-Z0-9\-\_]+\})/U',
+            'list' => array()
+        ),
         'props' => array(
             'regex' => '#((translate|rgba|calc)\((.+)\))#U',
             'list' => array()
@@ -196,8 +200,8 @@ class CSSLisible {
                 if ( !$this->get_option( 'tout_compresse' ) ) {
                     $this->buffer = $this->mise_ecart_commentaires( $this->buffer );
                 }
-                $this->buffer = $this->fix_nested_selectors ( $this->buffer );
                 $this->buffer = $this->mise_ecart_proprietes( $this->buffer );
+                $this->buffer = $this->fix_nested_selectors ( $this->buffer );
                 $this->buffer = $this->clean_css( $this->buffer );
                 $this->buffer = $this->sort_css( $this->buffer );
                 $this->buffer = $this->reindent_media_queries( $this->buffer );
