@@ -1,5 +1,7 @@
 <?php
 class CSSLisibleFunctionsTest extends PHPUnit_Framework_TestCase {
+    public $args;
+    public $dirty_color_code;
 
     function __construct() {
         global $listing_proprietes;

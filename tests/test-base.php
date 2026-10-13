@@ -1,5 +1,8 @@
 <?php
 class CSSLisibleBaseTest extends PHPUnit_Framework_TestCase {
+    public $dirty_code;
+    public $clean_code;
+    public $args;
 
     public function __construct() {
         global $listing_proprietes;

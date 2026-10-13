@@ -362,11 +362,9 @@ class CSSLisible {
         curl_setopt( $ch, CURLOPT_USERAGENT, CURLOPT_USERAGENT_NAME );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 5 );
-        curl_exec( $ch );
         if ( !$result = curl_exec( $ch ) ) {
             $this->errors[] = _( 'Impossible de télécharger ce fichier.' );
         }
-        curl_close( $ch );
         return $result;
     }
 
@@ -643,7 +641,11 @@ class CSSLisible {
     }
 
     private function hex2rgb( $matches ) {
-        $hex_color = str_split( $matches[2], 2 );
+        $hex = $matches[2];
+        if ( strlen( $hex ) == 3 ) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        $hex_color = str_split( $hex, 2 );
         $hex_color = hexdec( $hex_color[0] ) . ',' . hexdec( $hex_color[1] ) . ',' . hexdec( $hex_color[2] );
         return $matches[1] . 'rgb(' . $hex_color . ')' . $matches[5];
     }

@@ -1,5 +1,6 @@
 <?php
 class CSSLisibleSettingsTest extends PHPUnit_Framework_TestCase {
+    public $args;
 
     function __construct() {
         global $listing_proprietes;
